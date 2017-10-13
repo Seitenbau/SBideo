@@ -7,7 +7,7 @@ var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 
 // setup webserver port
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 3000;
 server.listen(port);
 
 var dataFolder = argv._[0];
@@ -25,7 +25,7 @@ app.use('/data', express.static(dataFolder));
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
-
+/*
 
 var allItems = [];
 
@@ -55,7 +55,7 @@ watcher.on('all', function (filePath) {
     allItems.push(image);
   });
 });
-
+*/
 
 // now it's all up and running...
 console.log('App running under http://' + require('os').hostname() + ':' + port + '/');
