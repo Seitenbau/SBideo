@@ -1,8 +1,8 @@
 {
-  title: "Hallway Usability Testing",
-  description: "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",
-  tags: ["Usability", "User Experience", "Browser"],
-  people: [
+  "title": "Hallway Usability Testing",
+  "description": "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",
+  "tags": ["Usability", "User Experience", "Browser"],
+  "people": [
     "Tobias Schmidt"
   ]
 }
