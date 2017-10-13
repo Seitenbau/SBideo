@@ -15,7 +15,7 @@ $.getJSON( "/items.json", function( obj ) {
                   video.meta.tags.forEach(function(tag) {
                       table += "<span class='label label-primary jsearch-field' onclick='search(this)'>" + tag + "</span>&nbsp;";
                   });
-                  table += "<div class='description'>" + video.meta.description + "</div></li>";
+                  table += "<div class='description'>" + video.meta.description + " <span title='Edit' class='edit glyphicon glyphicon-edit' aria-hidden='true'></span></div></li>";
               });
               table += "</ul>";
           });
@@ -26,6 +26,7 @@ $.getJSON( "/items.json", function( obj ) {
   $( ".videolink" ).click(function(item) {
     var path = item.target.getAttribute("data-video");
     videojs('sbideo-main').src(path);
+    videojs('sbideo-main').play();
   });
 });
 
