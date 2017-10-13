@@ -27,12 +27,54 @@ var allItems = [];
 app.use(express.static(__dirname + '/public'));
 // serve image folder
 app.use('/data', express.static(dataFolder));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
 
 
 // return index.html when requesting /
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
+
+app.get('/stream', (req, res) => {
+  const { mfile } = req.param('file');
+console.log('req.params: '+req.param('file') );
+
+  const path = `${dataFolder}/`+req.param('file');
+console.log('path: '+ path );
+
+  const stat = fs.statSync(path)
+  const fileSize = stat.size
+  const range = req.headers.range
+
+  if (range) {
+    const parts = range.replace(/bytes=/, "").split("-")
+    const start = parseInt(parts[0], 10)
+    const end = parts[1]
+      ? parseInt(parts[1], 10)
+      : fileSize-1
+
+    const chunksize = (end-start)+1
+    const file = fs.createReadStream(path, {start, end})
+    const head = {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      'Content-Type': 'video/mp4'
+    }
+
+    res.writeHead(206, head)
+    file.pipe(res)
+  } else {
+    const head = {
+      'Content-Length': fileSize,
+      'Content-Type': 'video/mp4'
+    }
+    res.writeHead(200, head)
+    fs.createReadStream(path).pipe(res)
+  }
+})
+
 
 app.use('/items.json', (req, res) => {
   var json = JSON.stringify(allItems);
