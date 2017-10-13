@@ -9,3 +9,7 @@ body {
 #sbideo-main {
   margin: auto;
 }
+
+.description {
+    text-align: justify;
+}
