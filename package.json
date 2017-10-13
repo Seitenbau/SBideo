@@ -10,6 +10,9 @@
     "url": "git://github.com/Seitenbau/SBideo"
   },
   "dependencies": {
+    "chokidar": "^1.7.0",
+    "express": "^4.16.2",
+    "jquery": "^3.2.1",
     "video.js": "^6.2.8"
   }
 }
