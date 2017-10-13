@@ -25,6 +25,6 @@ $.getJSON( "/items.json", function( obj ) {
   $( "#itemList" ).append( table );
   $( ".videolink" ).click(function(item) {
     var path = item.target.getAttribute("data-video");
-    // TODO: update video player
+    videojs('sbideo-main').src(path);
   });
 });
