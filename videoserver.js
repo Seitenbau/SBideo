@@ -3,15 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const app = express()
 
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/index.htm'))
-})
-
 app.get('/stream/:mfile', (req, res) => {
   const { mfile } = req.params;
-  const path = `./files/${mfile}`;
+  const path = `./data/${mfile}`;
   const stat = fs.statSync(path)
   const fileSize = stat.size
   const range = req.headers.range
@@ -29,7 +23,7 @@ app.get('/stream/:mfile', (req, res) => {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': chunksize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': 'video/mp4'
     }
 
     res.writeHead(206, head)
@@ -37,7 +31,7 @@ app.get('/stream/:mfile', (req, res) => {
   } else {
     const head = {
       'Content-Length': fileSize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': 'video/mp4'
     }
     res.writeHead(200, head)
     fs.createReadStream(path).pipe(res)
@@ -45,5 +39,5 @@ app.get('/stream/:mfile', (req, res) => {
 })
 
 app.listen(1337, function () {
-  console.log('SBideo Videostreamer Port 1337!')
+  console.log('SBideo videostreamer running under http://' + require('os').hostname() + ':' + port + '/');
 })
