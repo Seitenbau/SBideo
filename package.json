@@ -1,0 +1,15 @@
+{
+  "name": "sbideo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Seitenbau/SBideo"
+  },
+  "dependencies": {
+    "video.js": "^6.2.8"
+  }
+}
