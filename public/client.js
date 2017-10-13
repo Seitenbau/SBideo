@@ -1,0 +1,18 @@
+var obj = JSON.parse('{"generatedAt": 1234,"items": [  {    "type": "folder",    "title": "Lightning Talk",    "meta": {},    "items": [      {        "type": "folder",        "meta": {          "title": "2017-10-10"        },        "items": [          {            "src": "/videos/LightningsTalks/2017-10-10/usability/video.mp4",            "type": "video",            "meta": {              "title": "Hallway Usability Testing",              "description": "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",                "tags": ["Usability", "User Experience", "Browser"],                "people": [                  "Tobias Schmidt"              ]            }          },          {            "src": "/videos/LightningsTalks/2017-10-10/ansible/video.mp4",            "type": "video",            "meta": {              "title": "Ansible Playbook Vagrant Sandbox für Windows",              "description": "Ansible-Skripte unter Windows zu entwickeln ist etwas Mühsam. Ich hab eine kleine Vagrant Box zusammen geschrieben in der man Ansible Skripte entwickeln kann. Diese würde ich euch gerne vorstellen. Sie besteht aus einem Ansible Control Server und 3 Debian VMs (2 App Server und 1 DB Server).",              "tags": ["Ansible", "Infrastruktur"],              "people": [                "Thomas Vamos"              ]            }          }        ]      }    ]  },  {    "type": "folder",    "title": "SDC",    "meta": {},    "items": [      {        "type": "folder",        "meta": {          "title": "2017-10-10"        },        "items": [          {            "src": "/videos/LightningsTalks/2017-10-10/usability/video.mp4",            "type": "video",            "meta": {              "title": "Hallway Usability Testing",              "description": "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",                "tags": ["Usability", "User Experience", "Browser"],                "people": [                  "Tobias Schmidt"              ]            }          },          {            "src": "/videos/LightningsTalks/2017-10-10/ansible/video.mp4",            "type": "video",            "meta": {              "title": "Ansible Playbook Vagrant Sandbox für Windows",              "description": "Ansible-Skripte unter Windows zu entwickeln ist etwas Mühsam. Ich hab eine kleine Vagrant Box zusammen geschrieben in der man Ansible Skripte entwickeln kann. Diese würde ich euch gerne vorstellen. Sie besteht aus einem Ansible Control Server und 3 Debian VMs (2 App Server und 1 DB Server).",              "tags": ["Ansible", "Infrastruktur"],              "people": [                "Thomas Vamos"              ]            }          }        ]      }    ]  }]}');
+var table = "";
+
+obj.items.forEach(function(category) {
+    table += '<div class="col-sm-3 col-md-4"><h2>' + category.title + "</h2><ul>";
+        category.items.forEach(function(event) {
+            table += "<li> " + event.meta.title;
+            table += "<ul>";
+            event.items.forEach(function(video) {
+                table += "<li><a>" + video.meta.title + "</a>";
+                table += "<div>meta</div></li>";
+            });
+            table += "</ul>";
+        });
+        table += "</li>";
+    table += "</ul></div>";
+});
+$( "#itemList" ).append( table );
