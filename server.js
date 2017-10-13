@@ -19,6 +19,8 @@ var dataFolder = argv._[0];
 app.use(express.static(__dirname + '/public'));
 // serve image folder
 app.use('/data', express.static(dataFolder));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
 
 
 // return index.html when requesting /
