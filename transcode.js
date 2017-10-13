@@ -7,7 +7,7 @@ global.fileArray = []
 global.isTranscoding = false
 var watcher = chokidar.watch('incoming', {ignored: '/[\/\\]\./', persistent: true});
 var log = console.log.bind(console);
- 
+var counter = 1;
 watcher
   .on('add', function(path) {
     var extension = path.substring(path.length-5,path.length);
@@ -30,7 +30,7 @@ function transcodeAndMoveFile(arrayIndex){
 
 
     //child_process.exec('echo test: '+path+' :' , 
-    child_process.exec('for f in '+path+'; do ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p data/LightningTalks/2017-10-13/Hackathon/video.mp4; mv "$f" "$f".encoded ; done',
+    child_process.exec('for f in '+path+'; do mkdir -p data/incoming/hackathon/new-'+counter+'; ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p data/incoming/hackathon/new-'+counter+'/video.mp4; mv "$f" "$f".encoded ; done',
     
     function (error, stdout, stderr) {  
 
@@ -42,8 +42,9 @@ function transcodeAndMoveFile(arrayIndex){
         "people": ["Tobias Schmidt"]
       };
       var json = JSON.stringify(metaJson); 
-      fs.writeFile('data/LightningTalks/2017-10-13/Hackathon/meta.json', json); 
+      fs.writeFile('data/incoming/hackathon/new-'+counter+'/meta.json', json); 
 
+      counter++;
 
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
