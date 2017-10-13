@@ -14,6 +14,7 @@
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "minimist": "^1.2.0",
+    "bootstrap": "^3.3.7",
     "video.js": "^6.2.8"
   }
 }
