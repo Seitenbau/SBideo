@@ -41,7 +41,7 @@
           </ul>
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
+              <input type="text" class="form-control" placeholder="Search" id='search'>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
@@ -51,18 +51,20 @@
 
 
     <div class="container">
-      <div class="col-12">
-        <video id="sbideo-main" class="video-js" controls preload="auto" width="640" height="264"
-        data-setup="{}">
-          <source src="data/LightningTalks/2017-10-10/usability/video.mp4" type='video/mp4'>
-          <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a web browser that
-            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-          </p>
-        </video>
+      <div class="row">
+        <div class="col-12">
+          <video id="sbideo-main" class="video-js" controls preload="auto" width="640" height="264"
+          data-setup="{}">
+            <source src="data/LightningTalks/2017-10-10/usability/video.mp4" type='video/mp4'>
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a web browser that
+              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+          </video>
+        </div>
       </div>
+      <div class="row" id='itemList'></div>
     </div> <!-- /container -->
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -71,5 +73,10 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="videojs/video.min.js"></script>
+    <script src="jquery.search.min.js"></script>
+      <script src="client.js"></script>
+      <script>
+         $("#search").jsearch({minLength: 2});
+      </script>
   </body>
 </html>
