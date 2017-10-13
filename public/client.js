@@ -13,7 +13,7 @@ $.getJSON( "/items.json", function( obj ) {
                       table += "<div><span class='glyphicon glyphicon-user' aria-hidden='true'></span>" + authors + "</div>";
                   });
                   video.meta.tags.forEach(function(tag) {
-                      table += "<span class='label label-primary'>" + tag + "</span>&nbsp;";
+                      table += "<span class='label label-primary jsearch-field' onclick='search(this)'>" + tag + "</span>&nbsp;";
                   });
                   table += "<div class='description'>" + video.meta.description + "</div></li>";
               });
@@ -28,3 +28,9 @@ $.getJSON( "/items.json", function( obj ) {
     videojs('sbideo-main').src(path);
   });
 });
+
+function search(obj) {
+    var t = $(obj).text();
+    $('#search').val(t);
+    $( "#search" ).keyup(); 
+ }

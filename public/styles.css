@@ -13,3 +13,7 @@ body {
 .description {
     text-align: justify;
 }
+
+.label{
+    cursor: pointer;
+}
