@@ -1,7 +1,7 @@
-$.getJSON( "/data.json", function( obj ) {
+$.getJSON( "/items.json", function( obj ) {
   var table = "";
-  obj.items.forEach(function(category) {
-      table += '<div class="col-sm-3 col-md-4"><h2>' + category.title + "</h2><ul>";
+  obj.forEach(function(category) {
+      table += '<div class="col-sm-3 col-md-4"><h2>' + category.meta.title + "</h2><ul>";
           category.items.forEach(function(event) {
               table += "<li>" + event.meta.title;
               table += "<ul>";
