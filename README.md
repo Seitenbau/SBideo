@@ -17,6 +17,8 @@ npm install
 ```
 For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
 
+Adjust the folder structure in `data` to your needs.
+
 ## Basic usage
 To start the webserver, run
 
