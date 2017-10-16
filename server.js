@@ -12,7 +12,6 @@ var port = process.env.PORT || 3000;
 server.listen(port);
 
 var dataFolder = argv._[0];
-//var videoExtentions = ['.mp4'];
 
 var defaultItem = {
   "meta": {},
@@ -21,24 +20,19 @@ var defaultItem = {
 
 var allItems = [];
 
-// serve normalize.css
-//app.use('/normalize.css', express.static(__dirname + '/node_modules/normalize.css/'));
 // serve static files
 app.use(express.static(__dirname + '/public'));
-// serve image folder
-app.use('/data', express.static(dataFolder));
-app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
-
-
 // return index.html when requesting /
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
+// serve video folder
+app.use('/data', express.static(dataFolder));
+// serve third-party files
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
 
-// serve video files
-app.use('/data', express.static(__dirname + '/data'));
-
+// serve items.json
 app.use('/items.json', (req, res) => {
   var json = JSON.stringify(allItems);
   console.log("item.json request handler was called.");
@@ -104,12 +98,11 @@ var addItemRecursive = function(items, category, meta) {
 
 // generate JSON if something in filesystems changes
 watcher.on('add', function (filePath) {
-
   var relativeFilePath = path.relative(dataFolder, filePath);
 
   if (path.basename(filePath) === "meta.json") {
 
-    console.log('reade meta file: ' + relativeFilePath);
+    console.log('read meta file: ' + relativeFilePath);
 
     var item = {
       "type": "folder",
