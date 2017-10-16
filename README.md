@@ -1,5 +1,23 @@
 # SBideo
-A simple video archive including video transcoding.
+A very simplistic video archive including video transcoding and following features:
+
+- web interface for listing all videos in a flexible multi-level folder structure
+- video player
+- editable metadata for videos and folders e.g. title, description, speaker, tags
+- fast client-side search through video metadata
+- async video transcoding from any ffmpeg supported format to mp4
+- simple file system based data structure, no database required
+- integrated web- and pseudo-streaming server (express)
+
+
+## Initial setup
+Install all dependencies
+```sh
+npm install
+```
+For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
+
+Adjust the folder structure in `data` to your needs.
 
 ## Basic usage
 To start the webserver, run
@@ -21,6 +39,6 @@ In addition to the server, run
 node transcode.js
 ```
 
-Then add your file into `incoming` to start the transcoding process.
-<br>
+Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
+
 **This requires an ffmpeg installation.**
