@@ -1,12 +1,9 @@
-var express = require('express')
-var app = express();
 var fs = require('fs');
 var chokidar = require('chokidar') //watcher
 var child_process = require('child_process');
 global.fileArray = []
 global.isTranscoding = false
 var watcher = chokidar.watch('incoming', {ignored: '/[\/\\]\./', persistent: true});
-var log = console.log.bind(console);
 var counter = 1;
 watcher
   .on('add', function(path) {
@@ -24,7 +21,7 @@ function transcodeAndMoveFile(arrayIndex){
     var path = fileArray[arrayIndex];
      
     var fileName = path.substring(path.lastIndexOf("/")+1,path.length-5);
-    log('File', path, 'has been added');
+    console.log('File', path, 'has been added');
     var directoryToLoad = 'incoming';
     console.log("new file");
 
@@ -32,14 +29,12 @@ function transcodeAndMoveFile(arrayIndex){
     //child_process.exec('echo test: '+path+' :' , 
     child_process.exec('for f in '+path+'; do mkdir -p data/incoming/hackathon/new-'+counter+'; ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p data/incoming/hackathon/new-'+counter+'/video.mp4; mv "$f" "$f".encoded ; done',
     
-    function (error, stdout, stderr) {  
-
-    
+    function (error, stdout, stderr) {
       var metaJson = {
         "title": fileName,
         "description": "",
         "tags": [],
-        "people": ["Tobias Schmidt"]
+        "people": []
       };
       var json = JSON.stringify(metaJson); 
       fs.writeFile('data/incoming/hackathon/new-'+counter+'/meta.json', json); 
@@ -67,4 +62,3 @@ function transcodeAndMoveFile(arrayIndex){
     });
 
 }
-app.listen(3003);
