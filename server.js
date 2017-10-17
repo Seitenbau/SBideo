@@ -14,8 +14,8 @@ server.listen(port);
 var dataFolder = argv._[0];
 
 var defaultItem = {
-  "meta": {},
-  "items": []
+    meta: {},
+    items: []
 };
 
 var allItems = [];
@@ -24,7 +24,7 @@ var allItems = [];
 app.use(express.static(__dirname + '/public'));
 // return index.html when requesting /
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
+    res.sendfile(__dirname + '/public/index.html');
 });
 // serve video folder
 app.use('/data', express.static(dataFolder));
@@ -34,90 +34,86 @@ app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
 
 // serve items.json
 app.use('/items.json', (req, res) => {
-  var json = JSON.stringify(allItems);
-  console.log("item.json request handler was called.");
-  res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
-  res.end(json);
+    var json = JSON.stringify(allItems);
+    console.log('item.json request handler was called.');
+    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
+    res.end(json);
 });
 
 // init file watcher
 var watcher = chokidar.watch(dataFolder, {
-  ignored: /[\/\\]\./,
-  persistent: true
+    ignored: /[\/\\]\./,
+    persistent: true
 });
 
-var getCategoryByPath = function(filePath) {
-  var category = path.dirname(filePath).split(path.sep);
-  console.log('Category by path', filePath, category);
-  return category;
+var getCategoryByPath = function (filePath) {
+    var category = path.dirname(filePath).split(path.sep);
+    console.log('Category by path', filePath, category);
+    return category;
 };
 
-var getItem = function(items, name) {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].name === name) {
-      return items[i];
+var getItem = function (items, name) {
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].name === name) {
+            return items[i];
+        }
     }
-  }
-  return;
 };
 
-var createItem = function(item, name) {
-  item.name = name;
-  if(!item.meta) {
-    item.meta = {};
-  }
-  if (!item.meta.title) {
-    item.meta.title = name;
-  }
-  if (!item.type) {
-    item.meta.type = 'folder';
-  }
-  item.items = [];
-  return item;
-};
-
-var addItemRecursive = function(items, category, meta) {
-  var curCategory = category[0];
-  if (category.length == 1) {
-    items.push(createItem(meta, curCategory));
-    return;
-  }
-  else if (category.length > 1) {
-    var item = getItem(items, curCategory);
-    if (!item) {
-      item = createItem(JSON.parse(JSON.stringify(defaultItem)), curCategory)
-      items.push(item);
+var createItem = function (item, name) {
+    item.name = name;
+    if (!item.meta) {
+        item.meta = {};
     }
-    var subCategory = category;
-    subCategory.shift();
-    addItemRecursive(item.items, subCategory, meta);
-  }
+    if (!item.meta.title) {
+        item.meta.title = name;
+    }
+    if (!item.type) {
+        item.meta.type = 'folder';
+    }
+    item.items = [];
+    return item;
 };
 
+var addItemRecursive = function (items, category, meta) {
+    var curCategory = category[0];
+    if (category.length == 1) {
+        items.push(createItem(meta, curCategory));
+        return;
+    }
+    else if (category.length > 1) {
+        var item = getItem(items, curCategory);
+        if (!item) {
+            item = createItem(JSON.parse(JSON.stringify(defaultItem)), curCategory);
+            items.push(item);
+        }
+        var subCategory = category;
+        subCategory.shift();
+        addItemRecursive(item.items, subCategory, meta);
+    }
+};
 
 
 // generate JSON if something in filesystems changes
 watcher.on('add', function (filePath) {
-  var relativeFilePath = path.relative(dataFolder, filePath);
+    var relativeFilePath = path.relative(dataFolder, filePath);
 
-  if (path.basename(filePath) === "meta.json") {
+    if (path.basename(filePath) === 'meta.json') {
+        console.log('read meta file: ' + relativeFilePath);
 
-    console.log('read meta file: ' + relativeFilePath);
+        var item = {
+            type: 'folder',
+            meta: jf.readFileSync(filePath)
+        };
 
-    var item = {
-      "type": "folder",
-      "meta": jf.readFileSync(filePath)
-    };
-
-    var videoFile = path.dirname(filePath) + '/video.mp4';
-    if (fs.existsSync(videoFile)) {
-      item.type = "video";
-      item.src = '/data/' + path.relative(dataFolder, videoFile);
+        var videoFile = path.dirname(filePath) + '/video.mp4';
+        if (fs.existsSync(videoFile)) {
+            item.type = 'video';
+            item.src = '/data/' + path.relative(dataFolder, videoFile);
+        }
+        var category = getCategoryByPath(relativeFilePath);
+        addItemRecursive(allItems, category, item);
     }
-    var category = getCategoryByPath(relativeFilePath);
-    addItemRecursive(allItems, category, item);
-    return;
-  }
 });
 
 
