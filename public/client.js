@@ -33,5 +33,8 @@ $.getJSON('/items.json', function (obj) {
 
 function searchTag(obj) {
     var t = $(obj).text();
-    $('#search').val(t).keyup();
+    $('#searchField').val(t).keyup();
 }
+
+// init jsearch
+$("#searchField").jsearch({minLength: 2});
