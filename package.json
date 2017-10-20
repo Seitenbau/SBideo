@@ -15,7 +15,6 @@
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "jsonfile": "^4.0.0",
-    "minimist": "^1.2.0",
-    "video.js": "^6.2.8"
+    "minimist": "^1.2.0"
   }
 }

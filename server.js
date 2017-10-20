@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 app.use('/data', express.static(dataFolder));
 // serve third-party files
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use('/videojs', express.static(__dirname + '/node_modules/video.js/dist'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 
 // serve items.json
 app.use('/items.json', (req, res) => {
