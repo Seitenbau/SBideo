@@ -40,12 +40,6 @@ app.use('/items.json', (req, res) => {
     res.end(json);
 });
 
-// init file watcher
-var watcher = chokidar.watch(dataFolder, {
-    ignored: /[\/\\]\./,
-    persistent: true
-});
-
 var getCategoryByPath = function (filePath) {
     var category = path.dirname(filePath).split(path.sep);
     console.log('Category by path', filePath, category);
@@ -69,7 +63,7 @@ var createItem = function (item, name) {
         item.meta.title = name;
     }
     if (!item.type) {
-        item.meta.type = 'folder';
+        item.type = 'folder';
     }
     item.items = [];
     return item;
@@ -79,7 +73,6 @@ var addItemRecursive = function (items, category, meta) {
     var curCategory = category[0];
     if (category.length == 1) {
         items.push(createItem(meta, curCategory));
-        return;
     }
     else if (category.length > 1) {
         var item = getItem(items, curCategory);
@@ -93,6 +86,12 @@ var addItemRecursive = function (items, category, meta) {
     }
 };
 
+
+// init file watcher
+var watcher = chokidar.watch(dataFolder, {
+    ignored: /[\/\\]\./,
+    persistent: true
+});
 
 // generate JSON if something in filesystems changes
 watcher.on('add', function (filePath) {
