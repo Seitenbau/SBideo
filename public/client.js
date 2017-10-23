@@ -19,7 +19,7 @@ $(function () {
                     html += '<a class="jsearch-field videolink" href="#" data-video="'
                         + item.src + '">'
                         + item.meta.title + '</a>';
-                    html += '<div class="meta">';
+                    html += '<div class="meta hidden">';
                     item.meta.people.forEach(function (person) {
                         html += '<div class="jsearch-field"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>' + person + '</div>';
                     });
@@ -44,6 +44,32 @@ $(function () {
         });
 
         $itemList.append(list);
+
+        // init popovers
+        $itemList.find('a').popover({
+            container: 'body',
+            trigger: 'manual',
+            html: true,
+            title: function () {
+                return $(this).text();
+            },
+            content: function () {
+                return $(this).siblings('div.meta').html();
+            }
+        }).on('mouseenter', function () {
+            var $this = $(this);
+            $this.popover('show');
+            $('.popover').on('mouseleave', function () {
+                $this.popover('hide');
+            });
+        }).on('mouseleave', function () {
+            var $this = $(this);
+            setTimeout(function () {
+                if (!$('.popover:hover').length) {
+                    $this.popover('hide');
+                }
+            }, 100);
+        });
     });
 
 
