@@ -36,3 +36,25 @@ body {
 .label {
     cursor: pointer;
 }
+
+.activeVideo {
+    font-weight: bold;
+}
+
+#activeVideoMeta {
+    padding: 30px;
+}
+
+.searchBar {
+    padding-top: 30px;
+}
+
+#searchField {
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
+#itemList {
+    padding: 0 30px;
+}

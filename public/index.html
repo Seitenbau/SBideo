@@ -9,40 +9,26 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">SBideo</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav"></ul>
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" id="searchField">
-                </div>
-            </form>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
+<div class="contaidner">
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-7">
             <div class="video-container">
                 <video id="sbideo-main" controls poster="FuBK_testcard_vectorized.svg"></video>
             </div>
         </div>
-        <div class="col-6">
-            <div>
-                123
+        <div class="col-md-5">
+            <div id="activeVideoMeta">
+                <h1>Welcome to SBideo!</h1>
+                <p>Just search and select a video below.</p>
             </div>
         </div>
+    </div>
+    <div class="row searchBar">
+        <form class="" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="Search" id="searchField">
+            </div>
+        </form>
     </div>
     <div class="row" id="itemList"></div>
 </div>

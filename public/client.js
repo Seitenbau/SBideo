@@ -21,11 +21,13 @@ $(function () {
                         + item.meta.title + '</a>';
                     html += '<div class="meta hidden">';
                     item.meta.people.forEach(function (person) {
-                        html += '<div class="jsearch-field"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>' + person + '</div>';
+                        html += '<span class="jsearch-field"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;' + person + '&nbsp;</span>';
                     });
+                    html += '<div>';
                     item.meta.tags.forEach(function (tag) {
                         html += '<span class="tag label label-primary jsearch-field">' + tag + '</span>&nbsp;';
                     });
+                    html += '</div>';
                     html += '<div class="description jsearch-field">' + item.meta.description + ' <span title="Edit" class="edit glyphicon glyphicon-edit" aria-hidden="true"></span></div>';
                     html += '</div>';
                 }
@@ -38,7 +40,7 @@ $(function () {
 
         var list = '';
         items.forEach(function (category) {
-            list += '<div class="col-sm-3 col-md-4"><h2>' + category.meta.title + '</h2><ul>';
+            list += '<div class="col-sm-3 col-md-3"><h3>' + category.meta.title + '</h3><ul>';
             list += walkItems(category.items);
             list += '</ul></div>';
         });
@@ -79,15 +81,27 @@ $(function () {
         var videoEl = document.getElementById('sbideo-main');
         videoEl.setAttribute('src', src);
         videoEl.play();
+
+        var $videoLink = $(event.target);
+
+        // highlight active video
+        $('.activeVideo').removeClass('activeVideo');
+        $videoLink.addClass('activeVideo');
+
+        // show metadata
+        var $meta = $videoLink.siblings('.meta').first().clone().removeClass('hidden');
+        $('#activeVideoMeta').empty();
+        $('#activeVideoMeta').append('<h2>' + $videoLink.text() + '</h2>');
+        $('#activeVideoMeta').append($meta);
     });
 
     // event listener for clicking on tags to filter videos
-    $itemList.on('click', '.tag', function (event) {
+    $('body').on('click', '.tag', function (event) {
         var tag = event.target.innerText;
         $('#searchField').val(tag).keyup();
     });
 
     // init jsearch
-    $('#searchField').jsearch({minLength: 2});
+    $('#searchField').jsearch({minLength: 2}).focus();
 
 });
