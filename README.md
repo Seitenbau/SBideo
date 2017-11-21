@@ -42,3 +42,6 @@ node transcode.js
 Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
 
 **This requires an ffmpeg installation.**
+
+## Migrate script
+In case you want to migrate an old file based video archive, check the branch [migrateScript](https://github.com/Seitenbau/SBideo/tree/migrateScript); maybe it helps.
