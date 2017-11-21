@@ -89,8 +89,8 @@ var walkSync = function(dir) {
 
                 console.log(newPath);
                 ensureDirectoryExistence(newPathMeta);
-                fs.writeFile(newPathMeta, JSON.stringify(metaJson), {}, function (){});
-                fs.writeFile(newPathVideo, JSON.stringify(metaJson), {}, function (){});
+                fs.writeFile(newPathMeta, JSON.stringify(metaJson, null, 4), {}, function (){});
+                fs.writeFile(newPathVideo, '...videodata...', {}, function (){});
 
                 //console.dir(metaJson);
                 console.log('...migration successful');
