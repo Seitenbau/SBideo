@@ -21,12 +21,14 @@ var ensureDirectoryExistence = function(filePath) {
 var cleanTitle = function(title, dir = '') {
     var newTitle = title;
 
+    newTitle = newTitle.replace(/\d{8}[_ ]([aAbB]\d_)?/, '').replace('_', '')
+
     if (dir.indexOf('TechTalks') != -1) {
-        newTitle.replace('TechTalk : ', '');
+        newTitle = newTitle.replace('TechTalk : ', '');
     }
-    if (dir.indexOf('SDC') != -1) {
-        // TODO
-        newTitle.replace(/\d{2}t\d[-_]?/, '');
+    if (dir.indexOf('sdc') != -1) {
+        newTitle = newTitle.replace(/SDC\d{4}/, '');
+        newTitle = newTitle.replace(/\d{2}t\d[-_]?/, '');
     }
 
     return newTitle;
@@ -53,7 +55,7 @@ var walkSync = function(dir) {
                     metaXmlFile = dir + '/' + videoName + '.mp4.xml';
                 }
 
-                var newVideoName = cleanTitle(videoName.replace(/\d{8}[_ ]([aAbB]\d_)?/, '').replace('_', ''), dir);
+                var newVideoName = cleanTitle(videoName, dir);
 
                 var metaJson;
                 if (metaXmlFile) {
@@ -65,7 +67,7 @@ var walkSync = function(dir) {
 
                     new xml2js.Parser({ trim: true }).parseString(fileBuffer, function (err, metaXml) {
                         metaJson = {
-                            title: cleanTitle(metaXml.meta.title[0]),
+                            title: cleanTitle(metaXml.meta.title[0], dir),
                             description: metaXml.meta.description[0],
                             tags: metaXml.meta.tags ? metaXml.meta.tags[0].tag : [],
                             people: metaXml.meta.speaker
