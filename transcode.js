@@ -37,7 +37,7 @@ function transcodeAndMoveFile(arrayIndex) {
             tags: [],
             people: []
         };
-        var json = JSON.stringify(metaJson);
+        var json = JSON.stringify(metaJson, null, 4);
         fs.writeFile('data/incoming/hackathon/new-' + counter + '/meta.json', json);
 
         counter++;
