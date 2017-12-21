@@ -42,7 +42,7 @@ app.use('/items.json', (req, res) => {
 
 var getCategoryByPath = function (filePath) {
     var category = path.dirname(filePath).split(path.sep);
-    console.log('Category by path', filePath, category);
+    //console.log('Category by path', filePath, category);
     return category;
 };
 
@@ -113,32 +113,76 @@ var addItemRecursive = function (items, category, meta) {
     });
 };
 
-// init file watcher
-var watcher = chokidar.watch(dataFolder, {
-    ignored: /[\/\\]\./,
-    persistent: true
-});
 
-// generate JSON if new file is detected
-watcher.on('add', function (filePath) {
-    var relativeFilePath = path.relative(dataFolder, filePath);
-
-    if (path.basename(filePath) === 'meta.json') {
-        console.log('read meta file: ' + relativeFilePath);
-
-        var item = {
-            type: 'folder',
-            meta: jf.readFileSync(filePath)
-        };
-
-        var videoFile = path.dirname(filePath) + '/video.mp4';
-        if (fs.existsSync(videoFile)) {
-            item.type = 'video';
-            item.src = '/data/' + path.relative(dataFolder, videoFile);
+// fetch all video files from file system
+var walkSync = function(dir) {
+    fs.readdirSync(dir).forEach(function(file) {
+        var filePath = dir + '/' + file;
+        if (fs.statSync(filePath).isDirectory()) {
+            walkSync(filePath);
         }
-        var category = getCategoryByPath(relativeFilePath);
-        addItemRecursive(allItems, category, item);
-    }
+        else {
+            var relativeFilePath = path.relative(dataFolder, filePath);
+
+            if (path.basename(file) === 'meta.json') {
+                //console.log('read meta file: ' + relativeFilePath);
+
+                var item = {
+                    type: 'folder',
+                    meta: jf.readFileSync(filePath)
+                };
+
+                var videoFile = path.dirname(filePath) + '/video.mp4';
+                if (fs.existsSync(videoFile)) {
+                    item.type = 'video';
+                    item.src = '/data/' + path.relative(dataFolder, videoFile);
+                }
+                var category = getCategoryByPath(relativeFilePath);
+                addItemRecursive(allItems, category, item);
+            }
+        }
+    });
+};
+
+var reindexItems = function() {
+    allItems = [];
+    walkSync(dataFolder);
+    console.log('reindexed files...');
+    
+    //TODO throttle reindex
+};
+
+// initially fetch all videos
+reindexItems();
+
+
+// init file watcher to reindex videos in case something changes
+chokidar.watch(dataFolder, {
+    ignored: /[\/\\]\./,
+    persistent: true,
+    ignoreInitial: true,
+    usePolling: true, // set to true if files are on an network share
+    interval: 1000, // polling interval
+    awaitWriteFinish: true // wait until write operation of file is finished before firing events
+}).on('add', function (filePath) {
+    if (path.basename(filePath) !== 'meta.json') return;
+    
+    var relativeFilePath = path.relative(dataFolder, filePath);
+    console.log('new file: ' + relativeFilePath);
+
+    reindexItems();
+}).on('unlink', function (filePath) {
+    var relativeFilePath = path.relative(dataFolder, filePath);
+    console.log('removed file: ' + relativeFilePath);
+    
+    reindexItems();
+}).on('change', function (filePath) {
+    if (path.basename(filePath) !== 'meta.json') return;
+    
+    var relativeFilePath = path.relative(dataFolder, filePath);
+    console.log('changed file: ' + relativeFilePath);
+    
+    reindexItems();
 });
 
 
