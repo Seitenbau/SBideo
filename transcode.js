@@ -7,7 +7,10 @@ var isTranscoding = false;
 
 var watcher = chokidar.watch('incoming', {
     ignored: '/[\/\\]\./',
-    persistent: true
+    persistent: true,
+    usePolling: true, // set to true if files are on an network share
+    interval: 5000, // polling interval
+    awaitWriteFinish: true // wait until write operation of file is finished before start encoding
 });
 var counter = 1;
 watcher.on('add', function (path) {
@@ -63,3 +66,5 @@ function transcodeAndMoveFile(arrayIndex) {
     });
 
 }
+
+console.log('started, waiting for new files to transcode...');
