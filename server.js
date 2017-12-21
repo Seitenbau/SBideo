@@ -84,8 +84,34 @@ var addItemRecursive = function (items, category, meta) {
         subCategory.shift();
         addItemRecursive(item.items, subCategory, meta);
     }
-};
+    
+    // sort items by title
+    items.sort(function(a, b) {
+      var titleA = a.meta.title.toUpperCase();
+      var titleB = b.meta.title.toUpperCase();
 
+      // switch sort order when a date is detected, so new videos/events appear first
+      var dateRegexp = /.*\d{4}.*/;
+      if (titleA.match(dateRegexp) && titleB.match(dateRegexp)) {
+          if (titleA < titleB) {
+            return 1;
+          }
+          if (titleA > titleB) {
+            return -1;
+          }
+      } else {
+          if (titleA < titleB) {
+            return -1;
+          }
+          if (titleA > titleB) {
+            return 1;
+          }
+      }
+
+      // equal title
+      return 0;
+    });
+};
 
 // init file watcher
 var watcher = chokidar.watch(dataFolder, {
@@ -93,7 +119,7 @@ var watcher = chokidar.watch(dataFolder, {
     persistent: true
 });
 
-// generate JSON if something in filesystems changes
+// generate JSON if new file is detected
 watcher.on('add', function (filePath) {
     var relativeFilePath = path.relative(dataFolder, filePath);
 
