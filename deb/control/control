@@ -1,0 +1,8 @@
+Package: sbideo
+Version: [[version]]
+Section: misc
+Priority: low
+Architecture: all
+Description: SEITENBAU Video Server
+Maintainer: sds@seitenbau.com
+Depends: 

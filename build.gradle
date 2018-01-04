@@ -1,5 +1,79 @@
-defaultTasks 'build'
+buildscript {
+	dependencies {
+	    classpath 'com.seitenbau.ploy:ploy-plugins-gradle:0.7.2.1519'
+    }
+}
 
-task build(type:Exec) {
-  commandLine "/bin/ls"
+configurations { debAntTask }
+dependencies   { debAntTask 'org.vafer:jdeb:1.5' }
+
+
+task build( ) {
+  ant.taskdef( name:'deb',
+               classname:'org.vafer.jdeb.ant.DebAntTask',
+               classpath: configurations.debAntTask.asPath)
+
+  // Copy control config
+  ant.copy(todir: "$buildDir/deb/control") {
+    fileset(dir: "$projectDir/deb/control")
+    filterset(begintoken:"[[", endtoken:"]]") {
+      filter(token:"version", value:"$version")
+    }
+  }
+
+  // Create the deb package
+  ant.deb(destfile:"$buildDir/sbideo-${version}.deb", control: "$buildDir/deb/control") {
+    data(src: "$projectDir", type:"directory") {
+      include( name: '*.json' )
+      include( name: '*.js' )
+      mapper( type: "perm",
+              prefix: "/usr/lib/sbideo",
+              user: 'root',
+              group: 'root',
+              filemode: '644',
+              dirmode : '755'
+              )
+    }
+    
+    data(src: "$projectDir/data", type:"directory") {
+      mapper( type: "perm",
+              prefix: "/usr/lib/sbideo/data_example",
+              user: 'root',
+              group: 'root',
+              filemode: '644',
+              dirmode : '755'
+              )
+    }
+    
+    data(src: "$projectDir/incoming", type:"directory") {
+      mapper( type: "perm",
+              prefix: "/usr/lib/sbideo/incoming",
+              user: 'root',
+              group: 'root',
+              filemode: '644',
+              dirmode : '755'
+              )
+    }
+    
+    data(src: "$projectDir/public", type:"directory") {
+      mapper( type: "perm",
+              prefix: "/usr/lib/sbideo/public",
+              user: 'root',
+              group: 'root',
+              filemode: '644',
+              dirmode : '755'
+              )
+    }
+    
+    data(src: "$projectDir/transcoded", type:"directory") {
+      mapper( type: "perm",
+              prefix: "/usr/lib/sbideo/transcoded",
+              user: 'root',
+              group: 'root',
+              filemode: '644',
+              dirmode : '755'
+              )
+    }
+  }
+
 }

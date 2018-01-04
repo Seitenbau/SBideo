@@ -22,43 +22,8 @@ tagger {
 }
  
 task packageBundles(type:PublishBundles) << {
- 
-//   // create and upload a Bundle of type BUNDLE and no classifier ( default )
-//   bundle {
-     
-//     println " ployId        : ${ployId}"      // dev.imbw.serviceportal:postfach-service
-//     println " projectId     : ${projectId}"   // dev.imbw.serviceportal
-//     println " moduleId      : ${moduleId}"    // postfach-service
-//     println " ployVersion   : ${ployVersion}" // the version of this ci run
-     
-//     println " bundlePkgDir  : ${bundlePkgDir}" // zip-root/${pkg}
-//     println " bundleCfgDir  : ${bundleCfgDir}" // zip-root/${cfg}
-//     println " bundleSqlDir  : ${bundleSqlDir}" // zip-root/${sql}
-//     println " bBundleLibDir : ${bundleLibDir}" // zip-root/${libg}
-   
-//     exec("docker save docker-registry.dev.seitenbau.net/dev-seitenbau-ploy/ploy-state:${ployVersion} -o ${bundlePkgDir}/ploy-state-docker.tar")
-//     copyPkg("target","postfach-service*.deb")
-//     copySql("src/main/resources/db/migrations","*.sql")
-//     copyLib("target/libs-flyway","*.jar")
-//     copyCfg("src/main/resources/sample","*.properties")
- 
-//     String[] ansibleEnvironments = (String[])["bitbw-prod,bitbw","bitbw-test,bitbw","bitbw","extern","devtest"];
-//     copyAnsible {
-//       environments( ansibleEnvironments ) {
-//         folder("src/main/resources/")
-//         folder("src/main/resources/config/release")
-//         folder("src/deb/bin")
-//       }
-//     }
- 
-//    // lowlevel "intern" api
-//    copy("src/test/resources","cfg") {
-//         includes("**/*")
-//    }
- 
-//  onRelease {
-//     bundle(BundleType.GOLDEN) {
-       
-//     }
-//  }
+    copyPkg("build","sbideo-*.deb")
+
+    //copyAnsible("src/ansible") {
+    //}
 }
