@@ -2,7 +2,7 @@
   name: Install and Setup Service
   sudo: yes
   
- tasks:
+  tasks:
   - name: create target directory
     file: path=/tmp/sbideo state=directory
 
