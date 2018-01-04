@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Stop sbideo server
+stop sbvideo-server
+
+# Stop sbideo transcoding
+stop sbvideo-transcode
+
+# Remove sbideo startup configuration files
+rm /etc/init/sbvideo-server.conf /etc/init/sbvideo-transcode.conf

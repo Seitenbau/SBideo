@@ -1,0 +1,53 @@
+- hosts: all
+  name: Install and Setup Service
+  sudo: yes
+  
+ tasks:
+  - name: create target directory
+    file: path=/tmp/sbideo state=directory
+
+  - name: copy debian package for sbideo
+    copy: src={{ item }} dest=/tmp/sbideo/sbideo.deb
+    with_fileglob:
+      - ../pkg/sbideo*.deb
+
+  - name: remove sbideo debian package
+    apt: name=sbideo state=absent
+
+  - name: install debian package sbideo
+    apt: deb=/tmp/sbideo/sbideo.deb state=present dpkg_options={{ dpkg_options }}
+
+  - name: remove debian package file in tmp directory
+    file: path=/tmp/sbideo state=absent
+    
+  - name: download dependencies for sbideo with npm
+    shell: npm install
+      args:
+        chdir: /usr/lib/sbideo
+        
+  # REMOVE THIS TASK AFTER MIGRATION
+  - name: symlink data directory
+    file: src=/usr/lib/sbideo/data_example dest=/usr/lib/sbideo/data owner=root group=root state=link
+        
+  - name: Add sbideo server startup configuration file
+    copy: src=files/sbvideo-server.conf dest=/etc/init/sbvideo-server.conf owner=root group=root mode=0644
+    
+  - name: Add sbideo transcode startup configuration file
+    copy: src=files/sbvideo-transcode.conf dest=/etc/init/sbvideo-transcode.conf owner=root group=root mode=0644
+    
+  - name: start sbideo server
+    shell: start sbvideo-server
+    
+  - name: start sbideo transcoding
+    shell: start sbvideo-transcode
+
+  - name: check - sbideo is reachable
+    uri:
+      url: https://{{ ansible_hostname }}:3000
+      timeout: 300
+      validate_certs: no
+    delegate_to: ansible.infra.dev.seitenbau.net
+    register: result
+    until: result is defined and result.status == 200
+    retries: 5
+    delay: 10

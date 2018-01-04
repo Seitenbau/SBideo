@@ -17,16 +17,13 @@ artifactDeploy {
 
 // Für Maven Projekte :
 tagger {
-   scm  = "git"
-   processGradle()
+  scm  = "git"
+  processGradle()
 }
  
 task packageBundles(type:PublishBundles) << {
-  
-   bundle {
+  bundle {
     copyPkg("build","sbideo-*.deb")
-
-    //copyAnsible("src/ansible") {
-    //}
-   }
+    copyAnsible("src/ansible") {}
+  }
 }

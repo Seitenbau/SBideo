@@ -28,8 +28,8 @@ task build( ) {
       include( name: '*.js' )
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo",
-              user: 'root',
-              group: 'root',
+              user: 'www-data',
+              group: 'www-data',
               filemode: '644',
               dirmode : '755'
               )
@@ -38,8 +38,8 @@ task build( ) {
     data(src: "$projectDir/data", type:"directory") {
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo/data_example",
-              user: 'root',
-              group: 'root',
+              user: 'www-data',
+              group: 'www-data',
               filemode: '644',
               dirmode : '755'
               )
@@ -48,8 +48,8 @@ task build( ) {
     data(src: "$projectDir/incoming", type:"directory") {
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo/incoming",
-              user: 'root',
-              group: 'root',
+              user: 'www-data',
+              group: 'www-data',
               filemode: '644',
               dirmode : '755'
               )
@@ -58,8 +58,8 @@ task build( ) {
     data(src: "$projectDir/public", type:"directory") {
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo/public",
-              user: 'root',
-              group: 'root',
+              user: 'www-data',
+              group: 'www-data',
               filemode: '644',
               dirmode : '755'
               )
@@ -68,8 +68,8 @@ task build( ) {
     data(src: "$projectDir/transcoded", type:"directory") {
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo/transcoded",
-              user: 'root',
-              group: 'root',
+              user: 'www-data',
+              group: 'www-data',
               filemode: '644',
               dirmode : '755'
               )
