@@ -1,5 +1,5 @@
 defaultTasks 'build'
 
-task build << {
-  println "hello world"
+task build(type:Exec) {
+  commandLine "/bin/ls"
 }
