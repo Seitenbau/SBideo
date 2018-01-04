@@ -22,8 +22,8 @@
     
   - name: download dependencies for sbideo with npm
     shell: npm install
-      args:
-        chdir: /usr/lib/sbideo
+    args:
+      chdir: /usr/lib/sbideo
         
   # REMOVE THIS TASK AFTER MIGRATION
   - name: symlink data directory
