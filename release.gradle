@@ -22,8 +22,11 @@ tagger {
 }
  
 task packageBundles(type:PublishBundles) << {
+  
+   bundle {
     copyPkg("build","sbideo-*.deb")
 
     //copyAnsible("src/ansible") {
     //}
+   }
 }
