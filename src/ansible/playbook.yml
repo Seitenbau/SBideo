@@ -36,10 +36,10 @@
     copy: src=files/sbvideo-transcode.conf dest=/etc/init/sbvideo-transcode.conf owner=root group=root mode=0644
     
   - name: start sbideo server
-    shell: start sbvideo-server
+    shell: start sbideo-server
     
   - name: start sbideo transcoding
-    shell: start sbvideo-transcode
+    shell: start sbideo-transcode
 
   - name: check - sbideo is reachable
     uri:
