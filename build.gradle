@@ -1,0 +1,5 @@
+defaultTasks 'build'
+
+task build << {
+  println "hello world"
+}
