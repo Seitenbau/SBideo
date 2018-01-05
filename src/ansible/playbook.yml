@@ -1,5 +1,5 @@
 - hosts: all
-  name: Install and Setup Service
+  name: Install and setup sbideo server and transcode 
   sudo: yes
   
   tasks:
@@ -19,6 +19,9 @@
 
   - name: remove debian package file in tmp directory
     file: path=/tmp/sbideo state=absent
+    
+  - name: create logging directory
+    file: path=/var/log/sbideo state=directory owner=www-data group=www-data
     
   - name: download dependencies for sbideo with npm
     shell: npm install
