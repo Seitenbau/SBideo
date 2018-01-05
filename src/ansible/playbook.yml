@@ -29,17 +29,23 @@
   - name: symlink data directory
     file: src=/usr/lib/sbideo/data_example dest=/usr/lib/sbideo/data owner=root group=root state=link
         
-  - name: Add sbideo server startup configuration file
-    copy: src=files/sbvideo-server.conf dest=/etc/init/sbvideo-server.conf owner=root group=root mode=0644
+  - name: Add sbideo server systemd service configuration file
+    copy: src=files/sbideo-server.service dest=/etc/systemd/system/sbideo-server.service owner=root group=root mode=0644
     
-  - name: Add sbideo transcode startup configuration file
-    copy: src=files/sbvideo-transcode.conf dest=/etc/init/sbvideo-transcode.conf owner=root group=root mode=0644
+  - name: Add sbideo transcode systemd service configuration file
+    copy: src=files/sbideo-transcode.service dest=/etc/systemd/system/sbideo-transcode.service owner=root group=root mode=0644
     
   - name: start sbideo server
-    shell: start sbideo-server
+    shell: systemctl start sbideo-server.service 
     
-  - name: start sbideo transcoding
-    shell: start sbideo-transcode
+  - name: start sbideo transcode
+    shell: systemctl start sbideo-transcode.service
+    
+  - name: start sbideo server on bootup
+    shell: systemctl enable sbideo-server.service
+    
+  - name: start sbideo transcode on bootup
+    shell: systemctl enable sbideo-transcode.service
 
   - name: check - sbideo is reachable
     uri:

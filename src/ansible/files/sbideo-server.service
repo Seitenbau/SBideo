@@ -1,0 +1,10 @@
+[Unit]
+Description=SBideo server
+After=mountall.service
+
+[Service]
+User=www-data
+ExecStart=/usr/bin/node /usr/lib/sbideo/server.js /usr/lib/sbideo/data >> /var/log/sbideo/server.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

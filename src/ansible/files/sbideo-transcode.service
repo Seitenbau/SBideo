@@ -1,0 +1,10 @@
+[Unit]
+Description=SBideo transcode
+After=mountall.service
+
+[Service]
+User=www-data
+ExecStart=/usr/bin/node /usr/lib/sbideo/transcode.js >> /var/log/sbideo/transcode.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

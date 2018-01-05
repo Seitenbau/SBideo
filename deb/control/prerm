@@ -1,10 +1,16 @@
 #!/bin/bash
 
 # Stop sbideo server
-stop sbideo-server
+systemctl stop sbideo-server.service 
 
 # Stop sbideo transcoding
-stop sbideo-transcode
+systemctl stop sbideo-transcode.service
+
+# Disable start on bootup for sbideo server
+systemctl disable sbideo-server.service 
+
+# Disable start on bootup for sbideo transcode
+systemctl disable sbideo-transcode.service 
 
 # Remove sbideo startup configuration files
-rm /etc/init/sbideo-server.conf /etc/init/sbideo-transcode.conf
+rm /etc/systemd/system/sbideo-server.service /etc/systemd/system/sbideo-transcode.service
