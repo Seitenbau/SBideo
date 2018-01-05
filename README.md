@@ -36,7 +36,7 @@ altering the parameter of `server.js`.
 In addition to the server, run
 
 ```sh
-node transcode.js
+node transcode.js ./incoming
 ```
 
 Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.

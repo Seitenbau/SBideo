@@ -1,11 +1,13 @@
 var fs = require('fs');
 var chokidar = require('chokidar'); //watcher
 var child_process = require('child_process');
+var argv = require('minimist')(process.argv.slice(2));
 
 var fileArray = [];
 var isTranscoding = false;
+var incomingFolder = argv._[0];
 
-var watcher = chokidar.watch('incoming', {
+var watcher = chokidar.watch(incomingFolder, {
     ignored: '/[\/\\]\./',
     persistent: true,
     usePolling: true, // set to true if files are on an network share
