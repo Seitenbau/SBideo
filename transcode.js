@@ -6,6 +6,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var fileArray = [];
 var isTranscoding = false;
 var incomingFolder = argv._[0];
+var dataFolder = argv._[1];
 
 var watcher = chokidar.watch(incomingFolder, {
     ignored: '/[\/\\]\./',
@@ -33,7 +34,7 @@ function transcodeAndMoveFile(arrayIndex) {
     console.log('File', path, 'has been added');
     var directoryToLoad = 'incoming';
 
-    child_process.exec('for f in ' + path + '; do mkdir -p data/incoming/hackathon/new-' + counter + '; ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p data/incoming/hackathon/new-' + counter + '/video.mp4; mv "$f" "$f".encoded ; done',
+    child_process.exec('for f in ' + path + '; do mkdir -p ' + dataFolder  + '/incoming/hackathon/new-' + counter + '; ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p ' + dataFolder  + '/incoming/hackathon/new-' + counter + '/video.mp4; mv "$f" "$f".encoded ; done',
 
     function (error, stdout, stderr) {
         var metaJson = {
@@ -43,7 +44,7 @@ function transcodeAndMoveFile(arrayIndex) {
             people: []
         };
         var json = JSON.stringify(metaJson, null, 4);
-        fs.writeFile('data/incoming/hackathon/new-' + counter + '/meta.json', json);
+        fs.writeFile(dataFolder + '/incoming/hackathon/new-' + counter + '/meta.json', json);
 
         counter++;
 
