@@ -49,9 +49,8 @@
 
   - name: check - sbideo is reachable
     uri:
-      url: https://{{ ansible_hostname }}:3000
+      url: http://{{ ansible_hostname }}:3000
       timeout: 300
-      validate_certs: no
     delegate_to: ansible.infra.dev.seitenbau.net
     register: result
     until: result is defined and result.status == 200
