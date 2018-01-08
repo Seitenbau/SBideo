@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var chokidar = require('chokidar'); //watcher
 var child_process = require('child_process');
 var argv = require('minimist')(process.argv.slice(2));
@@ -7,64 +8,59 @@ var fileArray = [];
 var isTranscoding = false;
 var incomingFolder = argv._[0];
 var dataFolder = argv._[1];
+var counter = 1;
 
 var watcher = chokidar.watch(incomingFolder, {
-    ignored: '/[\/\\]\./',
+    ignored: ['/[\/\\]\./', '**/empty', '**/*.encoded'],
     persistent: true,
     usePolling: true, // set to true if files are on an network share
     interval: 5000, // polling interval
     awaitWriteFinish: true // wait until write operation of file is finished before start encoding
 });
-var counter = 1;
-watcher.on('add', function (path) {
-    var extension = path.substring(path.length - 5, path.length);
-    if (extension == '.m2ts') {
-        fileArray.push(path)
-        if (isTranscoding == false) {
-            transcodeAndMoveFile(0)
-        }
+
+watcher.on('add', function (filePath) {
+    fileArray.push(filePath);
+    console.log('New file found, added to queue:', filePath);
+
+    if (isTranscoding == false) {
+        transcodeAndMoveNextFile();
     }
 });
 
-function transcodeAndMoveFile(arrayIndex) {
+function transcodeAndMoveNextFile() {
     isTranscoding = true;
-    var path = fileArray[arrayIndex];
+    
+    // get next file
+    var filePath = fileArray.shift();
+    console.log('Start transcoding of file:', filePath);
+    
+    var title = path.basename(filePath, path.extname(filePath));
+    var outputPath = dataFolder + '/new/' + title + '-' + counter;
 
-    var fileName = path.substring(path.lastIndexOf('/') + 1, path.length - 5);
-    console.log('File', path, 'has been added');
-    var directoryToLoad = 'incoming';
-
-    child_process.exec('for f in ' + path + '; do mkdir -p ' + dataFolder  + '/incoming/hackathon/new-' + counter + '; ffmpeg -i "$f" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf scale=-1:720,format=yuv420p ' + dataFolder  + '/incoming/hackathon/new-' + counter + '/video.mp4; mv "$f" "$f".encoded ; done',
-
-    function (error, stdout, stderr) {
+    child_process.exec(`mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -acodec aac -movflags faststart -vf format=yuv420p -strict experimental "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`, function (error, stdout, stderr) {
         var metaJson = {
-            title: fileName,
+            title: title,
             description: '',
             tags: [],
             people: []
         };
         var json = JSON.stringify(metaJson, null, 4);
-        fs.writeFile(dataFolder + '/incoming/hackathon/new-' + counter + '/meta.json', json);
+        fs.writeFile(outputPath + '/meta.json', json, function () {});
 
         counter++;
-
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
+    
+        // output error
         if (error == null) {
-            if (arrayIndex < (fileArray.length - 1)) {
-                arrayIndex++;
-                transcodeAndMoveFile(arrayIndex);
-            } else {
-                isTranscoding = false;
-            }
+            console.log('finished transcoding of file:', filePath);
         } else {
-            console.log('exec error: ' + error);
-            if (arrayIndex < (fileArray.length - 1)) {
-                arrayIndex++;
-                transcodeAndMoveFile(arrayIndex);
-            } else {
-                isTranscoding = false;
-            }
+            console.log('errors while transcoding:', error, stdout, stderr);
+        }
+        
+        // transcode next file
+        if (fileArray.length) {
+            transcodeAndMoveNextFile();
+        } else {
+            isTranscoding = false;
         }
     });
 
