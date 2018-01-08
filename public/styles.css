@@ -24,15 +24,6 @@ body {
     margin: auto;
 }
 
-.description .edit {
-    display: none;
-}
-
-.description:hover .edit {
-    display: inline;
-    cursor: pointer;
-}
-
 .label {
     cursor: pointer;
 }

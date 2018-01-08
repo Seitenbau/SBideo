@@ -28,7 +28,7 @@ $(function () {
                         html += '<span class="tag label label-primary jsearch-field">' + tag + '</span>&nbsp;';
                     });
                     html += '</div>';
-                    html += '<div class="description jsearch-field">' + item.meta.description + ' <span title="Edit" class="edit glyphicon glyphicon-edit" aria-hidden="true"></span></div>';
+                    html += '<div class="description jsearch-field">' + item.meta.description + '</div>';
                     html += '</div>';
                 }
 
