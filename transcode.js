@@ -14,7 +14,7 @@ var watcher = chokidar.watch(incomingFolder, {
     ignored: ['/[\/\\]\./', '**/empty', '**/*.encoded'],
     persistent: true,
     usePolling: true, // set to true if files are on an network share
-    interval: 5000, // polling interval
+    interval: 30000, // polling interval
     awaitWriteFinish: true // wait until write operation of file is finished before start encoding
 });
 

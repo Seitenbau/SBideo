@@ -167,7 +167,7 @@ chokidar.watch(dataFolder, {
     persistent: true,
     ignoreInitial: true,
     usePolling: true, // set to true if files are on an network share
-    interval: 1000, // polling interval
+    interval: 30000, // polling interval
     awaitWriteFinish: true // wait until write operation of file is finished before firing events
 }).on('add', function (filePath) {
     if (path.basename(filePath) !== 'meta.json') return;
