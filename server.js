@@ -31,6 +31,7 @@ app.use('/data', express.static(dataFolder));
 // serve third-party files
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/smoothscroll-polyfill', express.static(__dirname + '/node_modules/smoothscroll-polyfill/dist'));
 
 // serve items.json
 app.use('/items.json', (req, res) => {

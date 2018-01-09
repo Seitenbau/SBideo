@@ -16,7 +16,7 @@ $(function () {
                     }
                 } else if (item.type === 'video') {
                     html += '<li class="jsearch-row">';
-                    html += '<a class="jsearch-field videolink" href="#" data-video="'
+                    html += '<a class="jsearch-field videolink" href="" data-video="'
                         + item.src + '">'
                         + item.meta.title + '</a>';
                     html += '<div class="meta hidden">';
@@ -77,6 +77,8 @@ $(function () {
 
     // event listener for playing videos
     $itemList.on('click', '.videolink', function (event) {
+        event.preventDefault();
+        
         var src = event.target.getAttribute('data-video');
         var videoEl = document.getElementById('sbideo-main');
         videoEl.setAttribute('src', src);
@@ -93,6 +95,8 @@ $(function () {
         $('#activeVideoMeta').empty();
         $('#activeVideoMeta').append('<h2>' + $videoLink.text() + '</h2>');
         $('#activeVideoMeta').append($meta);
+        
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     });
 
     // event listener for clicking on tags to filter videos
