@@ -116,32 +116,36 @@ var addItemRecursive = function (items, category, meta) {
 
 // fetch all video files from file system
 var walkSync = function(dir) {
-    fs.readdirSync(dir).forEach(function(file) {
-        var filePath = dir + '/' + file;
-        if (fs.statSync(filePath).isDirectory()) {
-            walkSync(filePath);
-        }
-        else {
-            var relativeFilePath = path.relative(dataFolder, filePath);
-
-            if (path.basename(file) === 'meta.json') {
-                //console.log('read meta file: ' + relativeFilePath);
-
-                var item = {
-                    type: 'folder',
-                    meta: jf.readFileSync(filePath)
-                };
-
-                var videoFile = path.dirname(filePath) + '/video.mp4';
-                if (fs.existsSync(videoFile)) {
-                    item.type = 'video';
-                    item.src = '/data/' + path.relative(dataFolder, videoFile);
-                }
-                var category = getCategoryByPath(relativeFilePath);
-                addItemRecursive(allItems, category, item);
+    try {
+        fs.readdirSync(dir).forEach(function(file) {
+            var filePath = dir + '/' + file;
+            if (fs.statSync(filePath).isDirectory()) {
+                walkSync(filePath);
             }
-        }
-    });
+            else {
+                var relativeFilePath = path.relative(dataFolder, filePath);
+
+                if (path.basename(file) === 'meta.json') {
+                    //console.log('read meta file: ' + relativeFilePath);
+
+                    var item = {
+                        type: 'folder',
+                        meta: jf.readFileSync(filePath)
+                    };
+
+                    var videoFile = path.dirname(filePath) + '/video.mp4';
+                    if (fs.existsSync(videoFile)) {
+                        item.type = 'video';
+                        item.src = '/data/' + path.relative(dataFolder, videoFile);
+                    }
+                    var category = getCategoryByPath(relativeFilePath);
+                    addItemRecursive(allItems, category, item);
+                }
+            }
+        });
+    } catch (e) {
+        console.error('error while reading dir/file: ' + relativeFilePath);
+    }
 };
 
 var reindexItems = function() {
