@@ -145,7 +145,7 @@ var walkSync = function(dir) {
             }
         });
     } catch (e) {
-        console.error('error while reading dir/file: ' + relativeFilePath);
+        console.error('error while reading dir/file: ' + dir);
     }
 };
 
