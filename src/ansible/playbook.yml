@@ -37,14 +37,8 @@
   - name: start sbideo server
     shell: systemctl start sbideo-server.service 
     
-  - name: start sbideo transcode
-    shell: systemctl start sbideo-transcode.service
-    
   - name: start sbideo server on bootup
     shell: systemctl enable sbideo-server.service
-    
-  - name: start sbideo transcode on bootup
-    shell: systemctl enable sbideo-transcode.service
 
   - name: check - sbideo is reachable
     uri:
