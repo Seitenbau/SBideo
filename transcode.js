@@ -37,7 +37,7 @@ function transcodeAndMoveNextFile() {
     var title = path.basename(filePath, path.extname(filePath));
     var outputPath = dataFolder + '/new/' + title + '-' + counter;
 
-    child_process.exec(`mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf format=yuv420p "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`, function (error, stdout, stderr) {
+    child_process.exec(`mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf format=yuv420p "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`, {maxBuffer: 1024 * 1024}, function (error, stdout, stderr) {
         var metaJson = {
             title: title,
             description: '',
