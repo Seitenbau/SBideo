@@ -35,7 +35,7 @@ function transcodeAndMoveNextFile() {
     console.log('Start transcoding of file:', filePath);
     
     var title = path.basename(filePath, path.extname(filePath));
-    var outputPath = dataFolder + '/new/' + title + '-' + counter;
+    var outputPath = dataFolder + '/_new/' + title + '-' + counter;
 
     child_process.exec(`mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf format=yuv420p "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`, {maxBuffer: 1024 * 1024}, function (error, stdout, stderr) {
         var metaJson = {
