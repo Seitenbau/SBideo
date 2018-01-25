@@ -65,15 +65,6 @@ task build( ) {
               )
     }
     
-    data(src: "$projectDir/transcoded", type:"directory") {
-      mapper( type: "perm",
-              prefix: "/usr/lib/sbideo/transcoded",
-              user: 'www-data',
-              group: 'www-data',
-              filemode: '644',
-              dirmode : '755'
-              )
-    }
   }
 
 }
