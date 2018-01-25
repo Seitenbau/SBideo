@@ -15,7 +15,10 @@ var watcher = chokidar.watch(incomingFolder, {
     persistent: true,
     usePolling: true, // set to true if files are on an network share
     interval: 30000, // polling interval
-    awaitWriteFinish: true // wait until write operation of file is finished before start encoding
+    awaitWriteFinish: { // wait until write operation of file is finished before start encoding
+      stabilityThreshold: 2000,
+      pollInterval: 100
+    }
 });
 
 watcher.on('add', function (filePath) {
