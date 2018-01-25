@@ -1,0 +1,14 @@
+{
+    "title": "Let's Make The Web Silky Smooth",
+    "description": "Jeder kennt es, und keiner mag es: träge User Interfaces, ruckelndes Scrolling und wildes 'Content Jumping' beim Ladevorgang. Was sind Layout Trashing, Reflows, Junk, ... und wie lassen sich 60 fps erreichen?",
+    "tags": [
+        "performance",
+        "web",
+        "user experience",
+        "UX",
+        "UI"
+    ],
+    "people": [
+        "Jakob Schröter"
+    ]
+}
