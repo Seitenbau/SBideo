@@ -45,3 +45,8 @@ Every time you add video files into the folder `incoming`, the transcoding will 
 
 ## Migrate script
 In case you want to migrate an old file based video archive, check the branch [migrateScript](https://github.com/Seitenbau/SBideo/tree/migrateScript); maybe it helps.
+
+# Credits
+This project was initially created at [SEITENBAU Hackathon 2017](https://hackathon.seitenbau.com/).
+
+Demo videos: (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
