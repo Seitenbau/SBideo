@@ -23,7 +23,7 @@ $(function () {
                     item.meta.people.forEach(function (person) {
                         html += '<span class="jsearch-field"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;' + person + '&nbsp;</span>';
                     });
-                    html += '<div>';
+                    html += '<div class="breakWords">';
                     item.meta.tags.forEach(function (tag) {
                         html += '<span class="tag label label-primary jsearch-field">' + tag + '</span>&nbsp;';
                     });
