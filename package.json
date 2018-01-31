@@ -9,6 +9,10 @@
     "type": "git",
     "url": "git://github.com/Seitenbau/SBideo"
   },
+  "scripts": {
+    "dev": "node ./server.js ./data",
+    "start": "NODE_ENV=production node ./server.js ./data"
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "chokidar": "^1.7.0",
