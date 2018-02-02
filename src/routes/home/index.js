@@ -3,10 +3,9 @@ import style from './style';
 import Folder from '../../components/folder';
 
 export default class Home extends Component {
-
   state = {
-    data : {}
-  }
+    data: {}
+  };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
@@ -19,7 +18,7 @@ export default class Home extends Component {
         return response.json();
       })
       .then(json => {
-        this.setState({data: json});
+        this.setState({ data: json });
       });
   }
 
@@ -28,9 +27,8 @@ export default class Home extends Component {
       <div class={style.home}>
         <h1>Home</h1>
         <p>This is the Home compone bababwakant.</p>
-        <Folder data={state.data}/>
+        <Folder data={state.data} />
       </div>
     );
   }
 }
-

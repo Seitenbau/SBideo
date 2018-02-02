@@ -8,28 +8,28 @@ import Profile from '../routes/profile';
 // import Profile from 'async!../routes/profile';
 
 if (module.hot) {
-	require('preact/debug');
+  require('preact/debug');
 }
 
 export default class App extends Component {
-	/** Gets fired when the route changes.
-	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
-	 *	@param {string} event.url	The newly routed URL
-	 */
-	handleRoute = e => {
-		this.currentUrl = e.url;
-	};
+  /** Gets fired when the route changes.
+   *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
+   *	@param {string} event.url	The newly routed URL
+   */
+  handleRoute = e => {
+    this.currentUrl = e.url;
+  };
 
-	render() {
-		return (
-			<div id="app">
-				<Header />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Profile path="/profile/" user="me" />
-					<Profile path="/profile/:user" />
-				</Router>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div id="app">
+        <Header />
+        <Router onChange={this.handleRoute}>
+          <Home path="/" />
+          <Profile path="/profile/" user="me" />
+          <Profile path="/profile/:user" />
+        </Router>
+      </div>
+    );
+  }
 }
