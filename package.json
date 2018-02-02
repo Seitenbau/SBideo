@@ -20,6 +20,7 @@
     "jquery": "^3.2.1",
     "jsonfile": "^4.0.0",
     "minimist": "^1.2.0",
+    "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0"
   }
 }
