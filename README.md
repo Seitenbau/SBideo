@@ -1,52 +1,22 @@
-# SBideo
-A very simplistic video archive including video transcoding and following features:
+# {{ name }}
 
-- web interface for listing all videos in a flexible multi-level folder structure
-- video player
-- editable metadata for videos and folders e.g. title, description, speaker, tags
-- fast client-side search through video metadata
-- async video transcoding from any ffmpeg supported format to mp4
-- simple file system based data structure, no database required
-- integrated web- and pseudo-streaming server (express)
+## CLI Commands
 
-
-## Initial setup
-Install all dependencies
-```sh
+``` bash
+# install dependencies
 npm install
-```
-For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
 
-Adjust the folder structure in `data` to your needs.
+# serve with hot reload at localhost:8080
+npm run dev
 
-## Basic usage
-To start the webserver, run
+# build for production with minification
+npm run build
 
-```sh
-node server.js ./data
-```
+# test the production build locally
+npm run serve
 
-Then, you'll find the video archive at `localhost:3000`.
-<br>
-You can use the `data` folder in this repo as a reference for your
-directory layout. You can serve any folder having a structure like `data` by
-altering the parameter of `server.js`.
-
-## Uploading files
-In addition to the server, run
-
-```sh
-node transcode.js ./incoming ./data
+# run tests with jest and preact-render-spy 
+npm run test
 ```
 
-Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
-
-**This requires an ffmpeg installation.**
-
-## Migrate script
-In case you want to migrate an old file based video archive, check the branch [migrateScript](https://github.com/Seitenbau/SBideo/tree/migrateScript); maybe it helps.
-
-# Credits
-This project was initially created at [SEITENBAU Hackathon 2017](https://hackathon.seitenbau.com/).
-
-Demo videos: (c) copyright 2008, Blender Foundation / www.bigbuckbunny.org
+For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).

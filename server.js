@@ -6,6 +6,7 @@ var path = require('path');
 var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var jf = require('jsonfile');
+var cors = require('cors');
 
 // setup webserver port
 var port = process.env.PORT || 3000;
@@ -21,20 +22,31 @@ var defaultItem = {
 var allItems = [];
 
 // serve static files
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/build'));
 // return index.html when requesting /
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/public/index.html');
+    res.sendfile(__dirname + '/build/index.html');
 });
 // serve video folder
 app.use('/data', express.static(dataFolder));
-// serve third-party files
-app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/smoothscroll-polyfill', express.static(__dirname + '/node_modules/smoothscroll-polyfill/dist'));
+
+
 
 // serve items.json
-app.use('/items.json', (req, res) => {
+
+/// FIX CORS BEFORE GOING INTO PRODUCTION
+// var whitelist = ['http://localhost:3000/']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
+// app.use('/items.json', cors(corsOptions), (req, res) => {
+app.use('/items.json', cors(), (req, res) => {
     var json = JSON.stringify(allItems);
     console.log('item.json request handler was called.');
     res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
@@ -85,7 +97,7 @@ var addItemRecursive = function (items, category, meta) {
         subCategory.shift();
         addItemRecursive(item.items, subCategory, meta);
     }
-    
+
     // sort items by title
     items.sort(function(a, b) {
       var titleA = a.meta.title.toUpperCase();
@@ -153,7 +165,7 @@ var reindexItems = function() {
     allItems = [];
     walkSync(dataFolder);
     console.log('reindexed files...');
-    
+
     //TODO throttle reindex
 };
 
@@ -174,7 +186,7 @@ chokidar.watch(dataFolder, {
     }
 }).on('add', function (filePath) {
     if (path.basename(filePath) !== 'meta.json') return;
-    
+
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('new file: ' + relativeFilePath);
 
@@ -182,14 +194,14 @@ chokidar.watch(dataFolder, {
 }).on('unlink', function (filePath) {
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('removed file: ' + relativeFilePath);
-    
+
     reindexItems();
 }).on('change', function (filePath) {
     if (path.basename(filePath) !== 'meta.json') return;
-    
+
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('changed file: ' + relativeFilePath);
-    
+
     reindexItems();
 });
 
