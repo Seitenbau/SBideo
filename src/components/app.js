@@ -23,7 +23,6 @@ export default class App extends Component {
   render() {
     return (
       <div id="app">
-        <Header />
         <Router onChange={this.handleRoute}>
           <Home path="/" />
           <Profile path="/profile/" user="me" />

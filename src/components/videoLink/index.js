@@ -3,12 +3,18 @@ import { Link } from 'preact-router/match';
 import style from './style';
 
 export default class VideoLink extends Component {
+  state = {
+    indexed : false
+  }
+
   render(props) {
     const { data } = props;
 
-    // TODO Search
     // data.meta.slug = slugify(data.src);
-    // searchIndex.push(data.meta);
+    if(this.state.indexed === false && props.createSearchIndex) {
+      props.createSearchIndex(data.meta);
+      this.setState({indexed: true});
+    }
 
     const rTags = data.meta.tags.map(tag => (
       <a href={encodeURIComponent(tag)} className="tag">
