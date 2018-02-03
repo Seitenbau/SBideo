@@ -7,8 +7,7 @@ import Search from '../../components/search';
 
 export default class Home extends Component {
   state = {
-    data: {},
-    searchIndex : [],
+    data: []
   };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
@@ -26,19 +25,13 @@ export default class Home extends Component {
       });
   }
 
-  createSearchIndex(data) {
-    const newIndex = this.state.searchIndex;
-    newIndex.push(data);
-    this.setState({searchIndex: newIndex});
-  }
-
   render(props, state) {
     return (
       <div class={style.home}>
         <VideoContainer />
         <MetaContainer />
-        <Search searchIndex={state.searchIndex} />
-        <Folder id="itemList" data={state.data} createSearchIndex={this.createSearchIndex.bind(this)} />
+        <Search data={state.data} />
+        <Folder id="itemList" data={state.data} />
       </div>
     );
   }

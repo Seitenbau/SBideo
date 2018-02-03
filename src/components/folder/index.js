@@ -5,12 +5,11 @@ import style from './style';
 
 export default class Folder extends Component {
   render(props) {
-    const { data, createSearchIndex } = props;
-
+    const { data } = props;
 
     // render multiple folders
     if (Array.isArray(data)) {
-      const items = data.map(singleFolder => <Folder data={singleFolder} createSearchIndex={createSearchIndex} />);
+      const items = data.map(singleFolder => <Folder data={singleFolder}  />);
       return <ul>{items}</ul>;
     }
 
@@ -23,11 +22,11 @@ export default class Folder extends Component {
     }
 
     return data.type === 'video' ? (
-      <VideoLink data={data} createSearchIndex={createSearchIndex}/>
+      <VideoLink data={data} />
     ) : (
       <li class="videoparent">
         <span class="videoparent-title">{data.meta && data.meta.title}</span>
-        {data.items && <Folder data={data.items} createSearchIndex={createSearchIndex} />}
+        {data.items && <Folder data={data.items}  />}
       </li>
     );
   }
