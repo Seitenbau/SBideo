@@ -4,17 +4,28 @@ import style from './style';
 
 export default class VideoLink extends Component {
   state = {
-    indexed: false
+    visible: true
   };
 
-  render(props) {
-    const { data } = props;
-
-    // data.meta.slug = slugify(data.src);
-    if (this.state.indexed === false && props.createSearchIndex) {
-      props.createSearchIndex(data.meta);
-      this.setState({ indexed: true });
+  toggleVisibility(visible = true) {
+    if (typeof this.props.toggleVisibility === 'function') {
+      this.props.toggleVisibility(visible);
     }
+    this.setState({ visible: visible });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.searchResults === nextProps.searchResults) {
+      return;
+    }
+    const { data, searchResults } = nextProps;
+
+    const isSearchMatch = searchResults.indexOf(data.meta.id) > -1;
+    this.toggleVisibility(isSearchMatch);
+  }
+
+  render(props) {
+    const { data, searchResults } = props;
 
     const rTags = data.meta.tags.map(tag => (
       <a href={encodeURIComponent(tag)} className="tag">
@@ -23,7 +34,10 @@ export default class VideoLink extends Component {
     ));
 
     return (
-      <li id={data.meta.slug} className="video">
+      <li
+        id={data.meta.slug}
+        className={this.state.visible ? 'video' : 'video hidden'}
+      >
         <a
           href={encodeURIComponent(data.meta.slug)}
           className="videolink"

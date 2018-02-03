@@ -1,17 +1,18 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
 import style from './style';
+import * as fuse from 'fuse.js';
 
 export default class Search extends Component {
   state = {
     searchIndex: []
   };
 
+  searchEngine;
+
   componentWillReceiveProps(nextProps) {
-    if (this.props === nextProps) {
-      return;
+    if (this.props.data !== nextProps.data) {
+      this.createSearchIndex(nextProps);
     }
-    this.createSearchIndex(nextProps);
   }
 
   walkData(item) {
@@ -33,6 +34,24 @@ export default class Search extends Component {
   createSearchIndex(nextProps) {
     if (nextProps.data) {
       nextProps.data.map(item => this.walkData(item));
+
+      const searchOptions = {
+        keys: ['title', 'description', 'tags', 'people'],
+        threshold: 0.2,
+        tokenize: true,
+        id: 'id'
+      };
+      this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
+    }
+  }
+
+  search(event) {
+    const results = this.searchEngine.search(event.target.value);
+
+    console.log('searchresults', results);
+
+    if (typeof this.props.getResult === 'function') {
+      this.props.getResult(results);
     }
   }
 
@@ -44,6 +63,7 @@ export default class Search extends Component {
           autocomplete="false"
           placeholder="Search"
           id="searchField"
+          onInput={this.search.bind(this)}
         />
       </form>
     );
