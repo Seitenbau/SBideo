@@ -4,29 +4,29 @@ import style from './style';
 
 export default class Search extends Component {
   state = {
-    searchIndex : []
-  }
+    searchIndex: []
+  };
 
   componentWillReceiveProps(nextProps) {
-    if(this.props === nextProps) {
+    if (this.props === nextProps) {
       return;
     }
     this.createSearchIndex(nextProps);
   }
 
   walkData(item) {
-    if(Array.isArray(item)) {
+    if (Array.isArray(item)) {
       return item.map(singleItem => this.walkData(singleItem));
     }
 
-    if(item.items && item.items.length > 0) {
+    if (item.items && item.items.length > 0) {
       return item.items.map(singleItem => this.walkData(singleItem));
     }
 
-    if(item.type === 'video' && item.meta) {
+    if (item.type === 'video' && item.meta) {
       const newIndex = this.state.searchIndex.splice(0);
       newIndex.push(item.meta);
-      this.setState({searchIndex: newIndex});
+      this.setState({ searchIndex: newIndex });
     }
   }
 
@@ -38,9 +38,14 @@ export default class Search extends Component {
 
   render(props, state) {
     return (
-       <form className="searchBar" role="search">
-        <input type="text" autocomplete="false" placeholder="Search" id="searchField"/>
-       </form>
+      <form className="searchBar" role="search">
+        <input
+          type="text"
+          autocomplete="false"
+          placeholder="Search"
+          id="searchField"
+        />
+      </form>
     );
   }
 }

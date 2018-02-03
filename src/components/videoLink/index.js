@@ -4,16 +4,16 @@ import style from './style';
 
 export default class VideoLink extends Component {
   state = {
-    indexed : false
-  }
+    indexed: false
+  };
 
   render(props) {
     const { data } = props;
 
     // data.meta.slug = slugify(data.src);
-    if(this.state.indexed === false && props.createSearchIndex) {
+    if (this.state.indexed === false && props.createSearchIndex) {
       props.createSearchIndex(data.meta);
-      this.setState({indexed: true});
+      this.setState({ indexed: true });
     }
 
     const rTags = data.meta.tags.map(tag => (
