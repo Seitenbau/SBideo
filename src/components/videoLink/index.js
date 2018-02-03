@@ -3,48 +3,23 @@ import { Link } from 'preact-router/match';
 import style from './style';
 
 export default class VideoLink extends Component {
-  state = {
-    visible: true
-  };
-
-  toggleVisibility(visible = true) {
-    if (typeof this.props.toggleVisibility === 'function') {
-      this.props.toggleVisibility(visible);
-    }
-    this.setState({ visible: visible });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.searchResults === nextProps.searchResults) {
-      return;
-    }
-    const { data, searchResults } = nextProps;
-
-    const isSearchMatch = searchResults.indexOf(data.meta.id) > -1;
-    this.toggleVisibility(isSearchMatch);
-  }
-
   render(props) {
-    const { data, searchResults } = props;
+    const { meta, searchResults } = props;
 
-    const rTags = data.meta.tags.map(tag => (
+    const rTags = meta.tags.map(tag => (
       <a href={encodeURIComponent(tag)} className="tag">
         {tag}
       </a>
     ));
 
     return (
-      <li
-        id={data.meta.slug}
-        className={this.state.visible ? 'video' : 'video hidden'}
-      >
-        <a
-          href={encodeURIComponent(data.meta.slug)}
+      <li id={meta.slug} className="video">
+        <Link
+          href={meta.id + '/' + encodeURIComponent(meta.title)}
           className="videolink"
-          data-video={data.src}
         >
-          {data.meta.title}
-        </a>
+          {meta.title}
+        </Link>
         <div className="meta">
           <div className="people">
             <img
@@ -53,17 +28,17 @@ export default class VideoLink extends Component {
               alt="person"
               role="presentation"
             />
-            {data.meta.people.join(', ')}
+            {meta.people.join(', ')}
           </div>
           <div className="tags">
-            {data.meta.tags.map(tag => (
+            {meta.tags.map(tag => (
               <a href={encodeURIComponent(tag)} className="tag">
                 {tag}
               </a>
             ))}
           </div>
         </div>
-        <div className="description">{data.meta.description}</div>
+        <div className="description">{meta.description}</div>
       </li>
     );
   }

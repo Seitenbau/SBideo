@@ -24,9 +24,9 @@ export default class App extends Component {
     return (
       <div id="app">
         <Router onChange={this.handleRoute}>
-          <Home path="/" />
-          <Profile path="/profile/" user="me" />
-          <Profile path="/profile/:user" />
+          <Home path="/:videoId?/:videoTitle?/:mode?" />
+          {/* <Profile path="/profile/" user="me" /> */}
+          {/* <Profile path="/profile/:user" /> */}
         </Router>
       </div>
     );

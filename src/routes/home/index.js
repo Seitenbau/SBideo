@@ -8,35 +8,13 @@ import Search from '../../components/search';
 export default class Home extends Component {
   state = {
     data: [],
-    searchResults: []
+    searchResultsExist: false
   };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
-  // walkData(item) {
-  //   if (item.type === 'video' && item.meta) {
-  //     const newIndex = this.state.searchIndex.splice(0);
-  //     newIndex.push(item.meta);
-  //     this.setState({ searchIndex: newIndex });
-  //   }
-
-  //   if (Array.isArray(item)) {
-  //     return item.map(singleItem => this.walkData(singleItem));
-  //   }
-
-  //   if (item.items && item.items.length > 0) {
-  //     return item.items.map(singleItem => this.walkData(singleItem));
-  //   }
-  // }
-
-  // saveChildrenToParents(nextProps) {
-  //   if (nextProps.data) {
-  //     nextProps.data.map(item => this.walkData(item));
-  //   }
-  // }
-
-  getSearchResults(results) {
-    this.setState({ searchResults: results });
+  setSearchResultExist(results) {
+    this.setState({ searchResultsExist: results.length > 0 });
   }
 
   componentDidMount() {
@@ -49,7 +27,8 @@ export default class Home extends Component {
       })
       .then(json => {
         this.setState({ data: json });
-      });
+      })
+      .catch(e => console.log(e));
   }
 
   render(props, state) {
@@ -59,13 +38,9 @@ export default class Home extends Component {
         <MetaContainer />
         <Search
           data={state.data}
-          getResult={this.getSearchResults.bind(this)}
+          getResult={this.setSearchResultExist.bind(this)}
         />
-        <Folder
-          id="itemList"
-          data={state.data}
-          searchResults={this.state.searchResults}
-        />
+        {!state.searchResultsExist && <Folder data={state.data} />}
       </div>
     );
   }

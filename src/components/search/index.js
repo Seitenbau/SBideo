@@ -1,10 +1,12 @@
 import { h, Component } from 'preact';
 import style from './style';
 import * as fuse from 'fuse.js';
+import VideoLink from '../../components/videoLink';
 
 export default class Search extends Component {
   state = {
-    searchIndex: []
+    searchIndex: [],
+    results: []
   };
 
   searchEngine;
@@ -26,6 +28,7 @@ export default class Search extends Component {
 
     if (item.type === 'video' && item.meta) {
       const newIndex = this.state.searchIndex.splice(0);
+      item.meta.src = item.src;
       newIndex.push(item.meta);
       this.setState({ searchIndex: newIndex });
     }
@@ -36,10 +39,9 @@ export default class Search extends Component {
       nextProps.data.map(item => this.walkData(item));
 
       const searchOptions = {
-        keys: ['title', 'description', 'tags', 'people'],
+        keys: ['title', 'description', 'tags', 'people', 'src'],
         threshold: 0.2,
-        tokenize: true,
-        id: 'id'
+        tokenize: true
       };
       this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
     }
@@ -53,19 +55,26 @@ export default class Search extends Component {
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
     }
+
+    this.setState({ results: results });
   }
 
   render(props, state) {
     return (
-      <form className="searchBar" role="search">
-        <input
-          type="text"
-          autocomplete="false"
-          placeholder="Search"
-          id="searchField"
-          onInput={this.search.bind(this)}
-        />
-      </form>
+      <div className="search">
+        <form className="searchBar" role="search">
+          <input
+            type="text"
+            autocomplete="false"
+            placeholder="Search"
+            id="searchField"
+            onInput={this.search.bind(this)}
+          />
+        </form>
+        <ul className="searchResults">
+          {this.state.results.map(result => <VideoLink meta={result} />)}
+        </ul>
+      </div>
     );
   }
 }
