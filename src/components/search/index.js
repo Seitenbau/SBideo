@@ -51,22 +51,19 @@ export default class Search extends Component {
   search(event) {
     const resultIds = this.searchEngine.search(event.target.value);
 
-    console.log('searchresults', resultIds);
-
     function copy(o) {
-      return Object.assign({}, o)
+      return Object.assign({}, o);
     }
-    
-    var results = this.props.data.map(copy).filter(function f(o) {
-      if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) return true;
-    
+
+    const results = this.props.data.map(copy).filter(function f(o) {
+      if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) {
+        return true;
+      }
+
       if (o.items) {
         return (o.items = o.items.map(copy).filter(f)).length;
       }
-    })
-
-    console.log('filtered data', results);
-
+    });
 
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
@@ -87,9 +84,6 @@ export default class Search extends Component {
             onInput={this.search.bind(this)}
           />
         </form>
-        <ul className="searchResults">
-          {this.state.results.map(result => <VideoLink meta={result} />)}
-        </ul>
       </div>
     );
   }

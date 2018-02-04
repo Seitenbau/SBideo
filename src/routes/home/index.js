@@ -7,13 +7,13 @@ import Search from '../../components/search';
 export default class Home extends Component {
   state = {
     data: [],
-    searchResultsExist: false
+    searchResults: []
   };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
   setSearchResultExist(results) {
-    this.setState({ searchResultsExist: results.length > 0 });
+    this.setState({ searchResults: results });
   }
 
   componentDidMount() {
@@ -38,7 +38,9 @@ export default class Home extends Component {
           data={state.data}
           getResult={this.setSearchResultExist.bind(this)}
         />
-        {!state.searchResultsExist && <Folder data={state.data} />}
+        <Folder
+          data={state.searchResults.length ? state.searchResults : state.data}
+        />
       </div>
     );
   }
