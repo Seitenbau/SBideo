@@ -6,13 +6,14 @@ import Search from '../../components/search';
 
 export default class Home extends Component {
   state = {
-    data: []
+    data: [],
+    searchResults: []
   };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
-  setSearchResults(results) {
-    this.setState({ data: results });
+  setSearchResultExist(results) {
+    this.setState({ searchResults: results });
   }
 
   componentDidMount() {
@@ -35,9 +36,11 @@ export default class Home extends Component {
         <VideoContainer data={state.data} activeVideoId={this.props.videoId} />
         <Search
           data={state.data}
-          getResult={this.setSearchResults.bind(this)}
+          getResult={this.setSearchResultExist.bind(this)}
         />
-        <Folder data={state.data} />
+        <Folder
+          data={state.searchResults.length ? state.searchResults : state.data}
+        />
       </div>
     );
   }
