@@ -11,7 +11,7 @@ export default class Home extends Component {
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
-  setSearchResultExist(results) {
+  setSearchResults(results) {
     this.setState({ data: results });
   }
 
@@ -35,7 +35,7 @@ export default class Home extends Component {
         <VideoContainer data={state.data} activeVideoId={this.props.videoId} />
         <Search
           data={state.data}
-          getResult={this.setSearchResultExist.bind(this)}
+          getResult={this.setSearchResults.bind(this)}
         />
         <Folder data={state.data} />
       </div>
