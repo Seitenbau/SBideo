@@ -41,16 +41,32 @@ export default class Search extends Component {
       const searchOptions = {
         keys: ['title', 'description', 'tags', 'people', 'src'],
         threshold: 0.2,
-        tokenize: true
+        tokenize: true,
+        id: 'id'
       };
       this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
     }
   }
 
   search(event) {
-    const results = this.searchEngine.search(event.target.value);
+    const resultIds = this.searchEngine.search(event.target.value);
 
-    console.log('searchresults', results);
+    console.log('searchresults', resultIds);
+
+    function copy(o) {
+      return Object.assign({}, o)
+    }
+    
+    var results = this.props.data.map(copy).filter(function f(o) {
+      if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) return true;
+    
+      if (o.items) {
+        return (o.items = o.items.map(copy).filter(f)).length;
+      }
+    })
+
+    console.log('filtered data', results);
+
 
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
