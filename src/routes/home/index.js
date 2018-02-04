@@ -6,14 +6,13 @@ import Search from '../../components/search';
 
 export default class Home extends Component {
   state = {
-    data: [],
-    searchResults: []
+    data: []
   };
 
   itemsEndpoint = 'http://localhost:3000/items.json';
 
   setSearchResultExist(results) {
-    this.setState({ searchResults: results });
+    this.setState({ data: results });
   }
 
   componentDidMount() {
@@ -38,9 +37,7 @@ export default class Home extends Component {
           data={state.data}
           getResult={this.setSearchResultExist.bind(this)}
         />
-        <Folder
-          data={state.searchResults.length ? state.searchResults : state.data}
-        />
+        <Folder data={state.data} />
       </div>
     );
   }
