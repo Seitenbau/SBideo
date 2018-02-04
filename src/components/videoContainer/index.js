@@ -6,25 +6,27 @@ import style from './style';
 
 export default class VideoContainer extends Component {
   getVideoById(items, videoId) {
-    if (!videoId || videoId.length === 0) {
-      return null;
-    }
+    var result;
 
-    for (var item of items) {
+    const checkMatch = item => {
       if (item.type === 'video' && item.meta && item.meta.id === videoId) {
-        return item;
-      } else if (item.items) {
-        return this.getVideoById(item.items, videoId);
+        result = item;
+        return true;
       }
-    }
+      return Array.isArray(item.items) && item.items.some(checkMatch);
+    };
 
-    return null;
+    items.some(checkMatch);
+    return result;
   }
 
   render(props) {
     console.log('videoContainer props', props);
 
-    const video = this.getVideoById(props.data, props.activeVideoId);
+    const video =
+      props.activeVideoId && props.activeVideoId.length > 0
+        ? this.getVideoById(props.data, props.activeVideoId)
+        : null;
 
     return (
       <div className="video-grid-wrapper">
