@@ -13,10 +13,11 @@ export default class VideoLink extends Component {
     ));
 
     return (
-      <li id={meta.slug} className="video">
+      <li className="video">
         <Link
           href={meta.id + '/' + encodeURIComponent(meta.title)}
           className="videolink"
+          activeClassName="active"
         >
           {meta.title}
         </Link>

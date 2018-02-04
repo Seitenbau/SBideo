@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import style from './style';
 import Folder from '../../components/folder';
 import VideoContainer from '../../components/videoContainer';
-import MetaContainer from '../../components/metaContainer';
 import Search from '../../components/search';
 
 export default class Home extends Component {
@@ -34,8 +33,7 @@ export default class Home extends Component {
   render(props, state) {
     return (
       <div class={style.home}>
-        <VideoContainer />
-        <MetaContainer />
+        <VideoContainer data={state.data} activeVideoId={this.props.videoId} />
         <Search
           data={state.data}
           getResult={this.setSearchResultExist.bind(this)}
