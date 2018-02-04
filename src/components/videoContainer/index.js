@@ -5,7 +5,6 @@ import MetaContainer from '../../components/metaContainer';
 import style from './style';
 
 export default class VideoContainer extends Component {
-
   getVideoById(items, videoId) {
     if (!videoId || videoId.length === 0) {
       return null;
@@ -29,8 +28,8 @@ export default class VideoContainer extends Component {
 
     return (
       <div className="video-grid-wrapper">
-          <VideoPlayer src={video ? video.src : null} />
-          <MetaContainer meta={video ? video.meta : null} />
+        <VideoPlayer src={video ? video.src : null} />
+        <MetaContainer meta={video ? video.meta : null} />
       </div>
     );
   }

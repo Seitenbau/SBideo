@@ -15,7 +15,7 @@ export default class VideoLink extends Component {
     return (
       <li className="video">
         <Link
-          href={meta.id + '/' + encodeURIComponent(meta.title)}
+          href={`/${meta.id}/${encodeURIComponent(meta.title)}`}
           className="videolink"
           activeClassName="active"
         >

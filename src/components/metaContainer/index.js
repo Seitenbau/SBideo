@@ -8,7 +8,7 @@ export default class MetaContainer extends Component {
 
     if (props.meta) {
       return (
-        <div id="activeVideoMeta">
+        <div class="activeVideoMeta">
           <h1>{props.meta.title}</h1>
           <div className="people">
             <img
@@ -31,7 +31,7 @@ export default class MetaContainer extends Component {
       );
     } else {
       return (
-        <div id="activeVideoMeta">
+        <div class="activeVideoMeta">
           <h1>Welcome to SBideo!</h1>
           <p>Just search and select a video below.</p>
         </div>
