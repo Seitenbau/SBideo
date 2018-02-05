@@ -9,12 +9,14 @@
     "prod": "cross-env NODE_ENV=production preact build && npm run serve",
     "serve": "node ./server.js ./data",
     "test": "jest ./tests",
-    "format": "prettier './src/**/*.{js,json,css,md}' --single-quote --write"
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
+    "lint-staged": "^6.1.0",
     "nodemon": "^1.14.12",
     "preact-cli": "^2.1.0",
     "preact-render-spy": "^1.2.1",
@@ -33,21 +35,18 @@
     "preact-router": "^2.5.7",
     "shortid": "^2.2.8"
   },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --single-quote --write", "git add"]
+  },
   "jest": {
     "verbose": true,
-    "setupFiles": [
-      "<rootDir>/src/tests/__mocks__/browserMocks.js"
-    ],
+    "setupFiles": ["<rootDir>/src/tests/__mocks__/browserMocks.js"],
     "testURL": "http://localhost:8080",
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
+    "moduleFileExtensions": ["js", "jsx"],
+    "moduleDirectories": ["node_modules"],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/src/tests/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "identity-obj-proxy",
       "^./style$": "identity-obj-proxy",
       "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",

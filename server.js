@@ -15,8 +15,8 @@ server.listen(port);
 var dataFolder = argv._[0];
 
 var defaultItem = {
-    meta: {},
-    items: []
+  meta: {},
+  items: []
 };
 
 var allItems = [];
@@ -24,13 +24,11 @@ var allItems = [];
 // serve static files
 app.use(express.static(__dirname + '/build'));
 // return index.html when requesting /
-app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/build/index.html');
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + '/build/index.html');
 });
 // serve video folder
 app.use('/data', express.static(dataFolder));
-
-
 
 // serve items.json
 
@@ -47,164 +45,166 @@ app.use('/data', express.static(dataFolder));
 // }
 // app.use('/items.json', cors(corsOptions), (req, res) => {
 app.use('/items.json', cors(), (req, res) => {
-    var json = JSON.stringify(allItems);
-    console.log('item.json request handler was called.');
-    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
-    res.end(json);
+  var json = JSON.stringify(allItems);
+  console.log('item.json request handler was called.');
+  res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+  res.end(json);
 });
 
-var getCategoryByPath = function (filePath) {
-    var category = path.dirname(filePath).split(path.sep);
-    //console.log('Category by path', filePath, category);
-    return category;
+var getCategoryByPath = function(filePath) {
+  var category = path.dirname(filePath).split(path.sep);
+  //console.log('Category by path', filePath, category);
+  return category;
 };
 
-var getItem = function (items, name) {
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].name === name) {
-            return items[i];
-        }
+var getItem = function(items, name) {
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].name === name) {
+      return items[i];
     }
+  }
 };
 
-var createItem = function (item, name) {
-    item.name = name;
-    if (!item.meta) {
-        item.meta = {};
-    }
-    if (!item.meta.title) {
-        item.meta.title = name;
-    }
-    if (!item.type) {
-        item.type = 'folder';
-    }
-    item.items = [];
-    return item;
+var createItem = function(item, name) {
+  item.name = name;
+  if (!item.meta) {
+    item.meta = {};
+  }
+  if (!item.meta.title) {
+    item.meta.title = name;
+  }
+  if (!item.type) {
+    item.type = 'folder';
+  }
+  item.items = [];
+  return item;
 };
 
-var addItemRecursive = function (items, category, meta) {
-    var curCategory = category[0];
-    if (category.length == 1) {
-        items.push(createItem(meta, curCategory));
+var addItemRecursive = function(items, category, meta) {
+  var curCategory = category[0];
+  if (category.length == 1) {
+    items.push(createItem(meta, curCategory));
+  } else if (category.length > 1) {
+    var item = getItem(items, curCategory);
+    if (!item) {
+      item = createItem(JSON.parse(JSON.stringify(defaultItem)), curCategory);
+      items.push(item);
     }
-    else if (category.length > 1) {
-        var item = getItem(items, curCategory);
-        if (!item) {
-            item = createItem(JSON.parse(JSON.stringify(defaultItem)), curCategory);
-            items.push(item);
-        }
-        var subCategory = category;
-        subCategory.shift();
-        addItemRecursive(item.items, subCategory, meta);
-    }
+    var subCategory = category;
+    subCategory.shift();
+    addItemRecursive(item.items, subCategory, meta);
+  }
 
-    // sort items by title
-    items.sort(function(a, b) {
-      var titleA = a.meta.title.toUpperCase();
-      var titleB = b.meta.title.toUpperCase();
+  // sort items by title
+  items.sort(function(a, b) {
+    var titleA = a.meta.title.toUpperCase();
+    var titleB = b.meta.title.toUpperCase();
 
-      // switch sort order when a date is detected, so new videos/events appear first
-      var dateRegexp = /.*\d{4}.*/;
-      if (titleA.match(dateRegexp) && titleB.match(dateRegexp)) {
-          if (titleA < titleB) {
-            return 1;
-          }
-          if (titleA > titleB) {
-            return -1;
-          }
-      } else {
-          if (titleA < titleB) {
-            return -1;
-          }
-          if (titleA > titleB) {
-            return 1;
-          }
+    // switch sort order when a date is detected, so new videos/events appear first
+    var dateRegexp = /.*\d{4}.*/;
+    if (titleA.match(dateRegexp) && titleB.match(dateRegexp)) {
+      if (titleA < titleB) {
+        return 1;
       }
+      if (titleA > titleB) {
+        return -1;
+      }
+    } else {
+      if (titleA < titleB) {
+        return -1;
+      }
+      if (titleA > titleB) {
+        return 1;
+      }
+    }
 
-      // equal title
-      return 0;
-    });
+    // equal title
+    return 0;
+  });
 };
-
 
 // fetch all video files from file system
 var walkSync = function(dir) {
-    try {
-        fs.readdirSync(dir).forEach(function(file) {
-            var filePath = dir + '/' + file;
-            if (fs.statSync(filePath).isDirectory()) {
-                walkSync(filePath);
-            }
-            else {
-                var relativeFilePath = path.relative(dataFolder, filePath);
+  try {
+    fs.readdirSync(dir).forEach(function(file) {
+      var filePath = dir + '/' + file;
+      if (fs.statSync(filePath).isDirectory()) {
+        walkSync(filePath);
+      } else {
+        var relativeFilePath = path.relative(dataFolder, filePath);
 
-                if (path.basename(file) === 'meta.json') {
-                    //console.log('read meta file: ' + relativeFilePath);
+        if (path.basename(file) === 'meta.json') {
+          //console.log('read meta file: ' + relativeFilePath);
 
-                    var item = {
-                        type: 'folder',
-                        meta: jf.readFileSync(filePath)
-                    };
+          var item = {
+            type: 'folder',
+            meta: jf.readFileSync(filePath)
+          };
 
-                    var videoFile = path.dirname(filePath) + '/video.mp4';
-                    if (fs.existsSync(videoFile)) {
-                        item.type = 'video';
-                        item.src = '/data/' + path.relative(dataFolder, videoFile);
-                    }
-                    var category = getCategoryByPath(relativeFilePath);
-                    addItemRecursive(allItems, category, item);
-                }
-            }
-        });
-    } catch (e) {
-        console.error('error while reading dir/file: ' + dir);
-    }
+          var videoFile = path.dirname(filePath) + '/video.mp4';
+          if (fs.existsSync(videoFile)) {
+            item.type = 'video';
+            item.src = '/data/' + path.relative(dataFolder, videoFile);
+          }
+          var category = getCategoryByPath(relativeFilePath);
+          addItemRecursive(allItems, category, item);
+        }
+      }
+    });
+  } catch (e) {
+    console.error('error while reading dir/file: ' + dir);
+  }
 };
 
 var reindexItems = function() {
-    allItems = [];
-    walkSync(dataFolder);
-    console.log('reindexed files...');
+  allItems = [];
+  walkSync(dataFolder);
+  console.log('reindexed files...');
 
-    //TODO throttle reindex
+  //TODO throttle reindex
 };
 
 // initially fetch all videos
 reindexItems();
 
-
 // init file watcher to reindex videos in case something changes
-chokidar.watch(dataFolder, {
+chokidar
+  .watch(dataFolder, {
     ignored: /[\/\\]\./,
     persistent: true,
     ignoreInitial: true,
     usePolling: true, // set to true if files are on an network share
     interval: 30000, // polling interval
-    awaitWriteFinish: { // wait until write operation of file is finished before firing events
+    awaitWriteFinish: {
+      // wait until write operation of file is finished before firing events
       stabilityThreshold: 2000,
       pollInterval: 100
     }
-}).on('add', function (filePath) {
+  })
+  .on('add', function(filePath) {
     if (path.basename(filePath) !== 'meta.json') return;
 
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('new file: ' + relativeFilePath);
 
     reindexItems();
-}).on('unlink', function (filePath) {
+  })
+  .on('unlink', function(filePath) {
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('removed file: ' + relativeFilePath);
 
     reindexItems();
-}).on('change', function (filePath) {
+  })
+  .on('change', function(filePath) {
     if (path.basename(filePath) !== 'meta.json') return;
 
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('changed file: ' + relativeFilePath);
 
     reindexItems();
-});
-
+  });
 
 // now it's all up and running...
-console.log('App running under http://' + require('os').hostname() + ':' + port + '/');
+console.log(
+  'App running under http://' + require('os').hostname() + ':' + port + '/'
+);
