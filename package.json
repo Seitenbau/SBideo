@@ -17,7 +17,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
     "lint-staged": "^6.1.0",
-    "nodemon": "^1.14.12",
     "preact-cli": "^2.1.0",
     "preact-render-spy": "^1.2.1",
     "prettier": "^1.10.2"
