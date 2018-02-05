@@ -4,17 +4,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build",
-    "serve": "preact build && npm run servevideos",
-    "servevideos": "if-env NODE_ENV=production && node ./server.js ./data || nodemon ./server.js ./data",
-    "dev": "npm run servevideos & preact watch &",
+    "start": "npm run dev",
+    "dev": "concurrently \"preact watch\" \"npm run serve\" --kill-others",
+    "prod": "cross-env NODE_ENV=production preact build && npm run serve",
+    "serve": "node ./server.js ./data",
     "test": "jest ./tests",
     "format": "prettier './src/**/*.{js,json,css,md}' --single-quote --write"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "identity-obj-proxy": "^3.0.0",
-    "if-env": "^1.0.0",
     "jest": "^21.2.1",
     "nodemon": "^1.14.12",
     "preact-cli": "^2.1.0",
@@ -24,6 +23,7 @@
   "dependencies": {
     "chokidar": "^1.7.0",
     "cors": "^2.8.4",
+    "cross-env": "^5.1.3",
     "express": "^4.16.2",
     "fuse.js": "^3.2.0",
     "jsonfile": "^4.0.0",
