@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "concurrently \"preact watch\" \"npm run serve\" --kill-others",
-    "prod": "cross-env NODE_ENV=production preact build && npm run serve",
+    "prod": "cross-env NODE_ENV=production npm run build && npm run serve",
+    "build": "preact build",
     "serve": "node ./src/server.js ./data",
     "test": "jest ./tests",
     "lint": "eslint src",
