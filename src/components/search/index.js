@@ -1,12 +1,21 @@
 import { h, Component } from 'preact';
-import style from './style';
 import * as fuse from 'fuse.js';
-import VideoLink from '../../components/videoLink';
+import PropTypes from 'prop-types';
 
 export default class Search extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.search = this.search.bind(this);
+  }
+
   state = {
     searchIndex: [],
     results: []
+  };
+
+  propTypes = {
+    data: PropTypes.array,
+    getResult: PropTypes.func
   };
 
   searchEngine;
@@ -72,16 +81,16 @@ export default class Search extends Component {
     this.setState({ results: results });
   }
 
-  render(props, state) {
+  render() {
     return (
       <div className="search">
         <form className="searchBar" role="search">
           <input
             type="text"
-            autocomplete="false"
+            autoComplete="false"
             placeholder="Search"
             id="searchField"
-            onInput={this.search.bind(this)}
+            onInput={this.search}
           />
         </form>
       </div>

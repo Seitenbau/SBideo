@@ -1,6 +1,4 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
-import style from './style';
 
 export default class MetaContainer extends Component {
   render(props) {
@@ -8,7 +6,7 @@ export default class MetaContainer extends Component {
 
     if (props.meta) {
       return (
-        <div class="activeVideoMeta">
+        <div className="activeVideoMeta">
           <h1>{props.meta.title}</h1>
           <div className="people">
             <img
@@ -20,8 +18,8 @@ export default class MetaContainer extends Component {
             {props.meta.people.join(', ')}
           </div>
           <div className="tags">
-            {props.meta.tags.map(tag => (
-              <a href={encodeURIComponent(tag)} className="tag">
+            {props.meta.tags.map((tag, i) => (
+              <a key={`tag${i}`} href={encodeURIComponent(tag)} className="tag">
                 {tag}
               </a>
             ))}
@@ -31,7 +29,7 @@ export default class MetaContainer extends Component {
       );
     } else {
       return (
-        <div class="activeVideoMeta">
+        <div className="activeVideoMeta">
           <h1>Welcome to SBideo!</h1>
           <p>Just search and select a video below.</p>
         </div>

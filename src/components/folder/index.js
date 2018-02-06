@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import VideoLink from '../videoLink';
-import style from './style';
 
 export default class Folder extends Component {
   render(props) {
@@ -8,7 +7,9 @@ export default class Folder extends Component {
 
     // render multiple folders
     if (Array.isArray(data)) {
-      const items = data.map(singleFolder => <Folder data={singleFolder} />);
+      const items = data.map((singleFolder, i) => (
+        <Folder key={`folder${i}`} data={singleFolder} />
+      ));
       return <ul>{items}</ul>;
     }
 

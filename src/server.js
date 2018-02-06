@@ -170,7 +170,7 @@ reindexItems();
 // init file watcher to reindex videos in case something changes
 chokidar
   .watch(dataFolder, {
-    ignored: /[\/\\]\./,
+    ignored: /[/\\]\./,
     persistent: true,
     ignoreInitial: true,
     usePolling: true, // set to true if files are on an network share
@@ -182,7 +182,9 @@ chokidar
     }
   })
   .on('add', function(filePath) {
-    if (path.basename(filePath) !== 'meta.json') return;
+    if (path.basename(filePath) !== 'meta.json') {
+      return;
+    }
 
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('new file: ' + relativeFilePath);
@@ -196,7 +198,9 @@ chokidar
     reindexItems();
   })
   .on('change', function(filePath) {
-    if (path.basename(filePath) !== 'meta.json') return;
+    if (path.basename(filePath) !== 'meta.json') {
+      return;
+    }
 
     var relativeFilePath = path.relative(dataFolder, filePath);
     console.log('changed file: ' + relativeFilePath);

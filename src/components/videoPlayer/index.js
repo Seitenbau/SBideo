@@ -1,6 +1,4 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
-import style from './style';
 
 export default class VideoPlayer extends Component {
   render(props) {
@@ -9,7 +7,7 @@ export default class VideoPlayer extends Component {
       <div className="video-container">
         <video
           controls
-          autoplay
+          autoPlay
           poster="/assets/FuBK_testcard_vectorized.svg"
           src={props.src ? 'http://localhost:3000' + props.src : ''} // TODO fix host
         />

@@ -1,16 +1,9 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
-import style from './style';
 
 export default class VideoLink extends Component {
   render(props) {
-    const { meta, searchResults } = props;
-
-    const rTags = meta.tags.map(tag => (
-      <a href={encodeURIComponent(tag)} className="tag">
-        {tag}
-      </a>
-    ));
+    const { meta } = props;
 
     return (
       <li className="video">
@@ -32,8 +25,8 @@ export default class VideoLink extends Component {
             {meta.people.join(', ')}
           </div>
           <div className="tags">
-            {meta.tags.map(tag => (
-              <a href={encodeURIComponent(tag)} className="tag">
+            {meta.tags.map((tag, i) => (
+              <a key={`tag${i}`} href={encodeURIComponent(tag)} className="tag">
                 {tag}
               </a>
             ))}

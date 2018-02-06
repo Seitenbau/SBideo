@@ -1,10 +1,13 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
 import VideoPlayer from '../../components/videoPlayer';
 import MetaContainer from '../../components/metaContainer';
-import style from './style';
+import PropTypes from 'prop-types';
 
 export default class VideoContainer extends Component {
+  propTypes = {
+    activeVideoId: PropTypes.number
+  };
+
   getVideoById(items, videoId) {
     var result;
 
@@ -20,7 +23,7 @@ export default class VideoContainer extends Component {
     return result;
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return this.props.activeVideoId !== nextProps.activeVideoId;
   }
 
