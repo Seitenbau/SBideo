@@ -6,7 +6,6 @@ var path = require('path');
 var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var jf = require('jsonfile');
-var cors = require('cors');
 
 // setup webserver port
 var port = process.env.PORT || 3000;
@@ -22,29 +21,16 @@ var defaultItem = {
 var allItems = [];
 
 // serve static files
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/../build'));
 // return index.html when requesting /
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/build/index.html');
+  res.sendfile(__dirname + '/../build/index.html');
 });
 // serve video folder
 app.use('/data', express.static(dataFolder));
 
 // serve items.json
-
-/// FIX CORS BEFORE GOING INTO PRODUCTION
-// var whitelist = ['http://localhost:3000/']
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
-// app.use('/items.json', cors(corsOptions), (req, res) => {
-app.use('/items.json', cors(), (req, res) => {
+app.use('/items.json', (req, res) => {
   var json = JSON.stringify(allItems);
   console.log('item.json request handler was called.');
   res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });

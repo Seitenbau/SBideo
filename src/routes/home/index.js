@@ -20,7 +20,7 @@ export default class Home extends Component {
     videoId: PropTypes.number
   };
 
-  itemsEndpoint = 'http://localhost:3000/items.json';
+  itemsEndpoint = '/items.json';
 
   setSearchResultExist(results) {
     this.setState({ searchResults: results });
