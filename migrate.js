@@ -99,7 +99,7 @@ var walkSync = function(dir) {
                 fs.writeFileSync(newPathMeta, JSON.stringify(metaJson, null, 4), {}, function (){});
               
                 // copy the video files if argument is set; otherwise just create a empty video file
-                if (argv.copy) {
+                if (argv.hot) {
                     console.log('...copy video file');
                     fs.copyFileSync(dir + '/' + file, newPathVideo);
                 } else {
