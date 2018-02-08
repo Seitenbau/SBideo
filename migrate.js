@@ -3,12 +3,14 @@ var path = require('path');
 var xml2js = require('xml2js');
 var detectCharacterEncoding = require('detect-character-encoding');
 var Iconv = require('iconv').Iconv;
+var bytes = require('bytes');
 var shortid = require('shortid');
 
 var argv = require('minimist')(process.argv.slice(2));
 var oldDataFolder = argv._[0];
 var newDataFolder = argv._[1];
 var count = 1;
+var totalVideoFileSize = 0;
 
 var ensureDirectoryExistence = function(filePath) {
     var dirname = path.dirname(filePath);
@@ -93,10 +95,19 @@ var walkSync = function(dir) {
                 var newPathMeta = newPath + 'meta.json';
                 var newPathVideo = newPath + 'video.mp4';
 
-                console.log(newPath);
                 ensureDirectoryExistence(newPathMeta);
-                fs.writeFile(newPathMeta, JSON.stringify(metaJson, null, 4), {}, function (){});
-                fs.writeFile(newPathVideo, '...videodata...', {}, function (){});
+                fs.writeFileSync(newPathMeta, JSON.stringify(metaJson, null, 4), {}, function (){});
+              
+                // copy the video files if argument is set; otherwise just create a empty video file
+                if (argv.copy) {
+                    console.log('...copy video file');
+                    fs.copyFileSync(dir + '/' + file, newPathVideo);
+                } else {
+                    fs.writeFileSync(newPathVideo, 'sample', {}, function (){});
+                }
+                
+                // log video file size
+                totalVideoFileSize += fs.statSync(dir + '/' + file).size;
 
                 //console.dir(metaJson);
                 console.log('...migration successful');
@@ -106,3 +117,4 @@ var walkSync = function(dir) {
 };
 
 walkSync(oldDataFolder);
+console.log(`Finished. Total video size: ${bytes(totalVideoFileSize)}`);

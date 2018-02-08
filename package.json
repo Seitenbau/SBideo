@@ -10,6 +10,7 @@
     "url": "git://github.com/Seitenbau/SBideo"
   },
   "dependencies": {
+    "bytes": "^3.0.0",
     "detect-character-encoding": "^0.5.1",
     "iconv": "^2.3.0",
     "minimist": "^1.2.0",

@@ -10,8 +10,14 @@ npm install
 ```
 
 ## Basic usage
-To start the migration, run
+To test the migration without copying video files, run
 
 ```sh
 node migrate.js /oldDataPath /newDataPath
+```
+
+To actually run the migration including copying video files, run
+
+```sh
+node migrate.js /oldDataPath /newDataPath --copy
 ```
