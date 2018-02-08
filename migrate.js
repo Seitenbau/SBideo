@@ -3,6 +3,7 @@ var path = require('path');
 var xml2js = require('xml2js');
 var detectCharacterEncoding = require('detect-character-encoding');
 var Iconv = require('iconv').Iconv;
+var shortid = require('shortid');
 
 var argv = require('minimist')(process.argv.slice(2));
 var oldDataFolder = argv._[0];
@@ -56,6 +57,7 @@ var walkSync = function(dir) {
                 }
 
                 var newVideoName = cleanTitle(videoName, dir);
+                var id = shortid.generate();
 
                 var metaJson;
                 if (metaXmlFile) {
@@ -67,6 +69,7 @@ var walkSync = function(dir) {
 
                     new xml2js.Parser({ trim: true }).parseString(fileBuffer, function (err, metaXml) {
                         metaJson = {
+                            id: id,
                             title: cleanTitle(metaXml.meta.title[0], dir),
                             description: metaXml.meta.description[0],
                             tags: metaXml.meta.tags ? metaXml.meta.tags[0].tag : [],
@@ -77,6 +80,7 @@ var walkSync = function(dir) {
                     console.log('...no meta file found; convert file name', videoName);
                     console.log('...new name', newVideoName);
                     metaJson = {
+                        id: id,
                         title: newVideoName,
                         description: '',
                         tags: [],

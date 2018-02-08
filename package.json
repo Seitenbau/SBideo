@@ -13,6 +13,7 @@
     "detect-character-encoding": "^0.5.1",
     "iconv": "^2.3.0",
     "minimist": "^1.2.0",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "shortid": "^2.2.8"
   }
 }
