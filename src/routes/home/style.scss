@@ -1,0 +1,25 @@
+@import 'src/style/variables';
+
+.home {
+  padding: 20px;
+  min-height: 200%;
+  width: 100%;
+}
+
+.home > ul {
+  font-size: 2rem;
+  margin-bottom: $marginNormal;
+}
+
+/* Initiate grid on desktop aspect ratios */
+@media (min-aspect-ratio: 1/1) {
+  .home > ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .home > ul > li {
+    flex-basis: 23%;
+  }
+}
