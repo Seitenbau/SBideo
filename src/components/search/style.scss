@@ -1,0 +1,16 @@
+@import 'src/style/variables';
+
+.searchBar {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  text-align: center;
+  margin-bottom: $marginNormal;
+}
+
+.searchField {
+  width: 50%;
+  height: 3rem;
+  text-align: center;
+  margin: auto;
+  font-size: 1rem;
+}

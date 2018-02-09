@@ -1,0 +1,7 @@
+@import 'src/style/variables';
+
+.wrapper {
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: $marginNormal;
+}

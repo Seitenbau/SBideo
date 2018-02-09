@@ -1,0 +1,51 @@
+.videoLink {
+  display: inline;
+}
+
+/*
+Tooltip styles
+*/
+.popper {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 30vmin;
+  height: auto;
+  background-color: #fff;
+}
+
+.popper[data-placement^='right'] {
+  margin-left: 11px;
+}
+
+.popper .popperarrow {
+  border-color: #fff;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+}
+
+.popper[data-placement^='right'] .popperarrow {
+  border-width: 10px 10px 10px 0;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  left: -10px;
+  top: calc(50% - 10px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.popper[data-placement^='left'] {
+  margin-right: 10px;
+}
+.popper[data-placement^='left'] .popperarrow {
+  border-width: 10px 0 10px 10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  right: -10px;
+  top: calc(50% - 10px);
+  margin-left: 0;
+  margin-right: 0;
+}
