@@ -26,6 +26,9 @@ app.use(express.static(__dirname + '/../build'));
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/../build/index.html');
 });
+
+app.use('/octicons', express.static(__dirname + '/../node_modules/octicons'));
+
 // serve video folder
 app.use('/data', express.static(dataFolder));
 

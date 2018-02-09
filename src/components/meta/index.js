@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
-import { PersonIcon } from 'react-octicons';
 import PropTypes from 'prop-types';
 
 export default class MetaContainer extends Component {
@@ -14,7 +13,13 @@ export default class MetaContainer extends Component {
       <div className={style.meta}>
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
-          <PersonIcon className={style.icon} />
+          <img
+            className={style.icon}
+            src="/octicons/build/svg/person.svg"
+            alt="person"
+            role="presentation"
+          />
+
           {meta.people.join(', ')}
         </div>
         <div className={style.tags}>
