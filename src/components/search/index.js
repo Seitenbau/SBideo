@@ -41,6 +41,10 @@ export default class Search extends Component {
     }
   }
 
+  componentDidMount() {
+    this.searchInput.focus();
+  }
+
   shouldComponentUpdate(nextProps) {
     if (this.props.data !== nextProps.data) {
       return true;
@@ -91,6 +95,7 @@ export default class Search extends Component {
       setTimeout(() => {
         const event = new Event('input');
         this.searchInput.dispatchEvent(event);
+        this.searchInput.focus();
       }, 1);
     }
   }

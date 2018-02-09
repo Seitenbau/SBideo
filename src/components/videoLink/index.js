@@ -25,7 +25,7 @@ export default class VideoLink extends Component {
       } else {
         this.setState({ showTooltip: true });
       }
-    }, 50);
+    }, 100);
   }
 
   toggleTooltip() {
