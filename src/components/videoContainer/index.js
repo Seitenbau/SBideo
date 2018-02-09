@@ -24,13 +24,7 @@ export default class VideoContainer extends Component {
     return result;
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.activeVideoId !== nextProps.activeVideoId;
-  }
-
   render(props) {
-    console.log('videoContainer props', props);
-
     const video =
       props.activeVideoId && props.activeVideoId.length > 0
         ? this.getVideoById(props.data, props.activeVideoId)
