@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import VideoLink from '../videoLink';
+import style from './style.css';
 
 export default class Folder extends Component {
   render(props) {
@@ -22,10 +23,8 @@ export default class Folder extends Component {
       return <VideoLink meta={data.meta} />;
     } else {
       return (
-        <li className="videoparent">
-          <span className="videoparent-title">
-            {data.meta && data.meta.title}
-          </span>
+        <li className={style.parent}>
+          <span className={style.title}>{data.meta && data.meta.title}</span>
           {data.items && <Folder data={data.items} />}
         </li>
       );

@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import style from './style.css';
 
 export default class MetaContainer extends Component {
   render(props) {
@@ -6,7 +7,7 @@ export default class MetaContainer extends Component {
 
     if (props.meta) {
       return (
-        <div className="activeVideoMeta">
+        <div className={style.metaContainer}>
           <h1>{props.meta.title}</h1>
           <div className="people">
             <img
@@ -29,7 +30,7 @@ export default class MetaContainer extends Component {
       );
     } else {
       return (
-        <div className="activeVideoMeta">
+        <div className={style.metaContainer}>
           <h1>Welcome to SBideo!</h1>
           <p>Just search and select a video below.</p>
         </div>

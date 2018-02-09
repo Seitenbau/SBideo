@@ -3,3 +3,78 @@
   min-height: 100%;
   width: 100%;
 }
+
+.home > ul {
+  font-size: 2rem;
+}
+
+/* Initiate grid on desktop aspect ratios */
+@media (min-aspect-ratio: 1/1) {
+  .home,
+  .home > ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .home > ul > li {
+    flex-basis: 23%;
+  }
+}
+
+ul,
+ol {
+  list-style-type: none;
+}
+
+/*
+Tooltip styles
+*/
+.popper {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 30vmin;
+  height: auto;
+  background-color: #fff;
+}
+
+.popper[x-placement^='right'] {
+  margin-left: 11px;
+}
+
+.popper-arrow {
+  border-color: #fff;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 5px;
+}
+
+.popper[x-placement^='right'] .popper-arrow {
+  border-width: 10px 10px 10px 0;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  left: -10px;
+  top: calc(50% - 10px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.popper[x-placement^='left'] {
+  margin-right: 10px;
+}
+.popper[x-placement^='left'] .popper-arrow {
+  border-width: 10px 0 10px 10px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  right: -10px;
+  top: calc(50% - 10px);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.popper-inner {
+  padding: 15px;
+  height: auto;
+}

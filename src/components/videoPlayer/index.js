@@ -1,11 +1,12 @@
 import { h, Component } from 'preact';
+import style from './style.css';
 
 export default class VideoPlayer extends Component {
   render(props) {
-    console.log('videoPlayer', props);
     return (
-      <div className="video-container">
+      <div className={style.videoPlayer}>
         <video
+          className={style.video}
           controls
           autoPlay
           poster="/assets/FuBK_testcard_vectorized.svg"

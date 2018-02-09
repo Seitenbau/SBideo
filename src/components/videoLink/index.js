@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
+import style from './style.css';
+import { PersonIcon } from 'react-octicons';
 
 export default class VideoLink extends Component {
   render(props) {
@@ -14,25 +16,24 @@ export default class VideoLink extends Component {
         >
           {meta.title}
         </Link>
-        <div className="meta">
-          <div className="people">
-            <img
-              className="icon"
-              src="/octicons/build/svg/person.svg"
-              alt="person"
-              role="presentation"
-            />
+        <div className={style.meta}>
+          <div className={style.people}>
+            <PersonIcon className={style.icon} />
             {meta.people.join(', ')}
           </div>
-          <div className="tags">
+          <div className={style.tags}>
             {meta.tags.map((tag, i) => (
-              <a key={`tag${i}`} href={encodeURIComponent(tag)} className="tag">
+              <a
+                key={`tag${i}`}
+                href={encodeURIComponent(tag)}
+                className={style.tag}
+              >
                 {tag}
               </a>
             ))}
           </div>
+          <div className="description">{meta.description}</div>
         </div>
-        <div className="description">{meta.description}</div>
       </li>
     );
   }

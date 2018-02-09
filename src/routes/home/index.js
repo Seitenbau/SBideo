@@ -47,6 +47,7 @@ export default class Home extends Component {
         <Search data={state.data} getResult={this.setSearchResultExist} />
         <Folder
           data={state.searchResults.length ? state.searchResults : state.data}
+          className={style.itemList}
         />
       </div>
     );

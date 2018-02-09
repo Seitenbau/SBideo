@@ -67,6 +67,7 @@
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.7",
     "prop-types": "^15.6.0",
+    "react-octicons": "^0.2.0",
     "shortid": "^2.2.8"
   },
   "jest": {

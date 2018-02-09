@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import VideoPlayer from '../../components/videoPlayer';
 import MetaContainer from '../../components/metaContainer';
 import PropTypes from 'prop-types';
+import style from './style.css';
 
 export default class VideoContainer extends Component {
   propTypes = {
@@ -36,7 +37,7 @@ export default class VideoContainer extends Component {
         : null;
 
     return (
-      <div className="video-grid-wrapper">
+      <div className={style.wrapper}>
         <VideoPlayer src={video ? video.src : null} />
         <MetaContainer meta={video ? video.meta : null} />
       </div>
