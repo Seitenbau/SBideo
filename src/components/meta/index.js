@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
 import PropTypes from 'prop-types';
+import { Link } from 'preact-router/match';
 
 export default class MetaContainer extends Component {
   propTypes = {
@@ -20,17 +21,24 @@ export default class MetaContainer extends Component {
             role="presentation"
           />
 
-          {meta.people.join(', ')}
+          {meta.people.map((person, j) => (
+            <Link
+              href={`/search/${encodeURIComponent(person)}`}
+              key={`person${j}`}
+            >
+              {person}
+            </Link>
+          ))}
         </div>
         <div className={style.tags}>
           {meta.tags.map((tag, i) => (
-            <a
+            <Link
               key={`tag${i}`}
-              href={encodeURIComponent(tag)}
+              href={`/search/${encodeURIComponent(tag)}`}
               className={style.tag}
             >
               {tag}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="description">{meta.description}</div>

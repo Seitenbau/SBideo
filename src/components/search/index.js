@@ -33,14 +33,21 @@ export default class Search extends Component {
   searchEngine;
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.data === nextProps.data) {
-      return;
+    if (this.props.data !== nextProps.data) {
+      this.createSearchIndex(nextProps);
     }
-    this.createSearchIndex(nextProps);
+    if (this.props.term !== nextProps.term) {
+      this.initFirstSearch(nextProps);
+    }
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.data !== nextProps.data;
+    if (this.props.data !== nextProps.data) {
+      return true;
+    }
+    if (this.props.term !== nextProps.term) {
+      return true;
+    }
   }
 
   walkData(item) {
@@ -61,10 +68,6 @@ export default class Search extends Component {
   }
 
   createSearchIndex(nextProps) {
-    if (!nextProps.data) {
-      return;
-    }
-
     nextProps.data.map(item => this.walkData(item));
 
     const searchOptions = {
@@ -83,16 +86,18 @@ export default class Search extends Component {
    * @param {object} nextProps
    */
   initFirstSearch(nextProps) {
-    if (nextProps.term && nextProps.isActive) {
+    if (this.searchInput && nextProps.term && nextProps.isActive) {
       this.setState({ searchTerm: nextProps.term });
       setTimeout(() => {
         const event = new Event('input');
         this.searchInput.dispatchEvent(event);
-      }, 0);
+      }, 1);
     }
   }
 
   search(event) {
+    this.setState({ searchTerm: event.target.value });
+
     const resultIds = this.searchEngine.search(event.target.value);
 
     const copy = o => ({ ...o });
