@@ -87,7 +87,7 @@ export default class Search extends Component {
       <form className={style.searchBar} role="search">
         <input
           type="text"
-          autoComplete="false"
+          autoComplete="off"
           placeholder="Search"
           id="searchField"
           onInput={this.search}
