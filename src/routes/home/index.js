@@ -55,6 +55,7 @@ export default class Home extends Component {
         />
         <Folder
           data={state.searchResults.length ? state.searchResults : state.data}
+          activeVideoId={this.props.videoId}
         />
       </div>
     );

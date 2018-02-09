@@ -41,7 +41,7 @@ export default class VideoLink extends Component {
   }
 
   render(props, state) {
-    const { meta } = props;
+    const { meta, activeVideoId } = props;
     return (
       <li className="video">
         <Manager>
@@ -50,7 +50,9 @@ export default class VideoLink extends Component {
               onMouseOver={this.toggleTooltip}
               onMouseLeave={this.toggleTooltip}
               href={`/${meta.id}/${encodeURIComponent(meta.title)}`}
-              activeClassName="active"
+              activeClassName={
+                activeVideoId === meta.id ? style.active : style.inactive
+              }
             >
               {meta.title}
             </Link>
