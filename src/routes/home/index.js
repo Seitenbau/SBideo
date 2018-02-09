@@ -17,7 +17,8 @@ export default class Home extends Component {
   };
 
   propTypes = {
-    videoId: PropTypes.number
+    id: PropTypes.number,
+    term: PropTypes.string
   };
 
   itemsEndpoint = '/items.json';
@@ -45,17 +46,19 @@ export default class Home extends Component {
       <div className={style.home}>
         <VideoContainer
           data={state.data}
-          activeVideoId={this.props.videoId}
+          activeVideoId={this.props.id}
           className={style.layoutElement}
         />
         <Search
           data={state.data}
           getResult={this.setSearchResultExist}
           className={style.layoutElement}
+          isActive={this.props.id === 'search'}
+          term={this.props.id === 'search' ? this.props.term : ''}
         />
         <Folder
           data={state.searchResults.length ? state.searchResults : state.data}
-          activeVideoId={this.props.videoId}
+          activeVideoId={this.props.id}
         />
       </div>
     );

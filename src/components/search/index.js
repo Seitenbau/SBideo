@@ -11,20 +11,36 @@ export default class Search extends Component {
 
   state = {
     searchIndex: [],
-    results: []
+    results: [],
+    searchTerm: ''
   };
 
   propTypes = {
     data: PropTypes.array,
-    getResult: PropTypes.func
+    getResult: PropTypes.func,
+    term: PropTypes.string,
+    isActive: PropTypes.bool
   };
 
+  /**
+   * Ref to the input element
+   */
+  searchInput;
+
+  /**
+   * Instance of the search engine
+   */
   searchEngine;
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.data !== nextProps.data) {
-      this.createSearchIndex(nextProps);
+    if (this.props.data === nextProps.data) {
+      return;
     }
+    this.createSearchIndex(nextProps);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.data !== nextProps.data;
   }
 
   walkData(item) {
@@ -45,25 +61,41 @@ export default class Search extends Component {
   }
 
   createSearchIndex(nextProps) {
-    if (nextProps.data) {
-      nextProps.data.map(item => this.walkData(item));
+    if (!nextProps.data) {
+      return;
+    }
 
-      const searchOptions = {
-        keys: ['title', 'description', 'tags', 'people', 'src'],
-        threshold: 0.2,
-        tokenize: true,
-        id: 'id'
-      };
-      this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
+    nextProps.data.map(item => this.walkData(item));
+
+    const searchOptions = {
+      keys: ['title', 'description', 'tags', 'people', 'src'],
+      threshold: 0.2,
+      tokenize: true,
+      id: 'id'
+    };
+    this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
+
+    this.initFirstSearch(nextProps);
+  }
+
+  /**
+   * First search when route is loaded
+   * @param {object} nextProps
+   */
+  initFirstSearch(nextProps) {
+    if (nextProps.term && nextProps.isActive) {
+      this.setState({ searchTerm: nextProps.term });
+      setTimeout(() => {
+        const event = new Event('input');
+        this.searchInput.dispatchEvent(event);
+      }, 0);
     }
   }
 
   search(event) {
     const resultIds = this.searchEngine.search(event.target.value);
 
-    function copy(o) {
-      return Object.assign({}, o);
-    }
+    const copy = o => ({ ...o });
 
     const results = this.props.data.map(copy).filter(function f(o) {
       if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) {
@@ -82,16 +114,17 @@ export default class Search extends Component {
     this.setState({ results: results });
   }
 
-  render() {
+  render(props, state) {
     return (
       <form className={style.searchBar} role="search">
         <input
+          ref={input => (this.searchInput = input)}
           type="text"
           autoComplete="off"
           placeholder="Search"
-          id="searchField"
           onInput={this.search}
           className={style.searchField}
+          value={state.searchTerm}
         />
       </form>
     );

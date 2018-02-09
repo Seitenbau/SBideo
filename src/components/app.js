@@ -22,7 +22,7 @@ export default class App extends Component {
     return (
       <div id="app">
         <Router onChange={this.handleRoute}>
-          <Home path="/:videoId?/:videoTitle?/:mode?" />
+          <Home path="/:id?/:term?/:mode?" />
         </Router>
       </div>
     );
