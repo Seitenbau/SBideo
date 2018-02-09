@@ -1,0 +1,46 @@
+@import 'src/style/variables';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Helvetica Neue', arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #222;
+  background-color: #f2f5f6;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: 140%;
+}
+
+a {
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid #0f0;
+}
+
+a:hover,
+a:focus {
+  border-color: transparent;
+  color: #0f0;
+  background-color: #002d47;
+}
+
+#app {
+  height: 100%;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  list-style-type: none;
+}

@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style.scss';
-import { PersonIcon } from 'react-octicons';
 import { Manager, Target, Popper, Arrow } from 'react-popper';
+import Meta from '../../components/meta';
 
 export default class VideoLink extends Component {
   constructor(props) {
@@ -56,29 +56,13 @@ export default class VideoLink extends Component {
             </Link>
           </Target>
           {state.showTooltip && (
-            <Popper placement="right" className={style.popper}>
-              <div
-                className={style.meta}
-                onMouseEnter={this.togglePopperHoverState}
-                onMouseLeave={this.togglePopperHoverState}
-              >
-                <div className={style.people}>
-                  <PersonIcon className={style.icon} />
-                  {meta.people.join(', ')}
-                </div>
-                <div className={style.tags}>
-                  {meta.tags.map((tag, i) => (
-                    <a
-                      key={`tag${i}`}
-                      href={encodeURIComponent(tag)}
-                      className={style.tag}
-                    >
-                      {tag}
-                    </a>
-                  ))}
-                </div>
-                <div className="description">{meta.description}</div>
-              </div>
+            <Popper
+              placement="right"
+              className={style.popper}
+              onMouseEnter={this.togglePopperHoverState}
+              onMouseLeave={this.togglePopperHoverState}
+            >
+              <Meta meta={meta} />
               <Arrow className={style.popperarrow} />
             </Popper>
           )}
