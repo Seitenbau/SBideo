@@ -4,6 +4,10 @@ import style from './style.scss';
 import { Manager, Target, Popper, Arrow } from 'react-popper';
 import Meta from '../../components/meta';
 
+// needed to make popper work
+// eslint-disable-next-line no-unused-vars
+import PopperJS from 'popper.js';
+
 export default class VideoLink extends Component {
   constructor(props) {
     super(props);
