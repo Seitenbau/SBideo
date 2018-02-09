@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import * as fuse from 'fuse.js';
 import PropTypes from 'prop-types';
+import style from './style.scss';
 
 export default class Search extends Component {
   constructor(props, context) {
@@ -83,17 +84,16 @@ export default class Search extends Component {
 
   render() {
     return (
-      <div className="search">
-        <form className="searchBar" role="search">
-          <input
-            type="text"
-            autoComplete="false"
-            placeholder="Search"
-            id="searchField"
-            onInput={this.search}
-          />
-        </form>
-      </div>
+      <form className={style.searchBar} role="search">
+        <input
+          type="text"
+          autoComplete="false"
+          placeholder="Search"
+          id="searchField"
+          onInput={this.search}
+          className={style.searchField}
+        />
+      </form>
     );
   }
 }

@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import VideoLink from '../videoLink';
-import style from './style.css';
+import style from './style.scss';
 
 export default class Folder extends Component {
   render(props) {

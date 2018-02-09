@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import style from './style';
+import style from './style.scss';
 import Folder from '../../components/folder';
 import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
@@ -43,11 +43,18 @@ export default class Home extends Component {
   render(props, state) {
     return (
       <div className={style.home}>
-        <VideoContainer data={state.data} activeVideoId={this.props.videoId} />
-        <Search data={state.data} getResult={this.setSearchResultExist} />
+        <VideoContainer
+          data={state.data}
+          activeVideoId={this.props.videoId}
+          className={style.layoutElement}
+        />
+        <Search
+          data={state.data}
+          getResult={this.setSearchResultExist}
+          className={style.layoutElement}
+        />
         <Folder
           data={state.searchResults.length ? state.searchResults : state.data}
-          className={style.itemList}
         />
       </div>
     );

@@ -40,7 +40,7 @@
   },
   "eslintIgnore": ["build/*"],
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --single-quote --write", "git add"]
+    "*.{js,json,css,scss,md}": ["prettier --single-quote --write", "git add"]
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
@@ -52,9 +52,11 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1",
     "lint-staged": "^6.1.0",
+    "node-sass": "^4.7.2",
     "preact-cli": "^2.1.0",
     "preact-render-spy": "^1.2.1",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "sass-loader": "^6.0.6"
   },
   "dependencies": {
     "chokidar": "^1.7.0",
@@ -64,10 +66,10 @@
     "jsonfile": "^4.0.0",
     "minimist": "^1.2.0",
     "preact": "^8.2.6",
-    "preact-compat": "^3.17.0",
     "preact-router": "^2.5.7",
     "prop-types": "^15.6.0",
     "react-octicons": "^0.2.0",
+    "react-popper": "^0.8.2",
     "shortid": "^2.2.8"
   },
   "jest": {

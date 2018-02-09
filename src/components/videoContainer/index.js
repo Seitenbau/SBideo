@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import VideoPlayer from '../../components/videoPlayer';
 import MetaContainer from '../../components/metaContainer';
 import PropTypes from 'prop-types';
-import style from './style.css';
+import style from './style.scss';
 
 export default class VideoContainer extends Component {
   propTypes = {
