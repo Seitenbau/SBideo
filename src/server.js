@@ -19,6 +19,7 @@ var defaultItem = {
 };
 
 var allItems = [];
+var allItemsJson = {};
 
 // serve static files
 app.use(express.static(path.resolve(__dirname + '/../build')));
@@ -32,10 +33,8 @@ app.use('/data', express.static(dataFolder));
 
 // serve items.json
 app.use('/items.json', (req, res) => {
-  var json = JSON.stringify(allItems);
-  console.log('item.json request handler was called.');
   res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-  res.end(json);
+  res.end(allItemsJson);
 });
 
 // catch all unmatched, this needs to come last
@@ -151,6 +150,7 @@ var walkSync = function(dir) {
 var reindexItems = function() {
   allItems = [];
   walkSync(dataFolder);
+  allItemsJson = JSON.stringify(allItems);
   console.log('reindexed files...');
 
   //TODO throttle reindex
