@@ -56,7 +56,7 @@ export default class VideoLink extends Component {
             </Link>
           </Target>
           {state.showTooltip && (
-            <Popper
+            <TopPopper
               placement="right"
               className={style.popper}
               onMouseEnter={this.togglePopperHoverState}
@@ -64,10 +64,19 @@ export default class VideoLink extends Component {
             >
               <Meta meta={meta} />
               <Arrow className={style.popperarrow} />
-            </Popper>
+            </TopPopper>
           )}
         </Manager>
       </li>
     );
+  }
+}
+
+// extending Popper so every new popper will have a higher zIndex
+class TopPopper extends Popper {
+  componentWillMount() {
+    this.props.style = {
+      zIndex: Date.now()
+    };
   }
 }
