@@ -11,7 +11,7 @@ export default class VideoPlayer extends Component {
             controls
             autoPlay
             poster="/assets/FuBK_testcard_vectorized.svg"
-            src={props.src ? 'http://localhost:3000' + props.src : ''} // TODO fix host
+            src={props.src ? props.src : ''}
           />
         </div>
       </div>

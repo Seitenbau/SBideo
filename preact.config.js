@@ -8,6 +8,10 @@ export default config => {
       {
         path: '/octicons/**',
         target: 'http://localhost:3000'
+      },
+      {
+        path: '/data/**',
+        target: 'http://localhost:3000'
       }
     ];
   }
