@@ -9,6 +9,7 @@
 .searchForm > span {
   display: flex;
   width: 50%;
+  position: relative;
 }
 
 .searchField {
@@ -21,6 +22,12 @@
 
 .resetButton {
   background-color: transparent;
+  position: absolute;
+  height: calc(100% - 2px);
+  top: 1px;
+  right: 0;
+  border: 0;
+  padding: 0 15px;
 }
 
 .resetIcon {
