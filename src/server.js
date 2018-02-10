@@ -1,28 +1,28 @@
-var chokidar = require('chokidar');
-var compression = require('compression');
-var express = require('express');
-var app = express().use(compression());
-var server = require('http').createServer(app);
-var path = require('path');
-var fs = require('fs');
-var argv = require('minimist')(process.argv.slice(2));
-var jf = require('jsonfile');
-var speakingurl = require('speakingurl');
-var debounce = require('lodash.debounce');
+const chokidar = require('chokidar');
+const compression = require('compression');
+const express = require('express');
+const app = express().use(compression());
+const server = require('http').createServer(app);
+const path = require('path');
+const fs = require('fs');
+const argv = require('minimist')(process.argv.slice(2));
+const jf = require('jsonfile');
+const speakingurl = require('speakingurl');
+const debounce = require('lodash.debounce');
 
 // setup webserver port
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 server.listen(port);
 
-var dataFolder = argv._[0];
+const dataFolder = argv._[0];
 
-var defaultItem = {
+const defaultItem = {
   meta: {},
   items: []
 };
 
-var allItems = [];
-var allItemsJson = {};
+let allItems = [];
+let allItemsJson = {};
 
 // serve static files
 app.use(express.static(path.resolve(__dirname + '/../build')));
@@ -45,21 +45,17 @@ app.use('*', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/../build/index.html'));
 });
 
-var getCategoryByPath = function(filePath) {
-  var category = path.dirname(filePath).split(path.sep);
+const getCategoryByPath = function(filePath) {
+  const category = path.dirname(filePath).split(path.sep);
   //console.log('Category by path', filePath, category);
   return category;
 };
 
-var getItem = function(items, name) {
-  for (var i = 0; i < items.length; i++) {
-    if (items[i].name === name) {
-      return items[i];
-    }
-  }
+const getItem = function(items, name) {
+  return items.find(item => item.name === name);
 };
 
-var createItem = function(item, name) {
+const createItem = function(item, name) {
   item.name = name;
   if (!item.meta) {
     item.meta = {};
@@ -77,28 +73,28 @@ var createItem = function(item, name) {
   return item;
 };
 
-var addItemRecursive = function(items, category, meta) {
-  var curCategory = category[0];
+const addItemRecursive = function(items, category, meta) {
+  const curCategory = category[0];
   if (category.length == 1) {
     items.push(createItem(meta, curCategory));
   } else if (category.length > 1) {
-    var item = getItem(items, curCategory);
+    let item = getItem(items, curCategory);
     if (!item) {
       item = createItem(JSON.parse(JSON.stringify(defaultItem)), curCategory);
       items.push(item);
     }
-    var subCategory = category;
+    const subCategory = category;
     subCategory.shift();
     addItemRecursive(item.items, subCategory, meta);
   }
 
   // sort items by title
   items.sort(function(a, b) {
-    var titleA = a.meta.title.toUpperCase();
-    var titleB = b.meta.title.toUpperCase();
+    const titleA = a.meta.title.toUpperCase();
+    const titleB = b.meta.title.toUpperCase();
 
     // switch sort order when a date is detected, so new videos/events appear first
-    var dateRegexp = /.*\d{4}.*/;
+    const dateRegexp = /.*\d{4}.*/;
     if (titleA.match(dateRegexp) && titleB.match(dateRegexp)) {
       if (titleA < titleB) {
         return 1;
@@ -121,29 +117,28 @@ var addItemRecursive = function(items, category, meta) {
 };
 
 // fetch all video files from file system
-var walkSync = function(dir) {
+const walkSync = function(dir) {
   try {
     fs.readdirSync(dir).forEach(function(file) {
-      var filePath = dir + '/' + file;
+      const filePath = dir + '/' + file;
       if (fs.statSync(filePath).isDirectory()) {
         walkSync(filePath);
       } else {
-        var relativeFilePath = path.relative(dataFolder, filePath);
-
         if (path.basename(file) === 'meta.json') {
           //console.log('read meta file: ' + relativeFilePath);
 
-          var item = {
+          const item = {
             type: 'folder',
             meta: jf.readFileSync(filePath)
           };
 
-          var videoFile = path.dirname(filePath) + '/video.mp4';
+          const videoFile = path.dirname(filePath) + '/video.mp4';
           if (fs.existsSync(videoFile)) {
             item.type = 'video';
             item.src = '/data/' + path.relative(dataFolder, videoFile);
           }
-          var category = getCategoryByPath(relativeFilePath);
+          const relativeFilePath = path.relative(dataFolder, filePath);
+          const category = getCategoryByPath(relativeFilePath);
           addItemRecursive(allItems, category, item);
         }
       }
@@ -153,7 +148,7 @@ var walkSync = function(dir) {
   }
 };
 
-var reindexItems = debounce(function() {
+const reindexItems = debounce(function() {
   console.log('reindexing files...');
   allItems = [];
   walkSync(dataFolder);
@@ -167,7 +162,7 @@ reindexItems();
 // init file watcher to reindex videos in case something changes
 chokidar
   .watch(dataFolder, {
-    ignored: /[/\\]\./,
+    ignored: /(^|[/\\])\../,
     persistent: true,
     ignoreInitial: true,
     usePolling: true, // set to true if files are on an network share
@@ -184,13 +179,13 @@ chokidar
       return;
     }
 
-    var relativeFilePath = path.relative(dataFolder, filePath);
+    const relativeFilePath = path.relative(dataFolder, filePath);
     console.log('new file: ' + relativeFilePath);
 
     reindexItems();
   })
   .on('unlink', function(filePath) {
-    var relativeFilePath = path.relative(dataFolder, filePath);
+    const relativeFilePath = path.relative(dataFolder, filePath);
     console.log('removed file: ' + relativeFilePath);
 
     reindexItems();
@@ -200,7 +195,7 @@ chokidar
       return;
     }
 
-    var relativeFilePath = path.relative(dataFolder, filePath);
+    const relativeFilePath = path.relative(dataFolder, filePath);
     console.log('changed file: ' + relativeFilePath);
 
     reindexItems();
