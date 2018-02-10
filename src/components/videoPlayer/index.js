@@ -6,13 +6,11 @@ export default class VideoPlayer extends Component {
     return (
       <div className={style.videoPlayer}>
         <div className={style.sizer}>
-          <video
-            className={style.video}
-            controls
-            autoPlay
-            poster="/assets/FuBK_testcard_vectorized.svg"
-            src={props.src ? props.src : ''}
-          />
+          {props.src ? (
+            <video className={style.video} controls autoPlay src={props.src} />
+          ) : (
+            <div className={style.poster} />
+          )}
         </div>
       </div>
     );
