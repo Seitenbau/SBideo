@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "sbideo-preact",
+  "name": "sbideo",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
