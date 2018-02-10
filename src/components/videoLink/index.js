@@ -8,34 +8,34 @@ export default class VideoLink extends Component {
   constructor(props) {
     super(props);
     this.togglePopperHoverState = this.togglePopperHoverState.bind(this);
-    this.toggleTooltip = this.toggleTooltip.bind(this);
+    this.toggleLinkHoverState = this.toggleLinkHoverState.bind(this);
   }
 
   state = {
-    tooltipHovered: false,
+    tooltipLinkHovered: false,
     popperHovered: false,
     showTooltip: false
   };
 
   showOrHideTooltip() {
     clearTimeout(this.timer);
+    this.setState({ showTooltip: true });
     this.timer = setTimeout(() => {
-      if (!this.state.tooltipHovered && !this.state.popperHovered) {
+      if (!this.state.tooltipLinkHovered && !this.state.popperHovered) {
         this.setState({ showTooltip: false });
-      } else {
-        this.setState({ showTooltip: true });
       }
-    }, 100);
+    }, 300);
   }
 
-  toggleTooltip() {
-    // Toggle state
-    const tooltipHovered = !this.state.tooltipHovered;
-    this.setState({ tooltipHovered: tooltipHovered }, this.showOrHideTooltip);
+  toggleLinkHoverState() {
+    const tooltipLinkHovered = !this.state.tooltipLinkHovered;
+    this.setState(
+      { tooltipLinkHovered: tooltipLinkHovered },
+      this.showOrHideTooltip
+    );
   }
 
   togglePopperHoverState() {
-    // Toggle state
     const popperHovered = !this.state.popperHovered;
     this.setState({ popperHovered: popperHovered }, this.showOrHideTooltip);
   }
@@ -47,8 +47,8 @@ export default class VideoLink extends Component {
         <Manager>
           <Target className={style.videoLink}>
             <Link
-              onMouseOver={this.toggleTooltip}
-              onMouseLeave={this.toggleTooltip}
+              onMouseOver={this.toggleLinkHoverState}
+              onMouseLeave={this.toggleLinkHoverState}
               href={`/${meta.id}/${meta.slug}`}
               activeClassName={style.active}
             >
