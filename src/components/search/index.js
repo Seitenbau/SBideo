@@ -91,11 +91,12 @@ export default class Search extends Component {
    */
   initFirstSearch(nextProps) {
     if (this.searchInput && nextProps.term && nextProps.isActive) {
-      this.setState({ searchTerm: nextProps.term });
+      this.setState({ searchTerm: nextProps.term }, () =>
+        this.searchInput.focus()
+      );
       setTimeout(() => {
         const event = new Event('input');
         this.searchInput.dispatchEvent(event);
-        this.searchInput.focus();
       }, 1);
     }
   }

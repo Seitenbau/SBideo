@@ -1,6 +1,8 @@
+@import 'src/style/variables';
+
 .videoLink {
   display: inline;
-  font-weight: regular;
+  padding-bottom: $marginSmall;
 }
 
 .active {
