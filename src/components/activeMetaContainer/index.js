@@ -4,7 +4,7 @@ import Meta from '../../components/meta';
 
 export default class ActiveMetaContainer extends Component {
   render(props) {
-    if (props.meta) {
+    if (Object.keys(props.meta).length > 0) {
       return (
         <div className={style.container}>
           <Meta meta={props.meta} showTitle="true" />

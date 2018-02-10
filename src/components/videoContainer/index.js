@@ -5,8 +5,14 @@ import PropTypes from 'prop-types';
 import style from './style.scss';
 
 export default class VideoContainer extends Component {
+  state = {
+    src: '',
+    meta: {}
+  };
+
   propTypes = {
-    activeVideoId: PropTypes.number
+    activeVideoId: PropTypes.number,
+    data: PropTypes.object
   };
 
   getVideoById(items, videoId) {
@@ -24,16 +30,28 @@ export default class VideoContainer extends Component {
     return result;
   }
 
-  render(props) {
+  componentWillReceiveProps(nextProps) {
+    const shouldScroll = this.props.activeVideoId !== nextProps.activeVideoId;
+    const { activeVideoId, data } = nextProps;
+
     const video =
-      props.activeVideoId && props.activeVideoId.length > 0
-        ? this.getVideoById(props.data, props.activeVideoId)
+      activeVideoId && activeVideoId.length > 0
+        ? this.getVideoById(data, activeVideoId)
         : null;
 
+    if (video) {
+      this.setState({ ...video });
+      if (shouldScroll) {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      }
+    }
+  }
+
+  render() {
     return (
       <div className={style.wrapper}>
-        <VideoPlayer src={video ? video.src : null} />
-        <ActiveMetaContainer meta={video ? video.meta : null} />
+        <VideoPlayer src={this.state.src} />
+        <ActiveMetaContainer meta={this.state.meta} />
       </div>
     );
   }
