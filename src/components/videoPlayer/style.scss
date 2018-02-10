@@ -1,7 +1,10 @@
 .videoPlayer {
+  flex-basis: 75%;
+}
+
+.sizer {
   position: relative;
   height: 0;
-  flex-basis: 75%;
   padding-bottom: 56.25%;
 }
 
