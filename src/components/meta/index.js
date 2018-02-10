@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import style from './style.scss';
 import PropTypes from 'prop-types';
 import { Link } from 'preact-router/match';
+import Octicon from '../../components/octicon';
 
 export default class MetaContainer extends Component {
   propTypes = {
@@ -14,12 +15,7 @@ export default class MetaContainer extends Component {
       <div className={style.meta}>
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
-          <img
-            className={style.icon}
-            src="/octicons/build/svg/person.svg"
-            alt="person"
-            role="presentation"
-          />
+          <Octicon name="person" className={style.icon} />
 
           {meta.people.map((person, j) => (
             <Link
