@@ -40,7 +40,7 @@ app.use('/items.json', (req, res) => {
 
 // catch all unmatched, this needs to come last
 app.use('*', (req, res) => {
-  res.sendfile(path.resolve(__dirname + '/../build/index.html'));
+  res.sendFile(path.resolve(__dirname + '/../build/index.html'));
 });
 
 var getCategoryByPath = function(filePath) {
