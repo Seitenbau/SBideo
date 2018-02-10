@@ -3,6 +3,7 @@ import * as fuse from 'fuse.js';
 import PropTypes from 'prop-types';
 import style from './style.scss';
 import Octicon from '../../components/octicon';
+import { route } from 'preact-router';
 
 export default class Search extends Component {
   constructor(props, context) {
@@ -142,9 +143,10 @@ export default class Search extends Component {
   }
 
   handleKeyDown(event) {
-    // prevent submit when pressing Enter
+    // prevent submit when pressing Enter & route to search URL
     if (event.keyCode === 13) {
       event.preventDefault();
+      route(`/search/${encodeURIComponent(event.target.value)}`);
     }
 
     // reset search when pressing ESC
