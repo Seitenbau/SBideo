@@ -8,6 +8,7 @@ var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var jf = require('jsonfile');
 var speakingurl = require('speakingurl');
+var debounce = require('lodash.debounce');
 
 // setup webserver port
 var port = process.env.PORT || 3000;
@@ -152,14 +153,13 @@ var walkSync = function(dir) {
   }
 };
 
-var reindexItems = function() {
+var reindexItems = debounce(function() {
+  console.log('reindexing files...');
   allItems = [];
   walkSync(dataFolder);
   allItemsJson = JSON.stringify(allItems);
-  console.log('reindexed files...');
-
-  //TODO throttle reindex
-};
+  console.log('...reindexing done');
+}, 1000); // debounced so a bunch of file system changes won't cause a bunch of reindexings
 
 // initially fetch all videos
 reindexItems();

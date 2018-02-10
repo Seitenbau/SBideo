@@ -65,6 +65,7 @@
     "express": "^4.16.2",
     "fuse.js": "^3.2.0",
     "jsonfile": "^4.0.0",
+    "lodash.debounce": "^4.0.8",
     "minimist": "^1.2.0",
     "octicons": "^7.1.0",
     "preact": "^8.2.6",
