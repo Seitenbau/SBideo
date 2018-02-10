@@ -61,6 +61,14 @@ export default class VideoLink extends Component {
               className={style.popper}
               onMouseEnter={this.togglePopperHoverState}
               onMouseLeave={this.togglePopperHoverState}
+              modifiers={{
+                flip: {
+                  behavior: ['right', 'left', 'bottom', 'top']
+                },
+                preventOverflow: {
+                  boundariesElement: 'viewport'
+                }
+              }}
             >
               <Meta meta={meta} />
               <Arrow className={style.popperarrow} />
