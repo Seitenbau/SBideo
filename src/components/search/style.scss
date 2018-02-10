@@ -1,16 +1,34 @@
 @import 'src/style/variables';
 
-.searchBar {
-  grid-column-start: 2;
-  grid-column-end: 4;
-  text-align: center;
+.searchForm {
   margin-bottom: $marginNormal;
+  display: flex;
+  justify-content: center;
+}
+
+.searchForm > span {
+  display: flex;
+  width: 50%;
 }
 
 .searchField {
-  width: 50%;
+  width: 100%;
   height: 3rem;
-  text-align: center;
   margin: auto;
   font-size: 1rem;
+  text-align: center;
+}
+
+.resetButton {
+  background-color: transparent;
+}
+
+.resetIcon {
+  display: block;
+}
+
+.resetIcon svg {
+  margin-right: 2px;
+  margin-top: 1px;
+  fill: #333;
 }

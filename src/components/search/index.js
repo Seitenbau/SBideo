@@ -2,11 +2,13 @@ import { h, Component } from 'preact';
 import * as fuse from 'fuse.js';
 import PropTypes from 'prop-types';
 import style from './style.scss';
+import Octicon from '../../components/octicon';
 
 export default class Search extends Component {
   constructor(props, context) {
     super(props, context);
     this.search = this.search.bind(this);
+    this.resetSearch = this.resetSearch.bind(this);
   }
 
   state = {
@@ -94,11 +96,21 @@ export default class Search extends Component {
       this.setState({ searchTerm: nextProps.term }, () =>
         this.searchInput.focus()
       );
-      setTimeout(() => {
-        const event = new Event('input');
-        this.searchInput.dispatchEvent(event);
-      }, 1);
+      this.triggerInputEvent();
     }
+  }
+
+  triggerInputEvent() {
+    setTimeout(() => {
+      const event = new Event('input');
+      this.searchInput.dispatchEvent(event);
+    }, 1);
+  }
+
+  resetSearch(event) {
+    event.preventDefault();
+    this.setState({ searchTerm: '' });
+    this.triggerInputEvent();
   }
 
   search(event) {
@@ -127,16 +139,23 @@ export default class Search extends Component {
 
   render(props, state) {
     return (
-      <form className={style.searchBar} role="search">
-        <input
-          ref={input => (this.searchInput = input)}
-          type="text"
-          autoComplete="off"
-          placeholder="Search"
-          onInput={this.search}
-          className={style.searchField}
-          value={state.searchTerm}
-        />
+      <form className={style.searchForm} role="search">
+        <span>
+          <input
+            ref={input => (this.searchInput = input)}
+            type="text"
+            autoComplete="off"
+            placeholder="Search"
+            onInput={this.search}
+            className={style.searchField}
+            value={state.searchTerm}
+          />
+          {this.state.searchTerm && (
+            <button onClick={this.resetSearch} className={style.resetButton}>
+              <Octicon name="x" className={style.resetIcon} />
+            </button>
+          )}
+        </span>
       </form>
     );
   }
