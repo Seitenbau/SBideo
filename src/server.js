@@ -21,13 +21,11 @@ var defaultItem = {
 var allItems = [];
 
 // serve static files
-app.use(express.static(__dirname + '/../build'));
-// return index.html when requesting /
-app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/../build/index.html');
-});
-
-app.use('/octicons', express.static(__dirname + '/../node_modules/octicons'));
+app.use(express.static(path.resolve(__dirname + '/../build')));
+app.use(
+  '/octicons',
+  express.static(path.resolve(__dirname + '/../node_modules/octicons'))
+);
 
 // serve video folder
 app.use('/data', express.static(dataFolder));
@@ -38,6 +36,11 @@ app.use('/items.json', (req, res) => {
   console.log('item.json request handler was called.');
   res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(json);
+});
+
+// catch all unmatched, this needs to come last
+app.use('*', (req, res) => {
+  res.sendfile(path.resolve(__dirname + '/../build/index.html'));
 });
 
 var getCategoryByPath = function(filePath) {
