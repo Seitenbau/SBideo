@@ -6835,10 +6835,6 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-octicons@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/react-octicons/-/react-octicons-0.2.0.tgz#50cfcc6a4d3a75c2f8acf116bcbdfdd7e0b01513"
-
 react-popper@^0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.2.tgz#092095ff13933211d3856d9f325511ec3a42f12c"

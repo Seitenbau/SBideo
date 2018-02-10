@@ -70,7 +70,6 @@
     "preact": "^8.2.6",
     "preact-router": "^2.5.7",
     "prop-types": "^15.6.0",
-    "react-octicons": "^0.2.0",
     "react-popper": "^0.8.2",
     "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0"
