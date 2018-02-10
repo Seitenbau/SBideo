@@ -12,7 +12,7 @@ let isTranscoding = false;
 
 chokidar
   .watch(incomingFolder, {
-    ignored: [/(^|[\/\\])\../, '**/empty', '**/*.encoded'],
+    ignored: [/(^|[/\\])\../, '**/empty', '**/*.encoded'],
     persistent: true,
     usePolling: true, // set to true if files are on an network share
     interval: 30000, // polling interval
