@@ -1,64 +1,64 @@
-var fs = require('fs');
-var path = require('path');
-var chokidar = require('chokidar'); //watcher
-var child_process = require('child_process');
-var argv = require('minimist')(process.argv.slice(2));
-var shortid = require('shortid');
+const fs = require('fs');
+const path = require('path');
+const chokidar = require('chokidar');
+const child_process = require('child_process');
+const argv = require('minimist')(process.argv.slice(2));
+const shortid = require('shortid');
 
-var fileArray = [];
-var isTranscoding = false;
-var incomingFolder = argv._[0];
-var dataFolder = argv._[1];
+const incomingFolder = argv._[0];
+const dataFolder = argv._[1];
+const fileArray = [];
+let isTranscoding = false;
 
-var watcher = chokidar.watch(incomingFolder, {
-  ignored: ['/[/\\]./', '**/empty', '**/*.encoded'],
-  persistent: true,
-  usePolling: true, // set to true if files are on an network share
-  interval: 30000, // polling interval
-  binaryInterval: 30000,
-  awaitWriteFinish: {
-    // wait until write operation of file is finished before firing events
-    stabilityThreshold: 15000,
-    pollInterval: 5000
-  }
-});
+chokidar
+  .watch(incomingFolder, {
+    ignored: [/(^|[\/\\])\../, '**/empty', '**/*.encoded'],
+    persistent: true,
+    usePolling: true, // set to true if files are on an network share
+    interval: 30000, // polling interval
+    binaryInterval: 30000,
+    awaitWriteFinish: {
+      // wait until write operation of file is finished before firing events
+      stabilityThreshold: 15000,
+      pollInterval: 5000
+    }
+  })
+  .on('add', function(filePath) {
+    fileArray.push(filePath);
+    console.log('New file found, added to queue:', filePath);
 
-watcher.on('add', function(filePath) {
-  fileArray.push(filePath);
-  console.log('New file found, added to queue:', filePath);
-
-  if (isTranscoding == false) {
-    transcodeAndMoveNextFile();
-  }
-});
+    if (!isTranscoding) {
+      transcodeAndMoveNextFile();
+    }
+  });
 
 function transcodeAndMoveNextFile() {
   isTranscoding = true;
 
   // get next file
-  var filePath = fileArray.shift();
+  const filePath = fileArray.shift();
   console.log('Start transcoding of file:', filePath);
 
-  var title = path.basename(filePath, path.extname(filePath));
-  var id = shortid.generate();
-  var outputPath = dataFolder + '/_new/' + title + '-' + id;
+  const title = path.basename(filePath, path.extname(filePath));
+  const id = shortid.generate();
+  const outputPath = dataFolder + '/_new/' + title + '-' + id;
 
   child_process.exec(
     `mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf "format=yuv420p, yadif" "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`,
     { maxBuffer: 1024 * 1024 },
     function(error, stdout, stderr) {
-      var metaJson = {
-        id: id,
-        title: title,
-        description: '',
-        tags: [],
-        people: []
-      };
-      var json = JSON.stringify(metaJson, null, 4);
-      fs.writeFile(outputPath + '/meta.json', json, function() {});
-
-      // output error
       if (error == null) {
+        // write meta.json
+        const metaJson = {
+          id: id,
+          title: title,
+          description: '',
+          tags: [],
+          people: []
+        };
+        const json = JSON.stringify(metaJson, null, 4);
+        fs.writeFile(outputPath + '/meta.json', json, function() {});
+
         console.log('finished transcoding of file:', filePath);
       } else {
         console.log('errors while transcoding:', error, stdout, stderr);
