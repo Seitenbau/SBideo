@@ -172,10 +172,11 @@ chokidar
     ignoreInitial: true,
     usePolling: true, // set to true if files are on an network share
     interval: 30000, // polling interval
+    binaryInterval: 30000,
     awaitWriteFinish: {
       // wait until write operation of file is finished before firing events
-      stabilityThreshold: 2000,
-      pollInterval: 100
+      stabilityThreshold: 15000,
+      pollInterval: 5000
     }
   })
   .on('add', function(filePath) {
