@@ -114,6 +114,7 @@ export default class Search extends Component {
     }
     this.setState({ searchTerm: '' });
     this.triggerInputEvent();
+    this.searchInput.focus();
   }
 
   search(event) {
@@ -141,6 +142,11 @@ export default class Search extends Component {
   }
 
   handleKeyDown(event) {
+    // prevent submit when pressing Enter
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+
     // reset search when pressing ESC
     if (event.keyCode === 27) {
       this.resetSearch();
