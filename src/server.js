@@ -6,6 +6,7 @@ var path = require('path');
 var fs = require('fs');
 var argv = require('minimist')(process.argv.slice(2));
 var jf = require('jsonfile');
+var speakingurl = require('speakingurl');
 
 // setup webserver port
 var port = process.env.PORT || 3000;
@@ -66,6 +67,9 @@ var createItem = function(item, name) {
   }
   if (!item.type) {
     item.type = 'folder';
+  }
+  if (item.type == 'video') {
+    item.meta.slug = speakingurl(item.meta.title);
   }
   item.items = [];
   return item;

@@ -72,7 +72,8 @@
     "prop-types": "^15.6.0",
     "react-popper": "^0.8.2",
     "shortid": "^2.2.8",
-    "smoothscroll-polyfill": "^0.4.0"
+    "smoothscroll-polyfill": "^0.4.0",
+    "speakingurl": "^14.0.1"
   },
   "jest": {
     "verbose": true,

@@ -49,7 +49,7 @@ export default class VideoLink extends Component {
             <Link
               onMouseOver={this.toggleTooltip}
               onMouseLeave={this.toggleTooltip}
-              href={`/${meta.id}/${encodeURIComponent(meta.title)}`}
+              href={`/${meta.id}/${meta.slug}`}
               activeClassName={style.active}
             >
               {meta.title}
