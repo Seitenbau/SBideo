@@ -6835,6 +6835,12 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-autolink@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-autolink/-/react-autolink-0.2.1.tgz#a487774b3d8cbed64208cfa827c0d94e287b7f8e"
+  dependencies:
+    object-assign "^2.0.0"
+
 react-popper@^0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.8.2.tgz#092095ff13933211d3856d9f325511ec3a42f12c"

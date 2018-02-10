@@ -3,6 +3,7 @@ import style from './style.scss';
 import PropTypes from 'prop-types';
 import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
+import ReactAutolink from 'react-autolink';
 
 export default class MetaContainer extends Component {
   propTypes = {
@@ -37,7 +38,9 @@ export default class MetaContainer extends Component {
             </Link>
           ))}
         </div>
-        <div className="description">{meta.description}</div>
+        <div className="description">
+          {ReactAutolink.autolink(meta.description)}
+        </div>
       </div>
     );
   }
