@@ -9,6 +9,7 @@ export default class Search extends Component {
     super(props, context);
     this.search = this.search.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   state = {
@@ -108,7 +109,9 @@ export default class Search extends Component {
   }
 
   resetSearch(event) {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({ searchTerm: '' });
     this.triggerInputEvent();
   }
@@ -137,6 +140,13 @@ export default class Search extends Component {
     this.setState({ results: results });
   }
 
+  handleKeyDown(event) {
+    // reset search when pressing ESC
+    if (event.keyCode === 27) {
+      this.resetSearch();
+    }
+  }
+
   render(props, state) {
     return (
       <form className={style.searchForm} role="search">
@@ -147,6 +157,7 @@ export default class Search extends Component {
             autoComplete="off"
             placeholder="Search"
             onInput={this.search}
+            onKeyDown={this.handleKeyDown}
             className={style.searchField}
             value={state.searchTerm}
           />
