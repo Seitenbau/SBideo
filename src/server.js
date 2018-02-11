@@ -150,7 +150,6 @@ const reindexItems = debounce(function() {
   console.log('reindexing files...');
   allItems = [];
   walkSync(dataFolder);
-  allItemsJson = JSON.stringify(allItems);
   console.log('...reindexing done');
 }, 1000); // debounced so a bunch of file system changes won't cause a bunch of reindexings
 
