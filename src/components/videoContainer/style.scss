@@ -1,15 +1,18 @@
 @import 'src/style/variables';
 
 .wrapper {
-  margin-bottom: $marginSmall;
+  margin-bottom: $marginNormal;
   text-align: center;
+}
+
+.videoPlayer {
+  margin-bottom: $marginSmall;
 }
 
 @media (min-aspect-ratio: 4/3) {
   .wrapper {
     display: flex;
     flex-basis: 100%;
-    margin-bottom: $marginNormal;
     text-align: left;
   }
   .videoPlayer {
