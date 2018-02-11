@@ -75,6 +75,10 @@ export default class VideoContainer extends Component {
         ? this.getVideoById(data, activeVideoId)
         : null;
 
+    this.setState({
+      people: [],
+      tags: []
+    });
     this.getListOfArrayKey('people', data);
     this.getListOfArrayKey('tags', data);
 
