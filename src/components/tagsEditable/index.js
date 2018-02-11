@@ -17,18 +17,32 @@ export default class TagsEditable extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    onChange: PropTypes.func,
+    tags: PropTypes.array
   };
 
   handleTagDelete(i) {
-    const tags = this.state.tags.slice(0);
+    const { state, props } = this;
+
+    const tags = state.tags.slice(0);
     tags.splice(i, 1);
     this.setState({ tags });
+
+    if (typeof props.onChange === 'function') {
+      props.onChange(state.tags.map(tag => tag.name));
+    }
   }
 
   handleTagAddition(tag) {
-    const tags = [].concat(this.state.tags, tag);
+    const { state, props } = this;
+
+    const tags = [].concat(state.tags, tag);
     this.setState({ tags });
+
+    if (typeof props.onChange === 'function') {
+      props.onChange(state.tags.map(tag => tag.name));
+    }
   }
 
   render(props) {
@@ -48,7 +62,7 @@ export default class TagsEditable extends Component {
       <ReactTags
         tags={this.state.tags}
         suggestions={props.suggestions}
-        allowNew={true}
+        allowNew
         autofocus={false}
         handleDelete={this.handleTagDelete}
         handleAddition={this.handleTagAddition}
