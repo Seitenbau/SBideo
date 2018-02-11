@@ -39,7 +39,6 @@ export default class MetaEditable extends Component {
 
   render(props) {
     const { meta, peopleSuggestions, tagSuggestions } = props;
-    console.log(peopleSuggestions);
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
