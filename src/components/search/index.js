@@ -64,7 +64,7 @@ export default class Search extends Component {
     }
 
     if (item.items && item.items.length > 0) {
-      return item.items.map(singleItem => this.walkData(singleItem));
+      item.items.map(singleItem => this.walkData(singleItem));
     }
 
     if (item.type === 'video' && item.meta) {

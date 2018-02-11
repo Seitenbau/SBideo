@@ -18,7 +18,8 @@ export default class Home extends Component {
 
   propTypes = {
     id: PropTypes.number,
-    term: PropTypes.string
+    term: PropTypes.string,
+    mode: PropTypes.bool
   };
 
   itemsEndpoint = '/items.json';

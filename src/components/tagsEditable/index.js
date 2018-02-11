@@ -17,7 +17,8 @@ export default class TagsEditable extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    tags: PropTypes.array
   };
 
   handleTagDelete(i) {
@@ -48,7 +49,7 @@ export default class TagsEditable extends Component {
       <ReactTags
         tags={this.state.tags}
         suggestions={props.suggestions}
-        allowNew={true}
+        allowNew
         autofocus={false}
         handleDelete={this.handleTagDelete}
         handleAddition={this.handleTagAddition}

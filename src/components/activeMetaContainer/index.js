@@ -8,7 +8,12 @@ export default class ActiveMetaContainer extends Component {
       return (
         <div className={props.className}>
           {props.editMode ? (
-            <MetaEditable meta={props.meta} showTitle="true" />
+            <MetaEditable
+              meta={props.meta}
+              peopleSuggestions={props.peopleList}
+              tagSuggestions={props.tagsList}
+              showTitle="true"
+            />
           ) : (
             <Meta meta={props.meta} showTitle="true" />
           )}

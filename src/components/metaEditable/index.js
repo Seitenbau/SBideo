@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
 import PropTypes from 'prop-types';
-import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
@@ -12,23 +11,12 @@ export default class MetaEditable extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTagDelete = this.handleTagDelete.bind(this);
     this.handleTagAddition = this.handleTagAddition.bind(this);
-
-    this.state = {
-      peopleSuggestions: [
-        { id: 3, name: 'Tobias Schmidt' },
-        { id: 4, name: 'Jakob Schröter' }
-      ],
-      tagSuggestions: [
-        { id: 3, name: 'Bananas' },
-        { id: 4, name: 'Mangos' },
-        { id: 5, name: 'Lemons' },
-        { id: 6, name: 'Apricots' }
-      ]
-    };
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    peopleSuggestions: PropTypes.array,
+    tagSuggestions: PropTypes.array
   };
 
   handleTagDelete(i) {
@@ -50,12 +38,8 @@ export default class MetaEditable extends Component {
   }
 
   render(props) {
-    const { meta } = props;
-
-    const classNames = {
-      selectedTag: style.tag
-    };
-
+    const { meta, peopleSuggestions, tagSuggestions } = props;
+    console.log(peopleSuggestions);
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
@@ -64,14 +48,14 @@ export default class MetaEditable extends Component {
             <Octicon name="person" className={style.icon} />
             <TagsEditable
               tags={meta.people}
-              suggestions={this.state.peopleSuggestions}
+              suggestions={peopleSuggestions}
               placeholder="Add person"
             />
           </div>
           <div className={style.tags}>
             <TagsEditable
               tags={meta.tags}
-              suggestions={this.state.tagSuggestions}
+              suggestions={tagSuggestions}
               placeholder="Add tag"
             />
           </div>
