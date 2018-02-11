@@ -22,7 +22,6 @@ const defaultItem = {
 };
 
 let allItems = [];
-let allItemsJson = {};
 
 // serve static files
 app.use(express.static(path.resolve(__dirname + '/../build')));
@@ -36,8 +35,7 @@ app.use('/data', express.static(dataFolder));
 
 // serve items.json
 app.use('/items.json', (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-  res.end(allItemsJson);
+  res.json(allItems);
 });
 
 // catch all unmatched, this needs to come last
