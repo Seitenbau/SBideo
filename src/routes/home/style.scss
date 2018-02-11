@@ -9,17 +9,39 @@
 .home > ul {
   font-size: 2rem;
   margin-bottom: $marginNormal;
+  text-align: center;
+}
+
+.home ul {
+  padding-left: 0;
+}
+
+.home > ul > li {
+  margin-bottom: $marginNormal;
+}
+
+.home > ul li {
+  display: block;
 }
 
 /* Initiate grid on desktop aspect ratios */
-@media (min-aspect-ratio: 1/1) {
+@media (min-aspect-ratio: 4/3) {
   .home > ul {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    text-align: left;
+  }
+
+  .home ul {
+    padding-left: $marginSmall;
   }
 
   .home > ul > li {
     flex-basis: 23%;
+  }
+
+  .home > ul li {
+    display: inline-block;
   }
 }
