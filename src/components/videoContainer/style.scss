@@ -1,7 +1,23 @@
 @import 'src/style/variables';
 
 .wrapper {
-  display: flex;
-  flex-basis: 100%;
-  margin-bottom: $marginNormal;
+  margin-bottom: $marginSmall;
+  text-align: center;
+}
+
+@media (min-aspect-ratio: 4/3) {
+  .wrapper {
+    display: flex;
+    flex-basis: 100%;
+    margin-bottom: $marginNormal;
+    text-align: left;
+  }
+  .videoPlayer {
+    flex-basis: 75%;
+  }
+
+  .activeMetaContainer {
+    flex-basis: 23%;
+    margin-left: 2%;
+  }
 }
