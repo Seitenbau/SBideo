@@ -17,6 +17,7 @@ Tooltip styles
   width: 30vmin;
   height: auto;
   background-color: #fff;
+  padding: $marginSmall;
 }
 
 .popper[data-placement^='right'] {
