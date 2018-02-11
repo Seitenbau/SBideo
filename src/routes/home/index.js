@@ -48,6 +48,7 @@ export default class Home extends Component {
           data={state.data}
           activeVideoId={this.props.id}
           className={style.layoutElement}
+          editMode={this.props.mode === 'edit' ? true : false}
         />
         <Search
           data={state.data}

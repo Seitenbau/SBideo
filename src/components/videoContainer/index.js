@@ -51,7 +51,10 @@ export default class VideoContainer extends Component {
     return (
       <div className={style.wrapper}>
         <VideoPlayer src={this.state.src} />
-        <ActiveMetaContainer meta={this.state.meta} />
+        <ActiveMetaContainer
+          meta={this.state.meta}
+          editMode={this.props.editMode}
+        />
       </div>
     );
   }

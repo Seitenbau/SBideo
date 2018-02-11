@@ -4,11 +4,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import ReactAutolink from 'react-autolink';
+import { route } from 'preact-router';
 
-export default class MetaContainer extends Component {
+export default class Meta extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleEditButton = this.handleEditButton.bind(this);
+  }
+
   propTypes = {
     meta: PropTypes.object
   };
+
+  handleEditButton(event) {
+    event.preventDefault();
+    const { meta } = this.props;
+    route(`/${meta.id}/${meta.slug}/edit`);
+  }
 
   render(props) {
     const { meta, showTitle } = props;
@@ -41,6 +53,11 @@ export default class MetaContainer extends Component {
         <div className="description">
           {ReactAutolink.autolink(meta.description)}
         </div>
+        {showTitle && (
+          <button onClick={this.handleEditButton}>
+            <Octicon name="pencil" className={style.icon} />
+          </button>
+        )}
       </div>
     );
   }
