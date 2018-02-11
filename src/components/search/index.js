@@ -71,6 +71,8 @@ export default class Search extends Component {
       const newIndex = this.state.searchIndex.splice(0);
       item.meta.src = item.src;
       newIndex.push(item.meta);
+
+      // TODO calling setState very often might be a performance issue
       this.setState({ searchIndex: newIndex });
     }
   }

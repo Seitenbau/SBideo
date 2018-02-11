@@ -51,6 +51,7 @@ export default class VideoContainer extends Component {
 
           things.push({ id: id, name: thing });
 
+          // TODO calling setState very often might be a performance issue
           this.setState({
             [key]: things
           });
