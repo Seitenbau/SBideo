@@ -1,0 +1,145 @@
+[
+  {
+    "meta": {
+      "title": "LightningTalks"
+    },
+    "items": [
+      {
+        "type": "folder",
+        "meta": {
+          "title": "Lightning Talks vom 10.10.2017"
+        },
+        "name": "2017-10-10",
+        "items": [
+          {
+            "type": "video",
+            "meta": {
+              "id": "Hy1Ff-fUz",
+              "title": "Hallway Usability Testing",
+              "description":
+                "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",
+              "tags": ["Usability", "User Experience", "Browser"],
+              "people": ["Tobias Schmidt"],
+              "slug": "hallway-usability-testing"
+            },
+            "src": "/data/LightningTalks/2017-10-10/usability/video.mp4",
+            "name": "usability",
+            "items": []
+          },
+          {
+            "type": "video",
+            "meta": {
+              "id": "Hy1Ff-f5z",
+              "title": "Hallway Usability Testing 2",
+              "description":
+                "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",
+              "tags": ["Usability", "User Experience", "Browser"],
+              "people": ["Tobias Schmidt"],
+              "slug": "hallway-usability-testing"
+            },
+            "src": "/data/LightningTalks/2017-10-10/usability/video.mp4",
+            "name": "usability",
+            "items": []
+          },
+          {
+            "type": "video",
+            "meta": {
+              "id": "Hy1Ff-f6z",
+              "title": "Hallway Usability Testing 3",
+              "description":
+                "Eigentlich keine Zeit / Budget für Usability Testing aber wir wollen trotzdem wissen ob unser User Interface benutzerfreundlich ist? Hallway Usability Testing ist eine schnelle Hilfe",
+              "tags": ["Usability", "User Experience", "Browser"],
+              "people": ["Tobias Schmidt"],
+              "slug": "hallway-usability-testing"
+            },
+            "src": "/data/LightningTalks/2017-10-10/usability/video.mp4",
+            "name": "usability",
+            "items": []
+          }
+        ]
+      },
+      {
+        "meta": {
+          "title": "2017-10-10"
+        },
+        "items": [
+          {
+            "type": "video",
+            "meta": {
+              "id": "B1pOz-fIz",
+              "title": "Ansible Playbook Vagrant Sandbox für Windows",
+              "description":
+                "Ansible-Skripte unter Windows zu entwickeln ist etwas Mühsam. Ich hab eine kleine Vagrant Box zusammen geschrieben in der man Ansible Skripte entwickeln kann. Diese würde ich euch gerne vorstellen. Sie besteht aus einem Ansible Control Server und 3 Debian VMs (2 App Server und 1 DB Server). Infos: https://www.ansible.com/",
+              "tags": ["Ansible", "Infrastruktur"],
+              "people": ["Thomas Vamos"],
+              "slug": "ansible-playbook-vagrant-sandbox-fuer-windows"
+            },
+            "src": "/data/LightningTalks/2017-10-10/ansible/video.mp4",
+            "name": "ansible",
+            "items": []
+          }
+        ],
+        "name": "2017-10-10",
+        "type": "folder"
+      }
+    ],
+    "name": "LightningTalks",
+    "type": "folder"
+  },
+  {
+    "meta": {
+      "title": "SDC"
+    },
+    "items": [
+      {
+        "type": "folder",
+        "meta": {
+          "title": "SEITENBAU Developer Convention 2017"
+        },
+        "name": "2017",
+        "items": [
+          {
+            "type": "video",
+            "meta": {
+              "id": "SJMKMZG8f",
+              "title": "Let's Make The Web Silky Smooth",
+              "description":
+                "Jeder kennt es, und keiner mag es: träge User Interfaces, ruckelndes Scrolling und wildes 'Content Jumping' beim Ladevorgang. Was sind Layout Trashing, Reflows, Junk, ... und wie lassen sich 60 fps erreichen?",
+              "tags": ["performance", "web", "user experience", "UX", "UI"],
+              "people": ["Jakob Schröter"],
+              "slug": "let-s-make-the-web-silky-smooth"
+            },
+            "src": "/data/SDC/2017/webperformance/video.mp4",
+            "name": "webperformance",
+            "items": []
+          }
+        ]
+      },
+      {
+        "meta": {
+          "title": "2017"
+        },
+        "items": [
+          {
+            "type": "video",
+            "meta": {
+              "id": "S1Ntf-fIz",
+              "title": "Keynote",
+              "description": "SEITENBAU Developer Convention",
+              "tags": ["Keynote"],
+              "people": ["Stefan Eichenhofer"],
+              "slug": "keynote"
+            },
+            "src": "/data/SDC/2017/keynote/video.mp4",
+            "name": "keynote",
+            "items": []
+          }
+        ],
+        "name": "2017",
+        "type": "folder"
+      }
+    ],
+    "name": "SDC",
+    "type": "folder"
+  }
+]

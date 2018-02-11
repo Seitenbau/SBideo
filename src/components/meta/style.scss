@@ -9,7 +9,6 @@
 }
 
 .meta {
-  padding: 15px;
   height: auto;
 }
 
@@ -43,5 +42,9 @@
 }
 
 .description {
-  font-size: 0.9rem;
+  font-size: 2.5vh;
+
+  @media (min-width: 750px) {
+    font-size: 1rem;
+  }
 }

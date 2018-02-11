@@ -8,8 +8,12 @@
 
 .searchForm > span {
   display: flex;
-  width: 50%;
+  width: 75%;
   position: relative;
+
+  @media (min-aspect-ratio: 4/3) {
+    width: 50%;
+  }
 }
 
 .searchField {

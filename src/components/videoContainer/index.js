@@ -12,7 +12,8 @@ export default class VideoContainer extends Component {
 
   propTypes = {
     activeVideoId: PropTypes.number,
-    data: PropTypes.object
+    data: PropTypes.object,
+    editMode: PropTypes.bool
   };
 
   getVideoById(items, videoId) {
@@ -50,8 +51,9 @@ export default class VideoContainer extends Component {
   render() {
     return (
       <div className={style.wrapper}>
-        <VideoPlayer src={this.state.src} />
+        <VideoPlayer className={style.videoPlayer} src={this.state.src} />
         <ActiveMetaContainer
+          className={style.activeMetaContainer}
           meta={this.state.meta}
           editMode={this.props.editMode}
         />

@@ -41,9 +41,23 @@ a:focus {
 ul,
 ol {
   margin-top: 0;
-  margin-bottom: 15px;
-  padding-left: 15px;
+  margin-bottom: $marginSmall;
+  padding-left: $marginSmall;
   list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  /* Big headlines take up a lot of height so make it work with vhs */
+  font-size: 4vh;
 }
 
 /** Old browser warning */
