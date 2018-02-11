@@ -38,7 +38,7 @@ export default class MetaContainer extends Component {
             </Link>
           ))}
         </div>
-        <div className="description">
+        <div className={style.description}>
           {ReactAutolink.autolink(meta.description)}
         </div>
       </div>
