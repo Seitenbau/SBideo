@@ -19,12 +19,12 @@ export default class MetaContainer extends Component {
           <Octicon name="person" className={style.icon} />
 
           {meta.people.map((person, j) => (
-            <Link
-              href={`/search/${encodeURIComponent(person)}`}
-              key={`person${j}`}
-            >
-              {person}
-            </Link>
+            <span key={`person${j}`}>
+              <Link href={`/search/${encodeURIComponent(person)}`}>
+                {person}
+              </Link>
+              {meta.people.length === j + 1 ? '' : ', '}
+            </span>
           ))}
         </div>
         <div className={style.tags}>
