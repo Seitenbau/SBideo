@@ -56,7 +56,8 @@ p {
 }
 
 h1 {
-  font-size: 1.9rem;
+  /* Big headlines take up a lot of height so make it work with vhs */
+  font-size: 4vh;
 }
 
 /** Old browser warning */

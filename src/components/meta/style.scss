@@ -42,5 +42,9 @@
 }
 
 .description {
-  font-size: 0.9rem;
+  font-size: 2.5vh;
+
+  @media (min-width: 640px) {
+    font-size: 1rem;
+  }
 }
