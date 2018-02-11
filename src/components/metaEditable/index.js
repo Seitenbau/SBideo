@@ -1,9 +1,11 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
+import metaStyle from '../meta/style.scss'; // TODO is this good or is there any other solution?
 import PropTypes from 'prop-types';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
+import InlineEditor from '../inlineEditor';
 
 export default class MetaEditable extends Component {
   constructor(props, context) {
@@ -23,8 +25,8 @@ export default class MetaEditable extends Component {
     tagSuggestions: PropTypes.array
   };
 
-  handleTitleChange(event) {
-    this.setState({ title: event.target.value });
+  handleTitleChange(title) {
+    this.setState({ title });
   }
 
   handlePeopleChange(people) {
@@ -35,8 +37,8 @@ export default class MetaEditable extends Component {
     this.setState({ tags });
   }
 
-  handleDescriptionChange(event) {
-    this.setState({ description: event.target.value });
+  handleDescriptionChange(description) {
+    this.setState({ description });
   }
 
   handleSubmit(event) {
@@ -52,7 +54,12 @@ export default class MetaEditable extends Component {
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
-          <input value={meta.title} onChange={this.handleTitleChange} />
+          <h1 className={style.title}>
+            <InlineEditor
+              value={meta.title}
+              onChange={this.handleTitleChange}
+            />
+          </h1>
           <div className={style.people}>
             <Octicon name="person" className={style.icon} />
             <TagsEditable
@@ -70,8 +77,8 @@ export default class MetaEditable extends Component {
               onChange={this.handleTagsChange}
             />
           </div>
-          <div className="description">
-            <textarea
+          <div className={`${metaStyle.description} ${style.description}`}>
+            <InlineEditor
               value={meta.description}
               onChange={this.handleDescriptionChange}
             />

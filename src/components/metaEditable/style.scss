@@ -9,7 +9,6 @@
 }
 
 .meta {
-  padding: 15px;
   height: auto;
 }
 
@@ -22,8 +21,12 @@
   margin-bottom: 10px;
 }
 
+.title {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .description {
-  font-size: 0.9rem;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .saveButton {

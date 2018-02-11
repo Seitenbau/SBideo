@@ -23,10 +23,8 @@
  *   </div>
  */
 .react-tags {
+  display: inline-block;
   position: relative;
-  padding: 6px 0 0 6px;
-  border: 1px solid #d1d1d1;
-  border-radius: 1px;
 
   /* shared font styles */
   font-size: 0.7rem;
@@ -81,8 +79,8 @@
   display: inline-block;
 
   /* match tag layout */
-  padding: 7px 2px;
-  margin-bottom: 6px;
+  padding: 2px 4px;
+  margin-bottom: 3px;
 
   /* prevent autoresize overflowing the container */
   max-width: 100%;
@@ -120,6 +118,7 @@
   top: 100%;
   left: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 @media screen and (min-width: 30em) {
@@ -134,7 +133,6 @@
   list-style: none;
   background: white;
   border: 1px solid #d1d1d1;
-  border-radius: 2px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
