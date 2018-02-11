@@ -46,6 +46,7 @@ export default class TagsEditable extends Component {
   }
 
   render(props) {
+    // TODO nicer style classes; cleanup stylesheet
     const classNames = {
       root: style['react-tags'],
       rootFocused: style['is-focused'],

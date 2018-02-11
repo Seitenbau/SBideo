@@ -64,13 +64,15 @@ export default class Search extends Component {
     }
 
     if (item.items && item.items.length > 0) {
-      return item.items.map(singleItem => this.walkData(singleItem));
+      item.items.map(singleItem => this.walkData(singleItem));
     }
 
     if (item.type === 'video' && item.meta) {
       const newIndex = this.state.searchIndex.splice(0);
       item.meta.src = item.src;
       newIndex.push(item.meta);
+
+      // TODO calling setState very often might be a performance issue
       this.setState({ searchIndex: newIndex });
     }
   }

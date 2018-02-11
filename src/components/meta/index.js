@@ -50,7 +50,7 @@ export default class Meta extends Component {
             </Link>
           ))}
         </div>
-        <div className="description">
+        <div className={style.description}>
           {ReactAutolink.autolink(meta.description)}
         </div>
         {showTitle && (

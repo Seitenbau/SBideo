@@ -18,7 +18,9 @@ export default class MetaEditable extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    peopleSuggestions: PropTypes.array,
+    tagSuggestions: PropTypes.array
   };
 
   handleTitleChange(event) {
@@ -46,19 +48,7 @@ export default class MetaEditable extends Component {
   }
 
   render(props) {
-    const { meta } = props;
-
-    const peopleSuggestions = [
-      { id: 3, name: 'Tobias Schmidt' },
-      { id: 4, name: 'Jakob Schröter' }
-    ];
-    const tagSuggestions = [
-      { id: 3, name: 'Bananas' },
-      { id: 4, name: 'Mangos' },
-      { id: 5, name: 'Lemons' },
-      { id: 6, name: 'Apricots' }
-    ];
-
+    const { meta, peopleSuggestions, tagSuggestions } = props;
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
