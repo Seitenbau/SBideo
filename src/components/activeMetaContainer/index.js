@@ -11,7 +11,7 @@ export default class ActiveMetaContainer extends Component {
       );
     } else {
       return (
-        <div className={props.style}>
+        <div className={props.className}>
           <h1>Welcome to SBideo!</h1>
           <p>Just search and select a video below.</p>
         </div>
