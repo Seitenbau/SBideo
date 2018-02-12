@@ -16,13 +16,14 @@ export default class MetaEditable extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.state = Object.assign({}, props.meta);
+    this.state = { ...props.meta };
   }
 
   propTypes = {
     meta: PropTypes.object,
     peopleSuggestions: PropTypes.array,
-    tagSuggestions: PropTypes.array
+    tagSuggestions: PropTypes.array,
+    onSave: PropTypes.func
   };
 
   handleTitleChange(title) {
@@ -45,25 +46,26 @@ export default class MetaEditable extends Component {
     event.preventDefault();
 
     console.log('edit', this.state);
+    this.props.onSave(this.state);
     // TODO
     route(`/${this.props.meta.id}/${this.props.meta.slug}`);
   }
 
-  render(props) {
-    const { meta, peopleSuggestions, tagSuggestions } = props;
+  render(props, state) {
+    const { peopleSuggestions, tagSuggestions } = props;
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
           <h1 className={style.title}>
             <InlineEditor
-              value={meta.title}
+              value={state.title}
               onChange={this.handleTitleChange}
             />
           </h1>
           <div className={style.people}>
             <Octicon name="person" className={style.icon} />
             <TagsEditable
-              tags={meta.people}
+              tags={state.people}
               suggestions={peopleSuggestions}
               placeholder="Add person"
               onChange={this.handlePeopleChange}
@@ -71,7 +73,7 @@ export default class MetaEditable extends Component {
           </div>
           <div className={style.tags}>
             <TagsEditable
-              tags={meta.tags}
+              tags={state.tags}
               suggestions={tagSuggestions}
               placeholder="Add tag"
               onChange={this.handleTagsChange}
@@ -79,7 +81,7 @@ export default class MetaEditable extends Component {
           </div>
           <div className={`${metaStyle.description} ${style.description}`}>
             <InlineEditor
-              value={meta.description}
+              value={state.description}
               onChange={this.handleDescriptionChange}
             />
           </div>
