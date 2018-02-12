@@ -6605,6 +6605,10 @@ preact-compat@^3.14.3:
     prop-types "^15.5.8"
     standalone-react-addons-pure-render-mixin "^0.1.1"
 
+preact-redux@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/preact-redux/-/preact-redux-2.0.3.tgz#960a535c322643cd35998f33f0c2e67bc1e7eaab"
+
 preact-render-spy@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/preact-render-spy/-/preact-render-spy-1.2.2.tgz#b4f60dc465aec2a1e24202fb596c25e420ca6d5e"

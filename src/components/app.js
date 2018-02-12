@@ -2,8 +2,9 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Home from '../routes/home';
-// import Home from 'async!../routes/home';
-// import Profile from 'async!../routes/profile';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './reducers';
 
 if (module.hot) {
   require('preact/debug');
@@ -19,12 +20,16 @@ export default class App extends Component {
   };
 
   render() {
+    let store = createStore(reducers);
+
     return (
-      <div id="app">
-        <Router onChange={this.handleRoute}>
-          <Home path="/:id?/:term?/:mode?" />
-        </Router>
-      </div>
+      <Provider store={store}>
+        <div id="app">
+          <Router onChange={this.handleRoute}>
+            <Home path="/:id?/:term?/:mode?" />
+          </Router>
+        </div>
+      </Provider>
     );
   }
 }

@@ -92,4 +92,21 @@ export default class MetaEditable extends Component {
       </div>
     );
   }
+
+  mapStateToProps = state => {
+    return {
+      todos: this.activeMetaState(state.meta, state.visibilityFilter)
+    };
+  };
+
+  mapDispatchToProps = dispatch => {
+    return {
+      submitChange: data => {
+        dispatch({
+          type: 'SAVE_META',
+          data: data
+        });
+      }
+    };
+  };
 }
