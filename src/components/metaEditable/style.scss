@@ -21,8 +21,19 @@
   margin-bottom: 10px;
 }
 
+.title,
+.description {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  resize: none;
+}
 .title {
+  // TODO better inheritance of styles
   background-color: rgba(0, 0, 0, 0.05);
+  font-size: 4vh;
+  font-weight: bold;
+  font-family: 'Helvetica Neue', arial, sans-serif;
 }
 
 .description {

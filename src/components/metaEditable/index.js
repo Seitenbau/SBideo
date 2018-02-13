@@ -56,12 +56,12 @@ export default class MetaEditable extends Component {
     return (
       <div className={style.meta}>
         <form onSubmit={this.handleSubmit}>
-          <h1 className={style.title}>
-            <InlineEditor
-              value={state.title}
-              onChange={this.handleTitleChange}
-            />
-          </h1>
+          <InlineEditor
+            className={style.title}
+            value={state.title}
+            placeholder="Enter title..."
+            onChange={this.handleTitleChange}
+          />
           <div className={style.people}>
             <Octicon name="person" className={style.icon} />
             <TagsEditable
@@ -81,7 +81,9 @@ export default class MetaEditable extends Component {
           </div>
           <div className={`${metaStyle.description} ${style.description}`}>
             <InlineEditor
+              className={style.description}
               value={state.description}
+              placeholder="Enter description..."
               onChange={this.handleDescriptionChange}
             />
           </div>

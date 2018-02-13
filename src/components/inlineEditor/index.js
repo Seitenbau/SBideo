@@ -1,88 +1,35 @@
 import { h, Component } from 'preact';
-import PropTypes from 'prop-types';
-import { Editor, EditorState, ContentState } from 'draft-js';
+import Textarea from 'react-textarea-autosize';
 
 export default class InlineEditor extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.onChange = this.onChange.bind(this);
-
-    this.state = {
-      value: props.value,
-      editorState: EditorState.createWithContent(
-        ContentState.createFromText(props.value)
-      )
-    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
-  propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func
-  };
-
-  onChange(editorState) {
-    const value = editorState.getCurrentContent().getPlainText();
-    this.setState(
-      {
-        editorState,
-        value
-      },
-      () => this.props.onChange(value)
-    );
-  }
-
-  // TODO fix focus errors etc
-
-  // workaround from https://github.com/facebook/draft-js/issues/1198#issuecomment-344468123
-  componentWillReceiveProps(nextProps) {
-    const { editorState, value } = this.state;
-    const nextValue = nextProps.value;
-    if (value !== nextValue) {
-      // check that text has changed before updating the editor
-      const selectionState = editorState.getSelection();
-      const newContentState = ContentState.createFromText(nextProps.value);
-      const newEditorState = EditorState.create({
-        currentContent: newContentState,
-        selection: selectionState // make sure the new editor has the old editor's selection state
-      });
-      this.setState({
-        ...nextProps,
-        editorState: newEditorState
-      });
+  handleKeyDown(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
     }
   }
 
-  /*
-  // or workaround from https://github.com/facebook/draft-js/issues/989#issuecomment-332522174
-  getCreatedEditorState(value) {
-    return EditorState.createWithContent(ContentState.createFromText(value));
-  }
-
-  componentWillMount() {
-    const { value } = this.props;
-
-    this.setState({
-      editorState: this.getCreatedEditorState(value)
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-
-    if (!this.props.value && value) {
-      this.setState({ editorState: this.getCreatedEditorState(value) });
+  handleChange(event) {
+    // remove all line breaks
+    const value = event.target.value.replace(/(\r\n|\n|\r)/gm, '');
+    if (this.props.onChange) {
+      this.props.onChange(value);
     }
   }
-  */
 
-  render() {
+  render(props, state) {
     return (
-      <Editor
-        editorState={this.state.editorState}
-        onChange={this.onChange}
-        placeholder="Enter text..."
-        stripPastedStyles
+      <Textarea
+        {...props}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
+        useCacheForDOMMeasurements
       />
     );
   }
