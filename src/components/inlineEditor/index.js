@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import PropTypes from 'prop-types';
 import Textarea from 'react-textarea-autosize';
 
 export default class InlineEditor extends Component {
@@ -8,6 +9,10 @@ export default class InlineEditor extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
   }
+
+  propTypes = {
+    onChange: PropTypes.func
+  };
 
   handleKeyDown(event) {
     if (event.keyCode === 13) {
@@ -23,7 +28,7 @@ export default class InlineEditor extends Component {
     }
   }
 
-  render(props, state) {
+  render(props) {
     return (
       <Textarea
         {...props}
