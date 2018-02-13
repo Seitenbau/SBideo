@@ -40,7 +40,10 @@
   },
   "eslintIgnore": ["build/*"],
   "lint-staged": {
-    "*.{js,json,css,scss,md}": ["prettier --single-quote --write", "git add"]
+    "*.{js,json,css,scss,md}, !package.json": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
