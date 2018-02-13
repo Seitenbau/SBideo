@@ -38,7 +38,9 @@
       "curly": "warn"
     }
   },
-  "eslintIgnore": ["build/*"],
+  "eslintIgnore": [
+    "build/*"
+  ],
   "lint-staged": {
     "*.{js,json,css,scss,md}, !package.json": [
       "prettier --single-quote --write",
@@ -46,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "concurrently": "^3.5.1",
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
@@ -59,7 +62,8 @@
     "preact-cli": "^2.1.1",
     "preact-render-spy": "^1.2.1",
     "prettier": "^1.10.2",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "webpack": "^3.11.0"
   },
   "dependencies": {
     "chokidar": "^2.0.1",
@@ -75,7 +79,9 @@
     "preact": "^8.2.7",
     "preact-router": "^2.6.0",
     "prop-types": "^15.6.0",
+    "react": "^16.2.0",
     "react-autolink": "^0.2.1",
+    "react-dom": "^16.2.0",
     "react-popper": "^0.8.2",
     "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0",
@@ -83,13 +89,19 @@
   },
   "jest": {
     "verbose": true,
-    "setupFiles": ["<rootDir>/src/tests/__mocks__/browserMocks.js"],
+    "setupFiles": [
+      "<rootDir>/src/tests/__mocks__/browserMocks.js"
+    ],
     "testURL": "http://localhost:8080",
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules"],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/src/tests/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mocks__/fileMock.js",
       "\\.(css|less|scss)$": "identity-obj-proxy",
       "^./style$": "identity-obj-proxy",
       "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",
