@@ -3,6 +3,7 @@ import { Link } from 'preact-router/match';
 import style from './style.scss';
 import { Manager, Target, Popper, Arrow } from 'react-popper';
 import Meta from '../../components/meta';
+import PropTypes from 'prop-types';
 
 export default class VideoLink extends Component {
   constructor(props) {
@@ -15,6 +16,10 @@ export default class VideoLink extends Component {
     tooltipLinkHovered: false,
     popperHovered: false,
     showTooltip: false
+  };
+
+  static propTypes = {
+    meta: PropTypes.object
   };
 
   showOrHideTooltip() {
@@ -40,6 +45,11 @@ export default class VideoLink extends Component {
     this.setState({ popperHovered: popperHovered }, this.showOrHideTooltip);
   }
 
+  metaHasContent = () => {
+    const { meta } = this.props;
+    return meta && (meta.description.trim() || meta.people.length > 0);
+  };
+
   render(props, state) {
     const { meta } = props;
     return (
@@ -55,28 +65,26 @@ export default class VideoLink extends Component {
               {meta.title}
             </Link>
           </Target>
-          {state.showTooltip && (
-            <TopPopper
-              placement="right"
-              hasContent={
-                meta && (meta.description.trim() || meta.people.length > 0)
-              }
-              className={style.popper}
-              onMouseEnter={this.togglePopperHoverState}
-              onMouseLeave={this.togglePopperHoverState}
-              modifiers={{
-                flip: {
-                  behavior: ['right', 'left', 'bottom', 'top']
-                },
-                preventOverflow: {
-                  boundariesElement: 'viewport'
-                }
-              }}
-            >
-              <Meta meta={meta} />
-              <Arrow className={style.popperarrow} />
-            </TopPopper>
-          )}
+          {state.showTooltip &&
+            this.metaHasContent() && (
+              <TopPopper
+                placement="right"
+                className={style.popper}
+                onMouseEnter={this.togglePopperHoverState}
+                onMouseLeave={this.togglePopperHoverState}
+                modifiers={{
+                  flip: {
+                    behavior: ['right', 'left', 'bottom', 'top']
+                  },
+                  preventOverflow: {
+                    boundariesElement: 'viewport'
+                  }
+                }}
+              >
+                <Meta meta={meta} />
+                <Arrow className={style.popperarrow} />
+              </TopPopper>
+            )}
         </Manager>
       </li>
     );
@@ -85,16 +93,16 @@ export default class VideoLink extends Component {
 
 // extending Popper so every new popper will have a higher zIndex
 class TopPopper extends Component {
+  static propTypes = {
+    style: PropTypes.object
+  };
   componentWillMount() {
     this.props.style = {
       zIndex: Date.now()
     };
   }
 
-  render(props, state) {
-    if (!props.hasContent) {
-      return null;
-    }
+  render(props) {
     return <Popper {...props}>{props.children}</Popper>;
   }
 }
