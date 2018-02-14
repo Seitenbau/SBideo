@@ -6,12 +6,6 @@ import Meta from '../../components/meta';
 import PropTypes from 'prop-types';
 
 export default class VideoLink extends Component {
-  constructor(props) {
-    super(props);
-    this.togglePopperHoverState = this.togglePopperHoverState.bind(this);
-    this.toggleLinkHoverState = this.toggleLinkHoverState.bind(this);
-  }
-
   state = {
     tooltipLinkHovered: false,
     popperHovered: false,
@@ -32,18 +26,18 @@ export default class VideoLink extends Component {
     }, 300);
   }
 
-  toggleLinkHoverState() {
+  toggleLinkHoverState = () => {
     const tooltipLinkHovered = !this.state.tooltipLinkHovered;
     this.setState(
       { tooltipLinkHovered: tooltipLinkHovered },
       this.showOrHideTooltip
     );
-  }
+  };
 
-  togglePopperHoverState() {
+  togglePopperHoverState = () => {
     const popperHovered = !this.state.popperHovered;
     this.setState({ popperHovered: popperHovered }, this.showOrHideTooltip);
-  }
+  };
 
   metaHasContent = () => {
     const { meta } = this.props;
