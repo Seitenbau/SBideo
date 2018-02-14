@@ -43,7 +43,7 @@ export default class VideoLink extends Component {
   render(props, state) {
     const { meta } = props;
     return (
-      <li className="video">
+      <li className={style.video}>
         <Manager>
           <Target className={style.videoLink}>
             <Link
