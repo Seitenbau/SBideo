@@ -58,6 +58,9 @@ export default class VideoLink extends Component {
           {state.showTooltip && (
             <TopPopper
               placement="right"
+              hasContent={
+                meta && (meta.description.trim() || meta.people.length > 0)
+              }
               className={style.popper}
               onMouseEnter={this.togglePopperHoverState}
               onMouseLeave={this.togglePopperHoverState}
@@ -81,10 +84,17 @@ export default class VideoLink extends Component {
 }
 
 // extending Popper so every new popper will have a higher zIndex
-class TopPopper extends Popper {
+class TopPopper extends Component {
   componentWillMount() {
     this.props.style = {
       zIndex: Date.now()
     };
+  }
+
+  render(props, state) {
+    if (!props.hasContent) {
+      return null;
+    }
+    return <Popper {...props}>{props.children}</Popper>;
   }
 }
