@@ -20,7 +20,11 @@ export default class MetaContainer extends Component {
 
           {meta.people.map((person, j) => (
             <span key={`person${j}`}>
-              <Link href={`/search/${encodeURIComponent(person)}`}>
+              <Link
+                href={`/search/${encodeURIComponent(
+                  person.replace(/\s+/g, '+')
+                )}`}
+              >
                 {person}
               </Link>
               {meta.people.length === j + 1 ? '' : ', '}
@@ -31,7 +35,7 @@ export default class MetaContainer extends Component {
           {meta.tags.map((tag, i) => (
             <Link
               key={`tag${i}`}
-              href={`/search/${encodeURIComponent(tag)}`}
+              href={`/search/${encodeURIComponent(tag.replace(/\s+/g, '+'))}`}
               className={style.tag}
             >
               {tag}
