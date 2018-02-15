@@ -10,7 +10,6 @@ import flatten from 'lodash/flatten';
 export default class Search extends Component {
   state = {
     searchIndex: [],
-    results: [],
     searchTerm: ''
   };
 
@@ -138,7 +137,6 @@ export default class Search extends Component {
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
     }
-    this.setState({ results: results });
   }, 300);
 
   handleKeyDown = event => {
