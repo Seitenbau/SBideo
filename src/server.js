@@ -10,6 +10,9 @@ const jf = require('jsonfile');
 const speakingurl = require('speakingurl');
 const debounce = require('lodash.debounce');
 
+// check env
+const env = process.env.NODE_ENV || 'production';
+
 // setup webserver port
 const port = process.env.PORT || 3000;
 server.listen(port);
@@ -35,6 +38,16 @@ app.use('/data', express.static(dataFolder));
 
 // serve items.json
 app.use('/items.json', (req, res) => {
+  if (env === 'development') {
+    // serve testdata when available
+    const testDataFileName = 'items-testdata.json';
+    if (fs.existsSync(testDataFileName)) {
+      res.sendFile(path.resolve(__dirname + '/../' + testDataFileName));
+      return;
+    }
+  }
+
+  // serve real data
   res.json(allItems);
 });
 
