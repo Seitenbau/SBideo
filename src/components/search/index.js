@@ -25,6 +25,11 @@ export default class Search extends Component {
   searchInput;
 
   /**
+   * Container to save index while creating it
+   */
+  tmpSearchIndex = [];
+
+  /**
    * Instance of the search engine
    */
   searchEngine;
@@ -57,19 +62,19 @@ export default class Search extends Component {
     }
 
     if (item.items && item.items.length > 0) {
-      return item.items.map(singleItem => this.walkData(singleItem));
+      item.items.map(singleItem => this.walkData(singleItem));
     }
 
     if (item.type === 'video' && item.meta) {
-      const newIndex = this.state.searchIndex.splice(0);
       item.meta.src = item.src;
-      newIndex.push(item.meta);
-      this.setState({ searchIndex: newIndex });
+      this.tmpSearchIndex.push(item.meta);
     }
   }
 
   createSearchIndex(nextProps) {
+    this.tmpSearchIndex = [];
     nextProps.data.map(item => this.walkData(item));
+    this.setState({ searchIndex: this.tmpSearchIndex });
 
     const searchOptions = {
       keys: ['title', 'description', 'tags', 'people', 'src'],
