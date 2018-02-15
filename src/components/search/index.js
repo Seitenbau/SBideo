@@ -6,13 +6,6 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 
 export default class Search extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.search = this.search.bind(this);
-    this.resetSearch = this.resetSearch.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
   state = {
     searchIndex: [],
     results: [],
@@ -109,16 +102,16 @@ export default class Search extends Component {
     }, 1);
   }
 
-  resetSearch(event) {
+  resetSearch = event => {
     if (event) {
       event.preventDefault();
     }
     this.setState({ searchTerm: '' });
     this.triggerInputEvent();
     this.searchInput.focus();
-  }
+  };
 
-  search(event) {
+  search = event => {
     this.setState({ searchTerm: event.target.value });
 
     // fuse.js seems to need an empty space to reset?
@@ -143,9 +136,9 @@ export default class Search extends Component {
     }
 
     this.setState({ results: results });
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     // prevent submit when pressing Enter & route to search URL
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -156,7 +149,7 @@ export default class Search extends Component {
     if (event.keyCode === 27) {
       this.resetSearch();
     }
-  }
+  };
 
   render(props, state) {
     return (
