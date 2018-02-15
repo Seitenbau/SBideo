@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
+import debounce from 'lodash/debounce';
 
 export default class Search extends Component {
   state = {
@@ -23,6 +24,11 @@ export default class Search extends Component {
    * Ref to the input element
    */
   searchInput;
+
+  /**
+   * Container to save index while creating it
+   */
+  tmpSearchIndex = [];
 
   /**
    * Instance of the search engine
@@ -61,17 +67,22 @@ export default class Search extends Component {
     }
 
     if (item.type === 'video' && item.meta) {
-      const newIndex = this.state.searchIndex.splice(0);
       item.meta.src = item.src;
+<<<<<<< HEAD
       newIndex.push(item.meta);
 
       // TODO calling setState very often might be a performance issue
       this.setState({ searchIndex: newIndex });
+=======
+      this.tmpSearchIndex.push(item.meta);
+>>>>>>> preact-rewrite
     }
   }
 
   createSearchIndex(nextProps) {
+    this.tmpSearchIndex = [];
     nextProps.data.map(item => this.walkData(item));
+    this.setState({ searchIndex: this.tmpSearchIndex });
 
     const searchOptions = {
       keys: ['title', 'description', 'tags', 'people', 'src'],
@@ -113,7 +124,7 @@ export default class Search extends Component {
     this.searchInput.focus();
   };
 
-  search = event => {
+  search = debounce(event => {
     this.setState({ searchTerm: event.target.value });
 
     // fuse.js seems to need an empty space to reset?
@@ -138,7 +149,7 @@ export default class Search extends Component {
     }
 
     this.setState({ results: results });
-  };
+  }, 300);
 
   handleKeyDown = event => {
     // prevent submit when pressing Enter & route to search URL
