@@ -15,6 +15,17 @@ export default class ActiveMetaContainer extends Component {
     savedMeta: {}
   };
 
+  componentWillReceiveProps(nextprops) {
+    if (this.props.meta !== nextprops.meta) {
+      this.setState({ savedMeta: {} }); // reset saved meta
+    }
+  }
+  /**
+   * Temporary function to show saved data
+   * TODO: Instead of showing the saved data here, update the whole client data tree
+   *
+   * @param {object} metaData
+   */
   onSave(metaData) {
     this.setState({ savedMeta: metaData });
   }

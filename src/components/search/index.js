@@ -68,14 +68,7 @@ export default class Search extends Component {
 
     if (item.type === 'video' && item.meta) {
       item.meta.src = item.src;
-<<<<<<< HEAD
-      newIndex.push(item.meta);
-
-      // TODO calling setState very often might be a performance issue
-      this.setState({ searchIndex: newIndex });
-=======
       this.tmpSearchIndex.push(item.meta);
->>>>>>> preact-rewrite
     }
   }
 
