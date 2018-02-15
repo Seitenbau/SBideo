@@ -12,6 +12,9 @@ export default class TagsEditable extends Component {
     this.state = {
       tags: props.tags.map(tag => {
         return { id: null, name: tag };
+      }),
+      suggestions: props.suggestions.map(tag => {
+        return { id: null, name: tag };
       })
     };
   }
@@ -62,7 +65,7 @@ export default class TagsEditable extends Component {
     return (
       <ReactTags
         tags={this.state.tags}
-        suggestions={props.suggestions}
+        suggestions={this.state.suggestions}
         allowNew
         autofocus={false}
         handleDelete={this.handleTagDelete}
