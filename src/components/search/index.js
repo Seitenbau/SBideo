@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
+import debounce from 'lodash/debounce';
 
 export default class Search extends Component {
   state = {
@@ -116,7 +117,7 @@ export default class Search extends Component {
     this.searchInput.focus();
   };
 
-  search = event => {
+  search = debounce(event => {
     this.setState({ searchTerm: event.target.value });
 
     // fuse.js seems to need an empty space to reset?
@@ -141,7 +142,7 @@ export default class Search extends Component {
     }
 
     this.setState({ results: results });
-  };
+  }, 300);
 
   handleKeyDown = event => {
     // prevent submit when pressing Enter & route to search URL
