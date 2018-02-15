@@ -22,7 +22,8 @@ export default class TagsEditable extends Component {
   propTypes = {
     meta: PropTypes.object,
     onChange: PropTypes.func,
-    tags: PropTypes.array
+    tags: PropTypes.array,
+    suggestions: PropTypes.array
   };
 
   handleTagDelete(i) {
