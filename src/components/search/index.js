@@ -5,6 +5,7 @@ import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import debounce from 'lodash/debounce';
+import flatten from 'lodash/flatten';
 
 export default class Search extends Component {
   state = {
@@ -24,11 +25,6 @@ export default class Search extends Component {
    * Ref to the input element
    */
   searchInput;
-
-  /**
-   * Container to save index while creating it
-   */
-  tmpSearchIndex = [];
 
   /**
    * Instance of the search engine
@@ -59,23 +55,25 @@ export default class Search extends Component {
 
   walkData(item) {
     if (Array.isArray(item)) {
-      return item.map(singleItem => this.walkData(singleItem));
+      return flatten(item.map(singleItem => this.walkData(singleItem)));
     }
+    const searchIndex = [];
 
     if (item.items && item.items.length > 0) {
-      item.items.map(singleItem => this.walkData(singleItem));
+      return flatten(item.items.map(singleItem => this.walkData(singleItem)));
     }
 
     if (item.type === 'video' && item.meta) {
       item.meta.src = item.src;
-      this.tmpSearchIndex.push(item.meta);
+      searchIndex.push(item.meta);
     }
+
+    return searchIndex;
   }
 
   createSearchIndex(nextProps) {
-    this.tmpSearchIndex = [];
-    nextProps.data.map(item => this.walkData(item));
-    this.setState({ searchIndex: this.tmpSearchIndex });
+    const searchIndex = this.walkData(nextProps.data);
+    this.setState({ searchIndex });
 
     const searchOptions = {
       keys: ['title', 'description', 'tags', 'people', 'src'],
@@ -140,7 +138,6 @@ export default class Search extends Component {
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
     }
-
     this.setState({ results: results });
   }, 300);
 
