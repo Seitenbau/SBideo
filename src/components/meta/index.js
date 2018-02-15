@@ -16,8 +16,9 @@ export default class MetaContainer extends Component {
       <div className={style.meta}>
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
-          <Octicon name="person" className={style.icon} />
-
+          {meta.people.length > 0 && (
+            <Octicon name="person" className={style.icon} />
+          )}
           {meta.people.map((person, j) => (
             <span key={`person${j}`}>
               <Link
