@@ -121,7 +121,10 @@ export default class Search extends Component {
   search(event) {
     this.setState({ searchTerm: event.target.value });
 
-    const resultIds = this.searchEngine.search(event.target.value);
+    // fuse.js seems to need an empty space to reset?
+    const searchQuery = event.target.value ? event.target.value : ' ';
+
+    const resultIds = this.searchEngine.search(searchQuery);
 
     const copy = o => ({ ...o });
 
