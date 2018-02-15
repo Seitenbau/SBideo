@@ -1,5 +1,9 @@
 @import 'src/style/variables';
 
+.video {
+  margin-bottom: $marginSmall;
+}
+
 .videoLink {
   display: inline;
   padding-bottom: $marginSmall;

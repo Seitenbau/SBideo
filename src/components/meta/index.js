@@ -28,22 +28,27 @@ export default class Meta extends Component {
       <div className={style.meta}>
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
-          <Octicon name="person" className={style.icon} />
-
+          {meta.people.length > 0 && (
+            <Octicon name="person" className={style.icon} />
+          )}
           {meta.people.map((person, j) => (
-            <Link
-              href={`/search/${encodeURIComponent(person)}`}
-              key={`person${j}`}
-            >
-              {person}
-            </Link>
+            <span key={`person${j}`}>
+              <Link
+                href={`/search/${encodeURIComponent(
+                  person.replace(/\s+/g, '+')
+                )}`}
+              >
+                {person}
+              </Link>
+              {meta.people.length === j + 1 ? '' : ', '}
+            </span>
           ))}
         </div>
         <div className={style.tags}>
           {meta.tags.map((tag, i) => (
             <Link
               key={`tag${i}`}
-              href={`/search/${encodeURIComponent(tag)}`}
+              href={`/search/${encodeURIComponent(tag.replace(/\s+/g, '+'))}`}
               className={style.tag}
             >
               {tag}

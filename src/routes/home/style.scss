@@ -25,7 +25,7 @@
 }
 
 /* Initiate grid on desktop aspect ratios */
-@media (min-aspect-ratio: 4/3) {
+@media (min-aspect-ratio: 1/1) {
   .home > ul {
     display: flex;
     flex-wrap: wrap;
@@ -37,6 +37,12 @@
     padding-left: $marginSmall;
   }
 
+  .home > ul > li {
+    flex-basis: 32%;
+  }
+}
+
+@media (min-aspect-ratio: 4/3) {
   .home > ul > li {
     flex-basis: 23%;
   }
