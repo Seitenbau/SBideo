@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import PropTypes from 'prop-types';
+import style from './style.scss';
 import Textarea from 'react-textarea-autosize';
 
 export default class InlineEditor extends Component {
@@ -32,6 +33,7 @@ export default class InlineEditor extends Component {
     return (
       <Textarea
         {...props}
+        className={style.textarea}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
         useCacheForDOMMeasurements

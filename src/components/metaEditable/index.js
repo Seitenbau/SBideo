@@ -114,16 +114,17 @@ export default class MetaEditable extends Component {
 
   render(props, state) {
     return (
-      <div className={style.meta}>
+      <div className={metaStyle.meta}>
         <form onSubmit={this.handleSubmit}>
-          <InlineEditor
-            className={style.title}
-            value={state.meta.title}
-            placeholder="Enter title..."
-            onChange={this.handleTitleChange}
-          />
-          <div className={style.people}>
-            <Octicon name="person" className={style.icon} />
+          <h1>
+            <InlineEditor
+              value={state.meta.title}
+              placeholder="Enter title..."
+              onChange={this.handleTitleChange}
+            />
+          </h1>
+          <div className={metaStyle.people}>
+            <Octicon name="person" className={metaStyle.icon} />
             <TagsEditable
               tags={state.meta.people}
               suggestions={state.peopleSuggestions}
@@ -131,7 +132,7 @@ export default class MetaEditable extends Component {
               onChange={this.handlePeopleChange}
             />
           </div>
-          <div className={style.tags}>
+          <div className={metaStyle.tags}>
             <TagsEditable
               tags={state.meta.tags}
               suggestions={state.tagsSuggestions}
@@ -139,9 +140,8 @@ export default class MetaEditable extends Component {
               onChange={this.handleTagsChange}
             />
           </div>
-          <div className={`${metaStyle.description} ${style.description}`}>
+          <div className={metaStyle.description}>
             <InlineEditor
-              className={style.description}
               value={state.meta.description}
               placeholder="Enter description..."
               onChange={this.handleDescriptionChange}
