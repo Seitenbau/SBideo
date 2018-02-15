@@ -20,11 +20,9 @@ describe('Test of the Homepage', () => {
   });
 
   test('Homepage renders the 3 main components', () => {
-    setTimeout(() => {
-      const context = shallow(<Home />);
-      expect(context.find('Search').length).toBe(1);
-      expect(context.find('Folder').length).toBe(1);
-      expect(context.find('VideoContainer').length).toBe(1);
-    }, 2000);
+    const context = shallow(<Home />);
+    expect(context.find('Search').length).toBe(1);
+    expect(context.find('Folder').length).toBe(1);
+    expect(context.find('VideoContainer').length).toBe(1);
   });
 });
