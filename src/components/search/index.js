@@ -1,15 +1,12 @@
 import { h, Component } from 'preact';
-import * as fuse from 'fuse.js';
 import PropTypes from 'prop-types';
 import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
-import debounce from 'lodash/debounce';
-import flatten from 'lodash/flatten';
+import fuzzysort from 'fuzzysort';
 
 export default class Search extends Component {
   state = {
-    searchIndex: [],
     searchTerm: ''
   };
 
@@ -25,14 +22,9 @@ export default class Search extends Component {
    */
   searchInput;
 
-  /**
-   * Instance of the search engine
-   */
-  searchEngine;
-
   componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
-      this.createSearchIndex(nextProps);
+      this.initFirstSearch(nextProps);
     }
     if (this.props.term !== nextProps.term) {
       this.initFirstSearch(nextProps);
@@ -50,39 +42,6 @@ export default class Search extends Component {
     if (this.props.term !== nextProps.term) {
       return true;
     }
-  }
-
-  walkData(item) {
-    if (Array.isArray(item)) {
-      return flatten(item.map(singleItem => this.walkData(singleItem)));
-    }
-    const searchIndex = [];
-
-    if (item.items && item.items.length > 0) {
-      return flatten(item.items.map(singleItem => this.walkData(singleItem)));
-    }
-
-    if (item.type === 'video' && item.meta) {
-      item.meta.src = item.src;
-      searchIndex.push(item.meta);
-    }
-
-    return searchIndex;
-  }
-
-  createSearchIndex(nextProps) {
-    const searchIndex = this.walkData(nextProps.data);
-    this.setState({ searchIndex });
-
-    const searchOptions = {
-      keys: ['title', 'description', 'tags', 'people', 'src'],
-      threshold: 0.2,
-      tokenize: true,
-      id: 'id'
-    };
-    this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
-
-    this.initFirstSearch(nextProps);
   }
 
   /**
@@ -114,30 +73,55 @@ export default class Search extends Component {
     this.searchInput.focus();
   };
 
-  search = debounce(event => {
+  search = event => {
     this.setState({ searchTerm: event.target.value });
 
-    // fuse.js seems to need an empty space to reset?
-    const searchQuery = event.target.value ? event.target.value : ' ';
-
-    const resultIds = this.searchEngine.search(searchQuery);
+    const searchQuery = event.target.value.trim();
 
     const copy = o => ({ ...o });
 
+    console.time('searchFuzzy');
+    const fuzzyOptions = {
+      threshold: -200, // ignore matches with a lower score than this
+      limit: 1, // we only need to know if there is at least one result
+    };
     const results = this.props.data.map(copy).filter(function f(o) {
-      if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) {
-        return true;
+      if (o.type == 'video') {
+        const searchResults = fuzzysort.go(searchQuery, [
+          o.meta.title,
+          o.meta.description,
+          o.meta.tags.join(','),
+          o.meta.people.join(','),
+          o.src
+        ], fuzzyOptions);
+        return searchResults.length !== 0;
       }
 
       if (o.items) {
         return (o.items = o.items.map(copy).filter(f)).length;
       }
     });
+    console.timeEnd('searchFuzzy');
+
+    /*
+    console.time('searchString');
+    const results = this.props.data.map(copy).filter(function f(o) {
+      if (o.meta && o.meta.id) {
+        const targets = [o.meta.title.toLowerCase(), o.meta.description.toLowerCase(), o.meta.tags.join(',').toLowerCase(), o.meta.people.join(',').toLowerCase(), o.meta.src.toLowerCase()];
+        return targets.some(target => target.includes(searchQuery.toLowerCase()));
+      }
+
+      if (o.items) {
+        return (o.items = o.items.map(copy).filter(f)).length;
+      }
+    });
+    console.timeEnd('searchString');
+    */
 
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
     }
-  }, 300);
+  }
 
   handleKeyDown = event => {
     // prevent submit when pressing Enter & route to search URL
