@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import ReactAutolink from 'react-autolink';
+import truncate from 'lodash.truncate';
 
 export default class MetaContainer extends Component {
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    limitDescription: PropTypes.bool
   };
 
   render(props) {
@@ -40,7 +42,7 @@ export default class MetaContainer extends Component {
           ))}
         </div>
         <div className={style.description}>
-          {ReactAutolink.autolink(meta.description)}
+          {ReactAutolink.autolink(props.limitDescription ? truncate(meta.description, {'length': props.limitDescription, 'separator': ' '}) : meta.description)}
         </div>
       </div>
     );
