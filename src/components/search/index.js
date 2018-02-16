@@ -71,19 +71,20 @@ export default class Search extends Component {
     this.setState({ searchTerm: '' }, () => {
       this.triggerInputEvent();
       this.searchInput.focus();
+      route('/');
     });
   };
 
   search = event => {
-    this.setState({ searchTerm: event.target.value });
-    const searchQuery = event.target.value.trim();
+    const term = event.target.value.replace(/\s{2,}/g, ' '); // remove multiple spaces
+    this.setState({ searchTerm: term });
+    const searchQuery = term.trim();
 
     let results = null;
 
     if (searchQuery !== '') {
       const copy = o => ({ ...o });
 
-      console.time('searchFuzzy');
       const fuzzyOptions = {
         threshold: -200, // ignore matches with a lower score than this
         limit: 1, // we only need to know if there is at least one result
@@ -104,7 +105,6 @@ export default class Search extends Component {
           return (o.items = o.items.map(copy).filter(f)).length;
         }
       });
-      console.timeEnd('searchFuzzy');
 
       /*
       console.time('searchString');
