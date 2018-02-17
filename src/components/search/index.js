@@ -1,21 +1,12 @@
 import { h, Component } from 'preact';
-import * as fuse from 'fuse.js';
 import PropTypes from 'prop-types';
 import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
+import fuzzysort from 'fuzzysort';
 
 export default class Search extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.search = this.search.bind(this);
-    this.resetSearch = this.resetSearch.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
   state = {
-    searchIndex: [],
-    results: [],
     searchTerm: ''
   };
 
@@ -31,14 +22,9 @@ export default class Search extends Component {
    */
   searchInput;
 
-  /**
-   * Instance of the search engine
-   */
-  searchEngine;
-
   componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
-      this.createSearchIndex(nextProps);
+      this.initFirstSearch(nextProps);
     }
     if (this.props.term !== nextProps.term) {
       this.initFirstSearch(nextProps);
@@ -56,39 +42,6 @@ export default class Search extends Component {
     if (this.props.term !== nextProps.term) {
       return true;
     }
-  }
-
-  walkData(item) {
-    if (Array.isArray(item)) {
-      return item.map(singleItem => this.walkData(singleItem));
-    }
-
-    if (item.items && item.items.length > 0) {
-      item.items.map(singleItem => this.walkData(singleItem));
-    }
-
-    if (item.type === 'video' && item.meta) {
-      const newIndex = this.state.searchIndex.splice(0);
-      item.meta.src = item.src;
-      newIndex.push(item.meta);
-
-      // TODO calling setState very often might be a performance issue
-      this.setState({ searchIndex: newIndex });
-    }
-  }
-
-  createSearchIndex(nextProps) {
-    nextProps.data.map(item => this.walkData(item));
-
-    const searchOptions = {
-      keys: ['title', 'description', 'tags', 'people', 'src'],
-      threshold: 0.2,
-      tokenize: true,
-      id: 'id'
-    };
-    this.searchEngine = new fuse(this.state.searchIndex, searchOptions);
-
-    this.initFirstSearch(nextProps);
   }
 
   /**
@@ -111,40 +64,70 @@ export default class Search extends Component {
     }, 1);
   }
 
-  resetSearch(event) {
+  resetSearch = event => {
     if (event) {
       event.preventDefault();
     }
     this.setState({ searchTerm: '' });
     this.triggerInputEvent();
     this.searchInput.focus();
-  }
+  };
 
-  search(event) {
+  search = event => {
     this.setState({ searchTerm: event.target.value });
 
-    const resultIds = this.searchEngine.search(event.target.value);
+    const searchQuery = event.target.value.trim();
 
     const copy = o => ({ ...o });
 
+    console.time('searchFuzzy');
+    const fuzzyOptions = {
+      threshold: -200, // ignore matches with a lower score than this
+      limit: 1 // we only need to know if there is at least one result
+    };
     const results = this.props.data.map(copy).filter(function f(o) {
-      if (o.meta && o.meta.id && resultIds.includes(o.meta.id)) {
-        return true;
+      if (o.type == 'video') {
+        const searchResults = fuzzysort.go(
+          searchQuery,
+          [
+            o.meta.title,
+            o.meta.description,
+            o.meta.tags.join(','),
+            o.meta.people.join(','),
+            o.src
+          ],
+          fuzzyOptions
+        );
+        return searchResults.length !== 0;
       }
 
       if (o.items) {
         return (o.items = o.items.map(copy).filter(f)).length;
       }
     });
+    console.timeEnd('searchFuzzy');
+
+    /*
+    console.time('searchString');
+    const results = this.props.data.map(copy).filter(function f(o) {
+      if (o.meta && o.meta.id) {
+        const targets = [o.meta.title.toLowerCase(), o.meta.description.toLowerCase(), o.meta.tags.join(',').toLowerCase(), o.meta.people.join(',').toLowerCase(), o.meta.src.toLowerCase()];
+        return targets.some(target => target.includes(searchQuery.toLowerCase()));
+      }
+
+      if (o.items) {
+        return (o.items = o.items.map(copy).filter(f)).length;
+      }
+    });
+    console.timeEnd('searchString');
+    */
 
     if (typeof this.props.getResult === 'function') {
       this.props.getResult(results);
     }
+  };
 
-    this.setState({ results: results });
-  }
-
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     // prevent submit when pressing Enter & route to search URL
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -155,7 +138,7 @@ export default class Search extends Component {
     if (event.keyCode === 27) {
       this.resetSearch();
     }
-  }
+  };
 
   render(props, state) {
     return (

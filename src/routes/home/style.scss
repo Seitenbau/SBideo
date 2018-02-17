@@ -4,40 +4,59 @@
   padding: 20px;
   min-height: 200%;
   width: 100%;
-}
 
-.home > ul {
-  font-size: 2rem;
-  margin-bottom: $marginNormal;
-  text-align: center;
-}
+  ul {
+    padding-left: 0;
+  }
 
-.home ul {
-  padding-left: 0;
-}
+  > ul {
+    font-size: 2rem;
+    margin-bottom: $marginNormal;
+    text-align: center;
+  }
 
-.home > ul > li {
-  margin-bottom: $marginNormal;
-}
+  > ul li {
+    display: block;
+  }
 
-.home > ul li {
-  display: block;
+  > ul > li {
+    margin-bottom: $marginNormal;
+  }
 }
 
 /* Initiate grid on desktop aspect ratios */
+@media (min-aspect-ratio: 1/1) {
+  .home {
+    ul {
+      padding-left: $marginSmall;
+    }
+
+    > ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      text-align: left;
+      padding-left: 0;
+    }
+
+    > ul > li {
+      flex-basis: 32%;
+      margin-left: 2%;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 @media (min-aspect-ratio: 4/3) {
-  .home > ul {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .home ul {
-    padding-left: $marginSmall;
-  }
-
   .home > ul > li {
-    flex-basis: 23%;
+    flex-basis: 24%;
+    margin-left: 1.3333%;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
