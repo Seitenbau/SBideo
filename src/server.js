@@ -54,7 +54,7 @@ app.use('/items.json', (req, res) => {
 
 // handle POST requests to edit meta data via UI
 app.post('**/meta.json', jsonParser, (req, res) => {
-  const metaFilePath = dataFolder + req.path.replace('data/', '');
+  const metaFilePath = path.join(dataFolder, req.path.replace('data/', ''));
   console.log('POST ', metaFilePath);
 
   if (!fs.existsSync(metaFilePath)) {
@@ -158,7 +158,7 @@ const addItemRecursive = function(items, category, meta) {
 const walkSync = function(dir) {
   try {
     fs.readdirSync(dir).forEach(function(file) {
-      const filePath = dir + '/' + file;
+      const filePath = path.join(dir, file);
       if (fs.statSync(filePath).isDirectory()) {
         walkSync(filePath);
       } else {
@@ -170,10 +170,10 @@ const walkSync = function(dir) {
             meta: jf.readFileSync(filePath)
           };
 
-          const videoFile = path.dirname(filePath) + '/video.mp4';
+          const videoFile = path.join(path.dirname(filePath), 'video.mp4');
           if (fs.existsSync(videoFile)) {
             item.type = 'video';
-            item.src = '/data/' + path.relative(dataFolder, videoFile);
+            item.src = path.join('/data/', path.relative(dataFolder, videoFile));
           }
           const relativeFilePath = path.relative(dataFolder, filePath);
           const category = getCategoryByPath(relativeFilePath);
