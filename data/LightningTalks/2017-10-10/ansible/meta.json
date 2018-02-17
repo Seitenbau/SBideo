@@ -1,9 +1,8 @@
 {
   "id": "B1pOz-fIz",
   "title": "Ansible Playbook Vagrant Sandbox für Windows",
-  "description": "Ansible-Skripte unter Windows zu entwickeln ist etwas Mühsam. Ich hab eine kleine Vagrant Box zusammen geschrieben in der man Ansible Skripte entwickeln kann. Diese würde ich euch gerne vorstellen. Sie besteht aus einem Ansible Control Server und 3 Debian VMs (2 App Server und 1 DB Server).",
+  "description":
+    "Ansible-Skripte unter Windows zu entwickeln ist etwas Mühsam. Ich hab eine kleine Vagrant Box zusammen geschrieben in der man Ansible Skripte entwickeln kann. Diese würde ich euch gerne vorstellen. Sie besteht aus einem Ansible Control Server und 3 Debian VMs (2 App Server und 1 DB Server). Infos: https://www.ansible.com/",
   "tags": ["Ansible", "Infrastruktur"],
-  "people": [
-    "Thomas Vamos"
-  ]
+  "people": ["Thomas Vamos", "Jakob Schröter", "Tobias Schmidt"]
 }

@@ -1,0 +1,91 @@
+@import 'src/style/variables';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Helvetica Neue', arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #222;
+  background-color: #f2f5f6;
+}
+
+* {
+  box-sizing: border-box;
+  line-height: 140%;
+  word-break: break-word;
+}
+
+a {
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid #0f0;
+}
+
+a:hover,
+a:focus {
+  border-color: transparent;
+  color: #0f0;
+  background-color: #002d47;
+}
+
+#app {
+  height: 100%;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: $marginSmall;
+  padding-left: $marginSmall;
+  list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  /* Big headlines take up a lot of height so make it work with vhs */
+  font-size: 3vh;
+}
+
+/** Old browser warning */
+body:before {
+  content: 'Your browser is not supported, please install the latest version of Chrome, Firefox, Edge or Safari.';
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0f0;
+  min-height: 30px;
+  line-height: 30px;
+  left: 0;
+  z-index: 10000;
+  text-align: center;
+  pointer-events: none;
+}
+
+/** Detect firefox older than quantum and browser without css grid support */
+@supports (not (animation: calc(0s))) or (not (display: grid)) {
+  body:before {
+    display: block;
+  }
+}
+
+/** Detect Internet Explorer */
+@media all and (-ms-high-contrast: none) {
+  body:before {
+    display: block;
+  }
+}

@@ -1,4 +1,5 @@
-# SBideo
+# SBideo [![Build Status](https://travis-ci.org/Seitenbau/SBideo.svg?branch=master)](https://travis-ci.org/Seitenbau/SBideo) [![Dependencies](https://david-dm.org/Seitenbau/SBideo.svg)](https://david-dm.org/Seitenbau/SBideo)
+
 A very simplistic video archive including video transcoding and following features:
 
 - web interface for listing all videos in a flexible multi-level folder structure
@@ -9,30 +10,35 @@ A very simplistic video archive including video transcoding and following featur
 - simple file system based data structure, no database required
 - integrated web- and pseudo-streaming server (express)
 
+## CLI Commands
 
-## Initial setup
-Install all dependencies
-```sh
+```bash
+# install dependencies
 npm install
-```
-For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
 
-Adjust the folder structure in `data` to your needs.
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# test the production build locally
+npm run serve
+
+# run tests with jest and preact-render-spy
+npm run test
+```
+
+For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+
 
 ## Basic usage
-To start the webserver, run
 
-```sh
-node server.js ./data
-```
+You can use the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like `data` by altering the parameter of `server.js`.
 
-Then, you'll find the video archive at `localhost:3000`.
-<br>
-You can use the `data` folder in this repo as a reference for your
-directory layout. You can serve any folder having a structure like `data` by
-altering the parameter of `server.js`.
+## Uploading and transcoding files
+For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
 
-## Uploading files
 In addition to the server, run
 
 ```sh
@@ -41,7 +47,6 @@ node transcode.js ./incoming ./data
 
 Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
 
-**This requires an ffmpeg installation.**
 
 ## Migrate script
 In case you want to migrate an old file based video archive, check the branch [migrateScript](https://github.com/Seitenbau/SBideo/tree/migrateScript); maybe it helps.

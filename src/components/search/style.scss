@@ -1,0 +1,40 @@
+@import 'src/style/variables';
+
+.searchForm {
+  margin-bottom: $marginNormal;
+  display: flex;
+  justify-content: center;
+}
+
+.searchForm > span {
+  display: flex;
+  width: 75%;
+  position: relative;
+
+  @media (min-aspect-ratio: 4/3) {
+    width: 50%;
+  }
+}
+
+.searchField {
+  width: 100%;
+  height: 3rem;
+  margin: auto;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.resetButton {
+  background-color: transparent;
+  position: absolute;
+  height: calc(100% - 2px);
+  top: 1px;
+  right: 0;
+  border: 0;
+  padding: 0 15px;
+}
+
+.resetIcon {
+  display: block;
+  opacity: 0.6;
+}

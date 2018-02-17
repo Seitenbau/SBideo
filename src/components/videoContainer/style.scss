@@ -1,0 +1,26 @@
+@import 'src/style/variables';
+
+.wrapper {
+  margin-bottom: $marginNormal;
+  text-align: center;
+}
+
+.videoPlayer {
+  margin-bottom: $marginSmall;
+}
+
+@media (min-aspect-ratio: 4/3) {
+  .wrapper {
+    display: flex;
+    flex-basis: 100%;
+    text-align: left;
+  }
+  .videoPlayer {
+    flex-basis: 75%;
+  }
+
+  .activeMetaContainer {
+    flex-basis: 23%;
+    margin-left: 2%;
+  }
+}
