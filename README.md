@@ -4,11 +4,12 @@ A very simplistic video archive including video transcoding and following featur
 
 - web interface for listing all videos in a flexible multi-level folder structure
 - video player
-- editable metadata for videos and folders e.g. title, description, speaker, tags
-- fast client-side search through video metadata
+- editable metadata for videos and folders e.g. title, description, speaker, tags ([in development](https://github.com/Seitenbau/SBideo/pull/19))
+- ultra fast client-side fuzzy search through video metadata
 - async video transcoding from any ffmpeg supported format to mp4
 - simple file system based data structure, no database required
 - integrated web- and pseudo-streaming server (express)
+- very lightweight client-side code: total 28kb JS + 6kb CSS gzipped (based on [preact-cli](https://github.com/developit/preact-cli))
 
 ## CLI Commands
 
@@ -27,6 +28,9 @@ npm run serve
 
 # run tests with jest and preact-render-spy
 npm run test
+
+# code linting
+npm run lint
 ```
 
 For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
