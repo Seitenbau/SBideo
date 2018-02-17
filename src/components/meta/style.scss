@@ -4,8 +4,19 @@
   display: inline-block;
   margin-right: 5px;
 }
+
 .icon img {
   margin-top: 3px;
+}
+
+.editButton {
+  float: right;
+
+  &::after {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
 }
 
 .meta {

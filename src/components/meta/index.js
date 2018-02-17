@@ -54,11 +54,19 @@ export default class Meta extends Component {
           ))}
         </div>
         <div className={style.description}>
-          {ReactAutolink.autolink(props.limitDescription ? truncate(meta.description, {'length': props.limitDescription, 'separator': ' '}) : meta.description)}
+          {ReactAutolink.autolink(
+            props.limitDescription
+              ? truncate(meta.description, {
+                  length: props.limitDescription,
+                  separator: ' '
+                })
+              : meta.description
+          )}
         </div>
         {showTitle && (
-          <button onClick={this.handleEditButton}>
+          <button className={style.editButton} onClick={this.handleEditButton}>
             <Octicon name="pencil" className={style.icon} />
+            Edit
           </button>
         )}
       </div>

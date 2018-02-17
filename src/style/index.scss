@@ -60,6 +60,10 @@ h1 {
   font-size: 3vh;
 }
 
+button {
+  font-size: 0.9rem;
+}
+
 /** Old browser warning */
 body:before {
   content: 'Your browser is not supported, please install the latest version of Chrome, Firefox, Edge or Safari.';
