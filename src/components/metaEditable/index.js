@@ -27,8 +27,10 @@ export default class MetaEditable extends Component {
 
   getListOfArrayKey(key, item) {
     if (Array.isArray(item)) {
-      return this.mergeArray(
-        item.map(singleItem => this.getListOfArrayKey(key, singleItem))
+      return this.uniqueArray(
+        this.mergeArray(
+          item.map(singleItem => this.getListOfArrayKey(key, singleItem))
+        )
       );
     }
 
@@ -40,7 +42,13 @@ export default class MetaEditable extends Component {
     }
 
     if (item.meta && item.meta[key]) {
-      itemsResult = this.mergeArray([itemsResult, item.meta[key]]);
+      // check if it's a comma separated string instead of an array, and split it up
+      const arr =
+        item.meta[key][0] && item.meta[key][0].indexOf(',') > -1
+          ? item.meta[key][0].split(',')
+          : item.meta[key];
+
+      itemsResult = this.mergeArray([itemsResult, arr]);
     }
 
     return itemsResult;
@@ -58,12 +66,8 @@ export default class MetaEditable extends Component {
   componentWillMount() {
     // TODO call this on componentWillReceiveProps?
     // TODO combine these two iterations, so both keys will be returned without iterating twice
-    const peopleSuggestions = this.uniqueArray(
-      this.getListOfArrayKey('people', this.props.data)
-    );
-    const tagsSuggestions = this.uniqueArray(
-      this.getListOfArrayKey('tags', this.props.data)
-    );
+    const peopleSuggestions = this.getListOfArrayKey('people', this.props.data);
+    const tagsSuggestions = this.getListOfArrayKey('tags', this.props.data);
     this.setState({ peopleSuggestions, tagsSuggestions });
   }
 
