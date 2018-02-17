@@ -115,7 +115,7 @@ export default class MetaEditable extends Component {
   render(props, state) {
     return (
       <div className={metaStyle.meta}>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className={style.form}>
           <h1>
             <InlineEditor
               value={state.meta.title}
