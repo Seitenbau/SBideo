@@ -62,6 +62,20 @@ h1 {
 
 button {
   font-size: 0.9rem;
+  outline: 0;
+  cursor: pointer;
+  color: #333;
+
+  &.primary {
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #0f0;
+    border: 1px solid transparent;
+  }
 }
 
 /** Old browser warning */

@@ -149,7 +149,7 @@ export default class MetaEditable extends Component {
           </div>
           <div className={style.buttonContainer}>
             <button onClick={this.handleCancel}>Cancel</button>
-            <button type="submit" className={style.saveButton}>
+            <button type="submit" className={style.saveButton + ' primary'}>
               Save
             </button>
           </div>
