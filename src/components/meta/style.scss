@@ -1,11 +1,25 @@
+@import 'src/style/variables';
+
 .icon {
   width: 16px;
   height: 16px;
   display: inline-block;
   margin-right: 5px;
 }
+
 .icon img {
   margin-top: 3px;
+}
+
+.editButton {
+  float: right;
+  margin-top: $marginSmall;
+
+  &::after {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
 }
 
 .meta {

@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import Home from '../index.js';
 import { shallow } from 'preact-render-spy';
+jest.mock('../../../components/activeMetaContainer', () => <div />);
 
 describe('Test of the Homepage', () => {
   beforeEach(function() {

@@ -12,6 +12,9 @@ export default class TagsEditable extends Component {
     this.state = {
       tags: props.tags.map(tag => {
         return { id: null, name: tag };
+      }),
+      suggestions: props.suggestions.map(tag => {
+        return { id: null, name: tag };
       })
     };
   }
@@ -19,30 +22,40 @@ export default class TagsEditable extends Component {
   propTypes = {
     meta: PropTypes.object,
     onChange: PropTypes.func,
-    tags: PropTypes.array
+    tags: PropTypes.array,
+    suggestions: PropTypes.array
   };
 
   handleTagDelete(i) {
     const { state, props } = this;
 
-    const tags = state.tags.slice(0);
-    tags.splice(i, 1);
-    this.setState({ tags });
-
-    if (typeof props.onChange === 'function') {
-      props.onChange(state.tags.map(tag => tag.name));
-    }
+    this.setState(prevState => {
+      const tags = prevState.tags.slice(0);
+      tags.splice(i, 1);
+      return { tags };
+    }, () => {
+      if (typeof props.onChange === 'function') {
+        props.onChange(state.tags.map(tag => tag.name));
+      }
+    });
   }
 
   handleTagAddition(tag) {
     const { state, props } = this;
 
-    const tags = [].concat(state.tags, tag);
-    this.setState({ tags });
+    this.setState(prevState => {
+      // remove leading or trailing whitespaces
+      tag.name = tag.name.trim(); 
 
-    if (typeof props.onChange === 'function') {
-      props.onChange(state.tags.map(tag => tag.name));
-    }
+      //TODO: for existing tags, the suggestion object could have the property "disabled=true", see https://www.npmjs.com/package/react-tag-autocomplete#suggestions-optional
+      //TODO: prevent duplicates and make all tags lowercase?
+      const tags = [].concat(prevState.tags, tag);
+      return { tags };
+    }, () => {
+      if (typeof props.onChange === 'function') {
+        props.onChange(state.tags.map(tag => tag.name));
+      }
+    });
   }
 
   render(props) {
@@ -62,13 +75,14 @@ export default class TagsEditable extends Component {
     return (
       <ReactTags
         tags={this.state.tags}
-        suggestions={props.suggestions}
+        suggestions={this.state.suggestions}
         allowNew
         autofocus={false}
         handleDelete={this.handleTagDelete}
         handleAddition={this.handleTagAddition}
         classNames={classNames}
         placeholder={props.placeholder}
+        delimiterChars={[',']}
       />
     );
   }

@@ -12,7 +12,7 @@ export default class Search extends Component {
 
   propTypes = {
     data: PropTypes.array,
-    getResult: PropTypes.func,
+    getResults: PropTypes.func,
     term: PropTypes.string,
     isActive: PropTypes.bool
   };
@@ -68,62 +68,66 @@ export default class Search extends Component {
     if (event) {
       event.preventDefault();
     }
-    this.setState({ searchTerm: '' });
-    this.triggerInputEvent();
-    this.searchInput.focus();
+    this.setState({ searchTerm: '' }, () => {
+      this.triggerInputEvent();
+      this.searchInput.focus();
+      route('/');
+    });
   };
 
   search = event => {
-    this.setState({ searchTerm: event.target.value });
+    const term = event.target.value.replace(/\s{2,}/g, ' '); // remove multiple spaces
+    this.setState({ searchTerm: term });
+    const searchQuery = term.trim();
 
-    const searchQuery = event.target.value.trim();
+    let results = null;
 
-    const copy = o => ({ ...o });
+    if (searchQuery !== '') {
+      const copy = o => ({ ...o });
 
-    console.time('searchFuzzy');
-    const fuzzyOptions = {
-      threshold: -200, // ignore matches with a lower score than this
-      limit: 1 // we only need to know if there is at least one result
-    };
-    const results = this.props.data.map(copy).filter(function f(o) {
-      if (o.type == 'video') {
-        const searchResults = fuzzysort.go(
-          searchQuery,
-          [
-            o.meta.title,
-            o.meta.description,
-            o.meta.tags.join(','),
-            o.meta.people.join(','),
-            o.src
-          ],
-          fuzzyOptions
-        );
-        return searchResults.length !== 0;
-      }
+      const fuzzyOptions = {
+        threshold: -200, // ignore matches with a lower score than this
+        limit: 1 // we only need to know if there is at least one result
+      };
+      results = this.props.data.map(copy).filter(function f(o) {
+        if (o.type == 'video') {
+          const searchResults = fuzzysort.go(
+            searchQuery,
+            [
+              o.meta.title,
+              o.meta.description,
+              o.meta.tags.join(','),
+              o.meta.people.join(','),
+              o.src
+            ],
+            fuzzyOptions
+          );
+          return searchResults.length !== 0;
+        }
 
-      if (o.items) {
-        return (o.items = o.items.map(copy).filter(f)).length;
-      }
-    });
-    console.timeEnd('searchFuzzy');
+        if (o.items) {
+          return (o.items = o.items.map(copy).filter(f)).length;
+        }
+      });
 
-    /*
-    console.time('searchString');
-    const results = this.props.data.map(copy).filter(function f(o) {
-      if (o.meta && o.meta.id) {
-        const targets = [o.meta.title.toLowerCase(), o.meta.description.toLowerCase(), o.meta.tags.join(',').toLowerCase(), o.meta.people.join(',').toLowerCase(), o.meta.src.toLowerCase()];
-        return targets.some(target => target.includes(searchQuery.toLowerCase()));
-      }
+      /*
+      console.time('searchString');
+      const results = this.props.data.map(copy).filter(function f(o) {
+        if (o.meta && o.meta.id) {
+          const targets = [o.meta.title.toLowerCase(), o.meta.description.toLowerCase(), o.meta.tags.join(',').toLowerCase(), o.meta.people.join(',').toLowerCase(), o.meta.src.toLowerCase()];
+          return targets.some(target => target.includes(searchQuery.toLowerCase()));
+        }
 
-      if (o.items) {
-        return (o.items = o.items.map(copy).filter(f)).length;
-      }
-    });
-    console.timeEnd('searchString');
-    */
+        if (o.items) {
+          return (o.items = o.items.map(copy).filter(f)).length;
+        }
+      });
+      console.timeEnd('searchString');
+      */
+    }
 
-    if (typeof this.props.getResult === 'function') {
-      this.props.getResult(results);
+    if (typeof this.props.getResults === 'function') {
+      this.props.getResults(results);
     }
   };
 

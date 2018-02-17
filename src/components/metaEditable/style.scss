@@ -1,34 +1,8 @@
-.icon {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  margin-right: 5px;
-}
-.icon img {
-  margin-top: 3px;
-}
+@import 'src/style/variables';
 
-.meta {
-  height: auto;
-}
-
-.people {
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.tags {
-  margin-bottom: 10px;
-}
-
-.title {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.description {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.saveButton {
+.buttonContainer {
+  display: flex;
   width: 100%;
+  justify-content: space-between;
+  margin-top: $marginSmall;
 }

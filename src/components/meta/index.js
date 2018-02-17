@@ -5,6 +5,7 @@ import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import ReactAutolink from 'react-autolink';
 import { route } from 'preact-router';
+import truncate from 'lodash.truncate';
 
 export default class Meta extends Component {
   constructor(props, context) {
@@ -13,7 +14,8 @@ export default class Meta extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    limitDescription: PropTypes.bool
   };
 
   handleEditButton(event) {
@@ -52,11 +54,19 @@ export default class Meta extends Component {
           ))}
         </div>
         <div className={style.description}>
-          {ReactAutolink.autolink(meta.description)}
+          {ReactAutolink.autolink(
+            props.limitDescription
+              ? truncate(meta.description, {
+                  length: props.limitDescription,
+                  separator: ' '
+                })
+              : meta.description
+          )}
         </div>
         {showTitle && (
-          <button onClick={this.handleEditButton}>
+          <button className={style.editButton} onClick={this.handleEditButton}>
             <Octicon name="pencil" className={style.icon} />
+            Edit
           </button>
         )}
       </div>
