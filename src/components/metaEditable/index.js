@@ -10,11 +10,6 @@ import InlineEditor from '../inlineEditor';
 export default class MetaEditable extends Component {
   constructor(props, context) {
     super(props, context);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handlePeopleChange = this.handlePeopleChange.bind(this);
-    this.handleTagsChange = this.handleTagsChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       peopleSuggestions: [],
@@ -71,46 +66,51 @@ export default class MetaEditable extends Component {
     this.setState({ peopleSuggestions, tagsSuggestions });
   }
 
-  handleTitleChange(title) {
+  handleTitleChange = title => {
     this.setState(prevState => {
       const meta = prevState.meta;
       meta.title = title;
       return { meta };
     });
-  }
+  };
 
-  handlePeopleChange(people) {
+  handlePeopleChange = people => {
     this.setState(prevState => {
       const meta = prevState.meta;
       meta.people = people;
       return { meta };
     });
-  }
+  };
 
-  handleTagsChange(tags) {
+  handleTagsChange = tags => {
     this.setState(prevState => {
       const meta = prevState.meta;
       meta.tags = tags;
       return { meta };
     });
-  }
+  };
 
-  handleDescriptionChange(description) {
+  handleDescriptionChange = description => {
     this.setState(prevState => {
       const meta = prevState.meta;
       meta.description = description;
       return { meta };
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     console.log('edit', this.state.meta);
     this.props.onSave(this.state.meta);
     // TODO
     route(`/${this.props.meta.id}/${this.props.meta.slug}`);
-  }
+  };
+
+  handleCancel = event => {
+    event.preventDefault();
+    route('.');
+  };
 
   render(props, state) {
     return (
@@ -147,9 +147,12 @@ export default class MetaEditable extends Component {
               onChange={this.handleDescriptionChange}
             />
           </div>
-          <button type="submit" className={style.saveButton}>
-            save
-          </button>
+          <div className={style.buttonContainer}>
+            <button onClick={this.handleCancel}>cancel</button>
+            <button type="submit" className={style.saveButton}>
+              save
+            </button>
+          </div>
         </form>
       </div>
     );
