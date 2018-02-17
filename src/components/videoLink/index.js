@@ -75,7 +75,7 @@ export default class VideoLink extends Component {
                   }
                 }}
               >
-                <Meta meta={meta} />
+                <Meta meta={meta} limitDescription="250" />
                 <Arrow className={style.popperarrow} />
               </TopPopper>
             )}

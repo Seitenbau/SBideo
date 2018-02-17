@@ -5,6 +5,7 @@ import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import ReactAutolink from 'react-autolink';
 import { route } from 'preact-router';
+import truncate from 'lodash.truncate';
 
 export default class Meta extends Component {
   constructor(props, context) {
@@ -13,7 +14,8 @@ export default class Meta extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object
+    meta: PropTypes.object,
+    limitDescription: PropTypes.bool
   };
 
   handleEditButton(event) {
@@ -33,11 +35,7 @@ export default class Meta extends Component {
           )}
           {meta.people.map((person, j) => (
             <span key={`person${j}`}>
-              <Link
-                href={`/search/${encodeURIComponent(
-                  person.replace(/\s+/g, '+')
-                )}`}
-              >
+              <Link href={`/search/${encodeURIComponent(person)}`}>
                 {person}
               </Link>
               {meta.people.length === j + 1 ? '' : ', '}
@@ -48,7 +46,7 @@ export default class Meta extends Component {
           {meta.tags.map((tag, i) => (
             <Link
               key={`tag${i}`}
-              href={`/search/${encodeURIComponent(tag.replace(/\s+/g, '+'))}`}
+              href={`/search/${encodeURIComponent(tag)}`}
               className={style.tag}
             >
               {tag}
@@ -56,7 +54,7 @@ export default class Meta extends Component {
           ))}
         </div>
         <div className={style.description}>
-          {ReactAutolink.autolink(meta.description)}
+          {ReactAutolink.autolink(props.limitDescription ? truncate(meta.description, {'length': props.limitDescription, 'separator': ' '}) : meta.description)}
         </div>
         {showTitle && (
           <button onClick={this.handleEditButton}>

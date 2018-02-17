@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.setSearchResultExist = this.setSearchResultExist.bind(this);
+    this.setSearchResults = this.setSearchResults.bind(this);
   }
 
   state = {
     data: [],
-    searchResults: []
+    searchResults: null
   };
 
   propTypes = {
@@ -24,7 +24,7 @@ export default class Home extends Component {
 
   itemsEndpoint = '/items.json';
 
-  setSearchResultExist(results) {
+  setSearchResults(results) {
     this.setState({ searchResults: results });
   }
 
@@ -53,13 +53,13 @@ export default class Home extends Component {
         />
         <Search
           data={state.data}
-          getResult={this.setSearchResultExist}
+          getResults={this.setSearchResults}
           className={style.layoutElement}
           isActive={this.props.id === 'search'}
           term={this.props.id === 'search' ? this.props.term : ''}
         />
         <Folder
-          data={state.searchResults.length ? state.searchResults : state.data}
+          data={state.searchResults != null ? state.searchResults : state.data}
         />
       </div>
     );
