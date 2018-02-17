@@ -42,7 +42,13 @@ export default class MetaEditable extends Component {
     }
 
     if (item.meta && item.meta[key]) {
-      itemsResult = this.mergeArray([itemsResult, item.meta[key]]);
+      // check if it's a comma separated string instead of an array, and split it up
+      const arr =
+        item.meta[key][0] && item.meta[key][0].indexOf(',') > -1
+          ? item.meta[key][0].split(',')
+          : item.meta[key];
+
+      itemsResult = this.mergeArray([itemsResult, arr]);
     }
 
     return itemsResult;
