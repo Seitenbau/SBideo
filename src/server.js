@@ -3,6 +3,7 @@ const compression = require('compression');
 const express = require('express');
 const app = express().use(compression());
 const server = require('http').createServer(app);
+const jsonParser = require('body-parser').json()
 const path = require('path');
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
@@ -48,6 +49,32 @@ app.use('/items.json', (req, res) => {
   }
 
   // serve real data
+  res.json(allItems);
+});
+
+// handle POST requests to edit meta data via UI
+app.post('**/meta.json', jsonParser, (req, res) => {
+  const metaFilePath = dataFolder + req.path.replace('data/', '');
+  console.log('POST ', metaFilePath);
+
+  if (!fs.existsSync(metaFilePath)) {
+    res.status(404).end();
+  }
+
+  // save meta.json
+  // TODO refactor; make async
+  const newMeta = req.body;
+  const meta = jf.readFileSync(metaFilePath);
+  meta.title = newMeta.title;
+  meta.description = newMeta.description;
+  meta.people = newMeta.people;
+  meta.tags = newMeta.tags;
+  fs.writeFileSync(metaFilePath, JSON.stringify(meta, null, 4));
+
+  // TODO refactor
+  // reindex all items and send to client
+  allItems = [];
+  walkSync(dataFolder);
   res.json(allItems);
 });
 

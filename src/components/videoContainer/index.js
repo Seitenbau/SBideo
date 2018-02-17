@@ -55,6 +55,7 @@ export default class VideoContainer extends Component {
         <ActiveMetaContainer
           className={style.activeMetaContainer}
           meta={this.state.meta}
+          src={this.state.src}
           editMode={this.props.editMode}
           data={this.props.data}
         />

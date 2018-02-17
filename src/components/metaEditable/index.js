@@ -21,6 +21,7 @@ export default class MetaEditable extends Component {
   propTypes = {
     meta: PropTypes.object,
     data: PropTypes.object,
+    src: PropTypes.string,
     onSave: PropTypes.func
   };
 
@@ -101,9 +102,30 @@ export default class MetaEditable extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log('edit', this.state.meta);
-    this.props.onSave(this.state.meta);
-    // TODO
+    const newMeta = this.state.meta;
+
+    console.log('edit', newMeta);
+    this.props.onSave(newMeta);
+
+    // async save to server and get new data
+    fetch(this.props.src.replace('video.mp4', 'meta.json'), {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(newMeta)
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then(json => {
+      // TODO replace client state with new server data
+      console.log('meta saved, received new data', json);
+    }).catch(e => console.log(e));
+
+    // end edit mode
     route(`/${this.props.meta.id}/${this.props.meta.slug}`);
   };
 

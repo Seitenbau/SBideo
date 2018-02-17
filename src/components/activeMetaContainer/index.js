@@ -47,6 +47,7 @@ export default class ActiveMetaContainer extends Component {
           {props.editMode ? (
             <MetaEditable
               meta={this.getCurrentMeta()}
+              src={props.src}
               data={props.data}
               showTitle="true"
               onSave={this.onSave}
