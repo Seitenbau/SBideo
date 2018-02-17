@@ -87,8 +87,10 @@
     "react-autolink": "^0.2.1",
     "react-dom": "^16.2.0",
     "react-popper": "^0.8.2",
+    "react-redux": "^5.0.7",
     "react-tag-autocomplete": "^5.5.0",
     "react-textarea-autosize": "^5.2.1",
+    "redux": "^3.7.2",
     "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0",
     "speakingurl": "^14.0.1"

@@ -4,7 +4,7 @@ import { Router } from 'preact-router';
 import Home from '../routes/home';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducers from './reducers';
+import reducers from '../reducers';
 
 if (module.hot) {
   require('preact/debug');
