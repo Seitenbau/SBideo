@@ -59,8 +59,7 @@ export class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.home.data,
-    activeVideo: state.home.activeVideo
+    data: state.home.data
   };
 };
 
