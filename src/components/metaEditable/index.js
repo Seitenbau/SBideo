@@ -168,7 +168,6 @@ export class MetaEditable extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     data: state.home.data
   };
