@@ -79,7 +79,7 @@
     "lodash.truncate": "^4.4.2",
     "minimist": "^1.2.0",
     "octicons": "^7.1.0",
-    "preact": "^8.2.6",
+    "preact": "^8.2.7",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.5.7",
     "prop-types": "^15.6.0",
