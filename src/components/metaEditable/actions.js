@@ -13,10 +13,7 @@ export function saveDataFailure(error) {
 }
 
 export function saveData(newMeta, src) {
-  return (dispatch, getState) => {
-    if (getState().activeMeta === newMeta) {
-      return; // No need to fetch
-    }
+  return dispatch => {
     dispatch({
       type: 'SAVING_META'
     });
