@@ -147,6 +147,9 @@ export default class MetaEditable extends Component {
               value={state.meta.title}
               placeholder="Enter title..."
               onChange={this.handleTitleChange}
+              minlength="3"
+              maxlength="150"
+              required
             />
           </h1>
           <div className={metaStyle.people}>
@@ -171,6 +174,7 @@ export default class MetaEditable extends Component {
               value={state.meta.description}
               placeholder="Enter description..."
               onChange={this.handleDescriptionChange}
+              maxlength="1500"
             />
           </div>
           <div className={style.buttonContainer}>
