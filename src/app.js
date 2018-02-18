@@ -1,11 +1,11 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
-import Home from '../routes/home';
+import Home from './routes/home';
 import { Provider } from 'preact-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import reducers from '../reducers';
+import reducers from './reducers';
 
 if (module.hot) {
   require('preact/debug');
