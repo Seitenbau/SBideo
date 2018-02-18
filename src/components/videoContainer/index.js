@@ -16,8 +16,7 @@ export class VideoContainer extends Component {
   propTypes = {
     activeVideoId: PropTypes.number,
     data: PropTypes.object,
-    editMode: PropTypes.bool,
-    setActiveVideo: PropTypes.func
+    editMode: PropTypes.bool
   };
 
   getVideoById(items, videoId) {
