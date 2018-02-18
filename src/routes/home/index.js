@@ -5,7 +5,7 @@ import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
 import PropTypes from 'prop-types';
 import { connect } from 'preact-redux';
-import { retrieveData } from './actions';
+import { retrieveData, setActiveVideo } from './actions';
 
 export class Home extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ export class Home extends Component {
     term: PropTypes.string,
     mode: PropTypes.bool,
     retrieveData: PropTypes.func,
+    setActiveVideo: PropTypes.func,
     data: PropTypes.object
   };
 
@@ -32,6 +33,32 @@ export class Home extends Component {
 
   componentDidMount() {
     this.props.retrieveData();
+  }
+
+  getVideoById(items, videoId) {
+    var result;
+
+    const checkMatch = item => {
+      if (item.type === 'video' && item.meta && item.meta.id === videoId) {
+        result = item;
+        return true;
+      }
+      return Array.isArray(item.items) && item.items.some(checkMatch);
+    };
+
+    items.some(checkMatch);
+    return result;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { id, data } = nextProps;
+
+    const video = id && id.length > 0 ? this.getVideoById(data, id) : null;
+
+    if (video) {
+      // this.setState({ activeVideo: video });
+      nextProps.setActiveVideo(video);
+    }
   }
 
   render(props, state) {
@@ -65,7 +92,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    retrieveData: () => dispatch(retrieveData())
+    retrieveData: () => dispatch(retrieveData()),
+    setActiveVideo: video => dispatch(setActiveVideo(video))
   };
 };
 

@@ -12,10 +12,11 @@ export function saveDataFailure(error) {
   };
 }
 
-export function saveData(newMeta, src) {
+export function saveData(newData, src) {
   return dispatch => {
     dispatch({
-      type: 'SAVING_META'
+      type: 'SAVING_META',
+      data: newData
     });
 
     return fetch(src.replace('video.mp4', 'meta.json'), {
@@ -24,7 +25,7 @@ export function saveData(newMeta, src) {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      body: JSON.stringify(newMeta)
+      body: JSON.stringify(newData)
     })
       .then(response => {
         if (!response.ok) {

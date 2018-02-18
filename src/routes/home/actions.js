@@ -29,3 +29,10 @@ export function retrieveData() {
       .catch(error => dispatch(retrieveDataFailure(error)));
   };
 }
+
+export function setActiveVideo(video) {
+  return {
+    type: 'SET_ACTIVE_VIDEO',
+    video: video
+  };
+}
