@@ -1,9 +1,31 @@
-const reducer = (state = [], action) => {
+const initialState = {
+  activeVideo: {
+    src: null,
+    meta: {}
+  },
+  data: []
+};
+
+const reducer = (state = initialState, action) => {
+  console.log('reducer', action);
   switch (action.type) {
-    case 'SAVE_META':
+    case 'SET_ACTIVE_VIDEO':
       return {
         ...state,
-        ...action.meta
+        activeVideo: {
+          ...state.activeVideo,
+          ...action.activeVideo
+        }
+      };
+    case 'RETRIEVE_DATA_SUCCESS':
+      return {
+        ...state,
+        data: [...state.data, ...action.data]
+      };
+    case 'SAVE_META_SUCCESS':
+      return {
+        ...state,
+        data: action.data
       };
     default:
       return state;

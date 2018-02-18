@@ -4,8 +4,10 @@ import Folder from '../../components/folder';
 import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { retrieveData } from './actions';
 
-export default class Home extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.setSearchResults = this.setSearchResults.bind(this);
@@ -19,49 +21,53 @@ export default class Home extends Component {
   propTypes = {
     id: PropTypes.number,
     term: PropTypes.string,
-    mode: PropTypes.bool
+    mode: PropTypes.bool,
+    retrieveData: PropTypes.func,
+    data: PropTypes.object
   };
-
-  itemsEndpoint = '/items.json';
 
   setSearchResults(results) {
     this.setState({ searchResults: results });
   }
 
   componentDidMount() {
-    fetch(this.itemsEndpoint)
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(json => {
-        this.setState({ data: json });
-      })
-      .catch(e => console.log(e));
+    this.props.retrieveData();
   }
 
   render(props, state) {
     return (
       <div className={style.home}>
         <VideoContainer
-          data={state.data}
           activeVideoId={this.props.id}
           className={style.layoutElement}
           editMode={this.props.mode === 'edit' ? true : false}
         />
         <Search
-          data={state.data}
+          data={props.data}
           getResults={this.setSearchResults}
           className={style.layoutElement}
           isActive={this.props.id === 'search'}
           term={this.props.id === 'search' ? this.props.term : ''}
         />
         <Folder
-          data={state.searchResults != null ? state.searchResults : state.data}
+          data={state.searchResults != null ? state.searchResults : props.data}
         />
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    data: state.home.data,
+    activeVideo: state.home.activeVideo
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    retrieveData: () => dispatch(retrieveData())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

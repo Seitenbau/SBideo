@@ -6,8 +6,10 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
 import InlineEditor from '../inlineEditor';
+import { connect } from 'react-redux';
+import { saveData } from './actions';
 
-export default class MetaEditable extends Component {
+export class MetaEditable extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -22,7 +24,8 @@ export default class MetaEditable extends Component {
     meta: PropTypes.object,
     data: PropTypes.object,
     src: PropTypes.string,
-    onSave: PropTypes.func
+    onSave: PropTypes.func,
+    handleSave: PropTypes.func
   };
 
   getListOfArrayKey(key, item) {
@@ -106,31 +109,7 @@ export default class MetaEditable extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const newMeta = this.state.meta;
-
-    console.log('edit', newMeta);
-    this.props.onSave(newMeta);
-
-    // async save to server and get new data
-    fetch(this.props.src.replace('video.mp4', 'meta.json'), {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(newMeta)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(json => {
-        // TODO replace client state with new server data
-        console.log('meta saved, received new data', json);
-      })
-      .catch(e => console.log(e));
+    this.props.handleSave(this.state.meta, this.props.src);
 
     // end edit mode
     route(`/${this.props.meta.id}/${this.props.meta.slug}`);
@@ -186,21 +165,19 @@ export default class MetaEditable extends Component {
       </div>
     );
   }
-
-  mapStateToProps = state => {
-    return {
-      todos: this.activeMetaState(state.meta, state.visibilityFilter)
-    };
-  };
-
-  mapDispatchToProps = dispatch => {
-    return {
-      submitChange: data => {
-        dispatch({
-          type: 'SAVE_META',
-          data: data
-        });
-      }
-    };
-  };
 }
+
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    data: state.home.data
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleSave: (data, src) => dispatch(saveData(data, src))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MetaEditable);

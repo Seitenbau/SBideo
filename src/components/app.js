@@ -3,7 +3,8 @@ import { Router } from 'preact-router';
 
 import Home from '../routes/home';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import reducers from '../reducers';
 
 if (module.hot) {
@@ -20,7 +21,7 @@ export default class App extends Component {
   };
 
   render() {
-    let store = createStore(reducers);
+    let store = createStore(reducers, applyMiddleware(thunk));
 
     return (
       <Provider store={store}>
