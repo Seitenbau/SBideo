@@ -3,7 +3,7 @@ import VideoPlayer from '../../components/videoPlayer';
 import ActiveMetaContainer from '../../components/activeMetaContainer';
 import PropTypes from 'prop-types';
 import style from './style.scss';
-import { connect } from 'react-redux';
+import { connect } from 'preact-redux';
 
 export class VideoContainer extends Component {
   state = {
@@ -45,7 +45,6 @@ export class VideoContainer extends Component {
         ? this.getVideoById(data, activeVideoId)
         : null;
 
-    console.log('v', video);
     if (video) {
       this.setState({ activeVideo: video });
       if (shouldScroll) {

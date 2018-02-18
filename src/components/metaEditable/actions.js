@@ -36,7 +36,6 @@ export function saveData(newMeta, src) {
         return response.json();
       })
       .then(json => {
-        // TODO replace client state with new server data
         console.log('meta saved, received new data', json);
         dispatch(saveDataSuccess(json));
       })

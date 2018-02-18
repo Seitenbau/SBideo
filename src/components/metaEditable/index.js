@@ -6,7 +6,7 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
 import InlineEditor from '../inlineEditor';
-import { connect } from 'react-redux';
+import { connect } from 'preact-redux';
 import { saveData } from './actions';
 
 export class MetaEditable extends Component {
