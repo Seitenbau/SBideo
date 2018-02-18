@@ -107,7 +107,9 @@ export class MetaEditable extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
 
     this.props.handleSave(this.state.meta, this.props.src);
 
@@ -116,14 +118,29 @@ export class MetaEditable extends Component {
   };
 
   handleCancel = event => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     route('.');
+  };
+
+  handleKeyDown = event => {
+    if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
+      this.handleSubmit();
+    }
+    if (event.keyCode === 27) {
+      this.handleCancel();
+    }
   };
 
   render(props, state) {
     return (
       <div className={metaStyle.meta}>
-        <form onSubmit={this.handleSubmit} className={style.form}>
+        <form
+          onSubmit={this.handleSubmit}
+          className={style.form}
+          onKeyDown={this.handleKeyDown}
+        >
           <h1>
             <InlineEditor
               value={state.meta.title}
