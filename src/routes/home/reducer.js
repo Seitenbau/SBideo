@@ -1,8 +1,4 @@
 const initialState = {
-  activeVideo: {
-    src: null,
-    meta: {}
-  },
   data: []
 };
 
