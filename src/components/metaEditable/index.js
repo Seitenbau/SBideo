@@ -122,7 +122,7 @@ export class MetaEditable extends Component {
 
   render(props, state) {
     return (
-      <div className={metaStyle.meta + ' ' + style.editing}>
+      <div className={metaStyle.meta}>
         <form onSubmit={this.handleSubmit} className={style.form}>
           <h1>
             <InlineEditor

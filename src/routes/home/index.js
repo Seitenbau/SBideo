@@ -66,13 +66,7 @@ export class Home extends Component {
 
   render(props, state) {
     return (
-      <div
-        className={
-          props.mode === 'edit'
-            ? style.home + ' ' + style.homeEditing
-            : style.home
-        }
-      >
+      <div className={style.home}>
         <VideoContainer
           activeVideoId={this.props.id}
           className={style.layoutElement}
