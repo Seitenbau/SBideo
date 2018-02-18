@@ -54,7 +54,6 @@ export class VideoContainer extends Component {
   }
 
   render(props, state) {
-    console.log(state);
     return (
       <div className={style.wrapper}>
         <VideoPlayer
