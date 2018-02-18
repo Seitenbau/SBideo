@@ -1,6 +1,9 @@
 const initialState = {
   data: [],
-  activeVideo: null,
+  activeVideo: {
+    meta: {},
+    src: ''
+  },
   newData: null
 };
 
@@ -15,19 +18,19 @@ const reducer = (state = initialState, action) => {
     case 'SAVING_META':
       return {
         ...state,
-        newData: action.data
+        newMeta: action.data
       };
     case 'RETRIEVE_DATA_SUCCESS':
     case 'SAVE_META_SUCCESS':
       return {
         ...state,
         data: action.data,
-        newData: null
+        newMeta: null
       };
     case 'SAVE_META_FAILURE':
       return {
         ...state,
-        newData: null
+        newMeta: null
       };
     default:
       return state;

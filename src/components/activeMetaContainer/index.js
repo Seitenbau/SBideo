@@ -10,18 +10,19 @@ export class ActiveMetaContainer extends Component {
   };
 
   render(props) {
-    if (props.activeVideo && Object.keys(props.activeVideo.meta).length > 0) {
+    const meta = props.newMeta || props.activeVideo.meta;
+    if (meta && Object.keys(meta).length > 0) {
       return (
         <div className={props.className}>
           {props.editMode ? (
             <MetaEditable
-              meta={props.activeVideo.meta}
+              meta={meta}
               src={props.activeVideo.src}
               showTitle="true"
               onSave={this.onSave}
             />
           ) : (
-            <Meta meta={props.activeVideo.meta} showTitle="true" />
+            <Meta meta={meta} showTitle="true" />
           )}
         </div>
       );
@@ -38,7 +39,8 @@ export class ActiveMetaContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    activeVideo: state.home.activeVideo
+    activeVideo: state.home.activeVideo,
+    newMeta: state.home.newMeta
   };
 };
 
