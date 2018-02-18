@@ -4,7 +4,8 @@ const initialState = {
     meta: {},
     src: ''
   },
-  newData: null
+  newData: null,
+  editMode: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         newMeta: action.data
+      };
+    case 'SET_EDIT_MODE':
+      return {
+        ...state,
+        editMode: action.editing
       };
     case 'RETRIEVE_DATA_SUCCESS':
     case 'SAVE_META_SUCCESS':

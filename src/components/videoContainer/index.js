@@ -3,9 +3,8 @@ import VideoPlayer from '../../components/videoPlayer';
 import ActiveMetaContainer from '../../components/activeMetaContainer';
 import PropTypes from 'prop-types';
 import style from './style.scss';
-import { connect } from 'preact-redux';
 
-export class VideoContainer extends Component {
+export default class VideoContainer extends Component {
   propTypes = {
     activeVideoId: PropTypes.number,
     data: PropTypes.object,
@@ -20,23 +19,12 @@ export class VideoContainer extends Component {
     }
   }
 
-  render(props) {
+  render() {
     return (
       <div className={style.wrapper}>
         <VideoPlayer className={style.videoPlayer} />
-        <ActiveMetaContainer
-          className={style.activeMetaContainer}
-          editMode={props.editMode}
-        />
+        <ActiveMetaContainer className={style.activeMetaContainer} />
       </div>
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    data: state.home.data
-  };
-};
-
-export default connect(mapStateToProps)(VideoContainer);

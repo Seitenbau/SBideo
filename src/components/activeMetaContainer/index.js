@@ -6,7 +6,8 @@ import { connect } from 'preact-redux';
 
 export class ActiveMetaContainer extends Component {
   static propTypes = {
-    activeVideo: PropTypes.object
+    activeVideo: PropTypes.object,
+    newMeta: PropTypes.object
   };
 
   render(props) {
@@ -40,7 +41,8 @@ export class ActiveMetaContainer extends Component {
 const mapStateToProps = state => {
   return {
     activeVideo: state.home.activeVideo,
-    newMeta: state.home.newMeta
+    newMeta: state.home.newMeta,
+    editMode: state.home.editMode
   };
 };
 

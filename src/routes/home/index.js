@@ -5,7 +5,7 @@ import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
 import PropTypes from 'prop-types';
 import { connect } from 'preact-redux';
-import { retrieveData, setActiveVideo } from './actions';
+import { retrieveData, setActiveVideo, announceEditMode } from './actions';
 
 export class Home extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ export class Home extends Component {
     mode: PropTypes.bool,
     retrieveData: PropTypes.func,
     setActiveVideo: PropTypes.func,
+    announceEditMode: PropTypes.func,
     data: PropTypes.object
   };
 
@@ -59,6 +60,8 @@ export class Home extends Component {
       // this.setState({ activeVideo: video });
       nextProps.setActiveVideo(video);
     }
+
+    nextProps.announceEditMode(nextProps.mode === 'edit');
   }
 
   render(props, state) {
@@ -67,7 +70,6 @@ export class Home extends Component {
         <VideoContainer
           activeVideoId={this.props.id}
           className={style.layoutElement}
-          editMode={this.props.mode === 'edit' ? true : false}
         />
         <Search
           data={props.data}
@@ -93,7 +95,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     retrieveData: () => dispatch(retrieveData()),
-    setActiveVideo: video => dispatch(setActiveVideo(video))
+    setActiveVideo: video => dispatch(setActiveVideo(video)),
+    announceEditMode: editing => dispatch(announceEditMode(editing))
   };
 };
 

@@ -36,3 +36,10 @@ export function setActiveVideo(video) {
     video: video
   };
 }
+
+export function announceEditMode(editing) {
+  return {
+    type: 'SET_EDIT_MODE',
+    editing: editing
+  };
+}
