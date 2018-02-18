@@ -67,10 +67,7 @@ export class Home extends Component {
   render(props, state) {
     return (
       <div className={style.home}>
-        <VideoContainer
-          activeVideoId={this.props.id}
-          className={style.layoutElement}
-        />
+        <VideoContainer className={style.layoutElement} />
         <Search
           data={props.data}
           getResults={this.setSearchResults}

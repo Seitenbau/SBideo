@@ -8,6 +8,6 @@ describe('Test of the Homepage', () => {
     const context = shallow(<Home retrieveData={() => {}} />);
     expect(context.find('Search').length).toBe(1);
     expect(context.find('Folder').length).toBe(1);
-    expect(context.find('VideoContainer').length).toBe(1);
+    expect(context.find('Connect').length).toBe(1); // VideoContainer
   });
 });
