@@ -125,9 +125,15 @@ export class MetaEditable extends Component {
   };
 
   handleKeyDown = event => {
-    if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
+    // ctrl-enter or cmd-enter (MacOS) submit
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      (event.keyCode === 13 || event.keyCode === 10)
+    ) {
       this.handleSubmit();
     }
+
+    // cancel on escape
     if (event.keyCode === 27) {
       this.handleCancel();
     }
