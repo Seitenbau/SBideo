@@ -3,7 +3,7 @@ const compression = require('compression');
 const express = require('express');
 const app = express().use(compression());
 const server = require('http').createServer(app);
-const jsonParser = require('body-parser').json()
+const jsonParser = require('body-parser').json();
 const path = require('path');
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
@@ -49,7 +49,7 @@ app.use('/items.json', (req, res) => {
   }
 
   // serve real data
-  res.json(allItems);
+  res.json({ items: allItems });
 });
 
 // handle POST requests to edit meta data via UI

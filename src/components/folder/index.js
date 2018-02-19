@@ -5,6 +5,7 @@ import style from './style.scss';
 export default class Folder extends Component {
   render(props) {
     const { data } = props;
+
     // render multiple folders
     if (Array.isArray(data)) {
       const items = data.map((singleFolder, i) => (

@@ -6,6 +6,7 @@ import Search from '../../components/search';
 import PropTypes from 'prop-types';
 import { connect } from 'preact-redux';
 import { retrieveData, setActiveVideo, announceEditMode } from './actions';
+import crawl from 'tree-crawl';
 
 export class Home extends Component {
   constructor(props) {
@@ -36,18 +37,18 @@ export class Home extends Component {
     this.props.retrieveData();
   }
 
-  getVideoById(items, videoId) {
-    var result;
-
-    const checkMatch = item => {
-      if (item.type === 'video' && item.meta && item.meta.id === videoId) {
-        result = item;
-        return true;
-      }
-      return Array.isArray(item.items) && item.items.some(checkMatch);
-    };
-
-    items.some(checkMatch);
+  getVideoById(tree, videoId) {
+    let result;
+    crawl(
+      tree,
+      (node, context) => {
+        if (node.type === 'video' && node.meta && node.meta.id === videoId) {
+          result = node;
+          context.break();
+        }
+      },
+      { getChildren: node => node.items }
+    );
     return result;
   }
 
@@ -57,7 +58,6 @@ export class Home extends Component {
     const video = id && id.length > 0 ? this.getVideoById(data, id) : null;
 
     if (video) {
-      // this.setState({ activeVideo: video });
       nextProps.setActiveVideo(video);
     }
 
@@ -69,14 +69,16 @@ export class Home extends Component {
       <div className={style.home}>
         <VideoContainer className={style.layoutElement} />
         <Search
-          data={props.data}
+          data={props.data.items}
           getResults={this.setSearchResults}
           className={style.layoutElement}
           isActive={this.props.id === 'search'}
           term={this.props.id === 'search' ? this.props.term : ''}
         />
         <Folder
-          data={state.searchResults != null ? state.searchResults : props.data}
+          data={
+            state.searchResults != null ? state.searchResults : props.data.items
+          }
         />
       </div>
     );
