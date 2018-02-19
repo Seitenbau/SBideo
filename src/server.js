@@ -75,7 +75,7 @@ app.post('**/meta.json', jsonParser, (req, res) => {
   // reindex all items and send to client
   allItems = [];
   walkSync(dataFolder);
-  res.json(allItems);
+  res.json({ items: allItems });
 });
 
 // catch all unmatched, this needs to come last
