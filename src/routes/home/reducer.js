@@ -16,28 +16,19 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeVideo: action.video
       };
-    case 'SAVING_META':
-      return {
-        ...state,
-        newMeta: action.data
-      };
     case 'SET_EDIT_MODE':
       return {
         ...state,
         editMode: action.editing
       };
+    case 'SAVING_META':
     case 'RETRIEVE_DATA_SUCCESS':
     case 'SAVE_META_SUCCESS':
       return {
         ...state,
-        data: action.data,
-        newMeta: null
+        data: action.data
       };
     case 'SAVE_META_FAILURE':
-      return {
-        ...state,
-        newMeta: null
-      };
     default:
       return state;
   }
