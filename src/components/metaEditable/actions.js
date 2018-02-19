@@ -15,23 +15,26 @@ export function saveDataFailure(error) {
 }
 
 const setNewMeta = (tree, newMeta) => {
-  crawl(tree, (node, context) => {
-    if(node.meta && node.meta.id === newMeta.id) {
-      const newNode = node;
-      newNode.meta = newMeta;
+  crawl(
+    tree,
+    (node, context) => {
+      if (node.meta && node.meta.id === newMeta.id) {
+        const newNode = node;
+        newNode.meta = newMeta;
 
-      context.parent.items[context.index] = newNode;
-      context.replace(newNode);
-    }
-  }
-, { getChildren: node => node.items });
+        context.parent.items[context.index] = newNode;
+        context.replace(newNode);
+      }
+    },
+
+    { getChildren: node => node.items }
+  );
   return tree;
 };
 
-
 export function saveData(newMeta, src) {
   return (dispatch, getState) => {
-    const newData = setNewMeta({items: getState().home.data}, newMeta);
+    const newData = setNewMeta({ items: getState().home.data }, newMeta);
     dispatch({
       type: 'SAVING_META',
       data: newData.items
@@ -55,8 +58,7 @@ export function saveData(newMeta, src) {
         console.log('meta saved, received new data', json);
         setTimeout(() => {
           dispatch(saveDataSuccess(json));
-
-        }, 3000)
+        }, 3000);
       })
       .catch(error => dispatch(saveDataFailure(error)));
   };
