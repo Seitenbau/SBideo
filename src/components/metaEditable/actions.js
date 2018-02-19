@@ -1,5 +1,3 @@
-import crawl from 'tree-crawl';
-
 export function saveDataSuccess(data) {
   return {
     type: 'SAVE_META_SUCCESS',
@@ -14,30 +12,11 @@ export function saveDataFailure(error) {
   };
 }
 
-const setNewMeta = (tree, newMeta) => {
-  crawl(
-    tree,
-    (node, context) => {
-      if (node.meta && node.meta.id === newMeta.id) {
-        const newNode = node;
-        newNode.meta = newMeta;
-
-        context.parent.items[context.index] = newNode;
-        context.replace(newNode);
-      }
-    },
-
-    { getChildren: node => node.items }
-  );
-  return tree;
-};
-
 export function saveData(newMeta, src) {
-  return (dispatch, getState) => {
-    const newData = setNewMeta({ items: getState().home.data }, newMeta);
+  return dispatch => {
     dispatch({
       type: 'SAVING_META',
-      data: newData.items
+      newMeta
     });
 
     return fetch(src.replace('video.mp4', 'meta.json'), {

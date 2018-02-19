@@ -1,3 +1,5 @@
+import crawl from 'tree-crawl';
+
 const initialState = {
   data: [],
   activeVideo: {
@@ -22,6 +24,10 @@ const reducer = (state = initialState, action) => {
         editMode: action.editing
       };
     case 'SAVING_META':
+      return {
+        ...state,
+        data: setNewMetaInTree({ items: [...state.data] }, action.newMeta).items
+      };
     case 'RETRIEVE_DATA_SUCCESS':
     case 'SAVE_META_SUCCESS':
       return {
@@ -32,6 +38,23 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+const setNewMetaInTree = (tree, newMeta) => {
+  crawl(
+    tree,
+    (node, context) => {
+      if (node.meta && node.meta.id === newMeta.id) {
+        const newNode = node;
+        newNode.meta = newMeta;
+
+        context.parent.items[context.index] = newNode;
+        context.replace(newNode);
+      }
+    },
+    { getChildren: node => node.items }
+  );
+  return tree;
 };
 
 export default reducer;
