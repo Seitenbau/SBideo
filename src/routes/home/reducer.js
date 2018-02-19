@@ -7,7 +7,8 @@ const initialState = {
     src: ''
   },
   newData: null,
-  editMode: false
+  editMode: false,
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,12 @@ const reducer = (state = initialState, action) => {
         data: action.data
       };
     case 'SAVE_META_FAILURE':
+      return state;
+    case 'SET_SEARCH_RESULTS':
+      return {
+        ...state,
+        searchResults: action.data
+      };
     default:
       return state;
   }

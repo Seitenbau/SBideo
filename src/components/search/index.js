@@ -4,17 +4,19 @@ import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import fuzzysort from 'fuzzysort';
+import { setSearchResults } from './actions';
+import { connect } from 'preact-redux';
 
-export default class Search extends Component {
+export class Search extends Component {
   state = {
     searchTerm: ''
   };
 
   propTypes = {
-    data: PropTypes.array,
-    getResults: PropTypes.func,
     term: PropTypes.string,
-    isActive: PropTypes.bool
+    isActive: PropTypes.bool,
+    data: PropTypes.object,
+    setSearchResults: PropTypes.func
   };
 
   /**
@@ -89,7 +91,7 @@ export default class Search extends Component {
         threshold: -200, // ignore matches with a lower score than this
         limit: 1 // we only need to know if there is at least one result
       };
-      results = this.props.data.map(copy).filter(function f(o) {
+      results = this.props.data.items.map(copy).filter(function f(o) {
         if (o.type == 'video') {
           const searchResults = fuzzysort.go(
             searchQuery,
@@ -125,10 +127,7 @@ export default class Search extends Component {
       console.timeEnd('searchString');
       */
     }
-
-    if (typeof this.props.getResults === 'function') {
-      this.props.getResults(results);
-    }
+    this.props.setSearchResults(results);
   };
 
   handleKeyDown = event => {
@@ -168,3 +167,17 @@ export default class Search extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    data: state.home.data
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSearchResults: data => dispatch(setSearchResults(data))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

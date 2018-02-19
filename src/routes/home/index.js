@@ -9,16 +9,6 @@ import { retrieveData, setActiveVideo, announceEditMode } from './actions';
 import crawl from 'tree-crawl';
 
 export class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.setSearchResults = this.setSearchResults.bind(this);
-  }
-
-  state = {
-    data: [],
-    searchResults: null
-  };
-
   propTypes = {
     id: PropTypes.number,
     term: PropTypes.string,
@@ -28,10 +18,6 @@ export class Home extends Component {
     announceEditMode: PropTypes.func,
     data: PropTypes.object
   };
-
-  setSearchResults(results) {
-    this.setState({ searchResults: results });
-  }
 
   componentDidMount() {
     this.props.retrieveData();
@@ -64,20 +50,18 @@ export class Home extends Component {
     nextProps.announceEditMode(nextProps.mode === 'edit');
   }
 
-  render(props, state) {
+  render(props) {
     return (
       <div className={style.home}>
         <VideoContainer className={style.layoutElement} />
         <Search
-          data={props.data.items}
-          getResults={this.setSearchResults}
           className={style.layoutElement}
           isActive={this.props.id === 'search'}
           term={this.props.id === 'search' ? this.props.term : ''}
         />
         <Folder
           data={
-            state.searchResults != null ? state.searchResults : props.data.items
+            props.searchResults != null ? props.searchResults : props.data.items
           }
         />
       </div>
@@ -87,7 +71,8 @@ export class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.home.data
+    data: state.home.data,
+    searchResults: state.home.searchResults
   };
 };
 
