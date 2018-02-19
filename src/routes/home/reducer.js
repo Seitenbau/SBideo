@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
     case 'SAVING_META':
       return {
         ...state,
-        data: setNewMetaInTree({ items: [...state.data] }, action.newMeta).items
+        data: setNewMetaInTree({ ...state.data }, action.newMeta)
       };
     case 'RETRIEVE_DATA_SUCCESS':
     case 'SAVE_META_SUCCESS':
