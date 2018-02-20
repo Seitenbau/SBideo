@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"npm run serve\" --kill-others",
     "prod": "cross-env NODE_ENV=production npm run build && npm run serve",
     "build": "preact build --template ./src/index.html",
-    "build-demo": "cross-env NODE_ENV=clientdemo npm run build",
+    "publish-demo": "cross-env NODE_ENV=clientdemo npm run build && gh-pages -d build",
     "watch": "preact watch --template ./src/index.html",
     "serve": "node ./src/server.js ./data",
     "test": "jest ./tests",
