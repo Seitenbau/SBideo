@@ -6438,8 +6438,6 @@ var search_mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /* harmony default export */ var search = (connect(search_mapStateToProps, search_mapDispatchToProps)(search_Search));
 // CONCATENATED MODULE: ./routes/home/actions.js
-var itemsEndpoint =  false ? '/SBideo/items-demo.json' : '/SBideo/items-demo.json';
-
 function retrieveDataSuccess(newData) {
   return {
     type: 'RETRIEVE_DATA_SUCCESS',
@@ -6456,7 +6454,7 @@ function retrieveDataFailure(error) {
 
 function actions_retrieveData() {
   return function (dispatch) {
-    fetch(itemsEndpoint).then(function (response) {
+    fetch("/SBideo/items-demo.json").then(function (response) {
       if (!response.ok) {
         throw Error(response.statusText);
       }
