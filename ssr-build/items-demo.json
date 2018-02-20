@@ -23,7 +23,7 @@
                 "people": ["Tobias Schmidt"],
                 "slug": "hallway-usability-testing"
               },
-              "src": "video.mp4",
+              "src": "/SBideo/video.mp4",
               "name": "usability",
               "items": []
             }
@@ -45,7 +45,7 @@
                 "people": ["Thomas Vamos", "Jakob Schröter", "Tobias Schmidt"],
                 "slug": "ansible-playbook-vagrant-sandbox-fuer-windows"
               },
-              "src": "video.mp4",
+              "src": "/SBideo/video.mp4",
               "name": "ansible",
               "items": []
             }
@@ -80,7 +80,7 @@
                 "people": ["Jakob Schröter"],
                 "slug": "let-s-make-the-web-silky-smooth"
               },
-              "src": "video.mp4",
+              "src": "/SBideo/video.mp4",
               "name": "webperformance",
               "items": []
             }
@@ -101,7 +101,7 @@
                 "people": ["Stefan Eichenhofer"],
                 "slug": "keynote"
               },
-              "src": "video.mp4",
+              "src": "/SBideo/video.mp4",
               "name": "keynote",
               "items": []
             }
