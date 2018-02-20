@@ -5,7 +5,7 @@ import style from './style.scss';
 const Octicon = ({ children, ...props }) => (
   <span className={style.span} {...props}>
     <img
-      src={`/octicons/build/svg/${props.name}.svg`}
+      src={`${process.env.ASSET_PATH}octicons/build/svg/${props.name}.svg`}
       alt={props.alt || props.name}
       role="presentation"
     />
