@@ -27,13 +27,23 @@ export default (config, env, helpers) => {
     ];
   }
 
-  // copy demo files
+  let API_URL;
+
+  // Configure demo mode
   if (process.env.NODE_ENV === 'clientdemo') {
+    API_URL = '/SBideo/items-demo.json';
+    config.output.publicPath = '/SBideo/';
+
     config.plugins.push(
       new CopyWebpackPlugin([
         { context: `${__dirname}/data-clientdemo`, from: `*.*` }
       ])
     );
-    config.output.publicPath = '/SBideo/';
   }
+
+  config.plugins.push(
+    new helpers.webpack.DefinePlugin({
+      'process.env.API_URL': JSON.stringify(API_URL || '/items.json')
+    })
+  );
 };

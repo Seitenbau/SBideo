@@ -1,8 +1,3 @@
-const itemsEndpoint =
-  process.env.NODE_ENV === 'clientdemo'
-    ? '/SBideo/items-demo.json'
-    : '/items.json';
-
 export function retrieveDataSuccess(newData) {
   return {
     type: 'RETRIEVE_DATA_SUCCESS',
@@ -19,7 +14,7 @@ export function retrieveDataFailure(error) {
 
 export function retrieveData() {
   return dispatch => {
-    fetch(itemsEndpoint)
+    fetch(process.env.API_URL)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
