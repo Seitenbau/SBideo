@@ -1,4 +1,7 @@
-const itemsEndpoint = '/items.json';
+const itemsEndpoint =
+  process.env.NODE_ENV === 'clientdemo'
+    ? '/SBideo/items-demo.json'
+    : '/items.json';
 
 export function retrieveDataSuccess(newData) {
   return {
