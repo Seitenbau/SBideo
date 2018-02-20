@@ -2388,7 +2388,7 @@ var octicon_Octicon = function Octicon(_ref) {
     'span',
     _extends({ className: octicon_style_default.a.span }, props),
     Object(preact_min["h"])('img', {
-      src: '/octicons/build/svg/' + props.name + '.svg',
+      src: "/SBideo/" + 'octicons/build/svg/' + props.name + '.svg',
       alt: props.alt || props.name,
       role: 'presentation'
     }),
