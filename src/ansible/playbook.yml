@@ -1,6 +1,9 @@
 - hosts: all
   name: Install and setup sbideo server and transcode 
   sudo: yes
+
+  environment:
+    NODE_ENV: production
   
   tasks:
   - name: create target directory
@@ -25,6 +28,11 @@
     
   - name: download dependencies for sbideo with npm
     shell: npm install
+    args:
+      chdir: /usr/lib/sbideo
+        
+  - name: build sbideo with npm
+    shell: npm run build
     args:
       chdir: /usr/lib/sbideo
         
