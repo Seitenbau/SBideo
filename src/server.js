@@ -29,10 +29,6 @@ let allItems = [];
 
 // serve static files
 app.use(express.static(path.resolve(__dirname + '/../build')));
-app.use(
-  '/octicons',
-  express.static(path.resolve(__dirname + '/../node_modules/octicons'))
-);
 
 // serve video folder
 app.use('/data', express.static(dataFolder));

@@ -98,6 +98,7 @@
     "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0",
     "speakingurl": "^14.0.1",
+    "svgr": "^1.8.1",
     "tree-crawl": "^1.0.5"
   },
   "jest": {

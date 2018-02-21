@@ -2,6 +2,8 @@ import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default (config, env, helpers) => {
+  const isProd = process.env.NODE_ENV === 'production';
+
   // inline all styles
   const { plugin } =
     helpers.getPluginsByName(config, 'HtmlWebpackPlugin')[0] || {};
@@ -17,15 +19,42 @@ export default (config, env, helpers) => {
         target: 'http://localhost:3000/items.json'
       },
       {
-        path: '/octicons/**',
-        target: 'http://localhost:3000'
-      },
-      {
         path: '/data/**',
         target: 'http://localhost:3000'
       }
     ];
   }
+
+  // Remove file/url loaders to implement own svg loader
+  const loader = isProd
+    ? helpers.getLoadersByName(config, 'file-loader')
+    : helpers.getLoadersByName(config, 'url-loader');
+
+  console.log(config);
+  if (loader[0]['ruleIndex']) {
+    config.module.loaders.splice(loader[0]['ruleIndex'], 1);
+  }
+
+  config.module.loaders.push(
+    {
+      test: /\.svg$/,
+      use: [
+        {
+          loader: 'svgr/webpack'
+        },
+        {
+          loader: require.resolve('file-loader'),
+          options: {
+            name: '[name].[hash:8].[ext]'
+          }
+        }
+      ]
+    },
+    {
+      test: /\.(woff2?|ttf|eot|jpe?g|png|gif|mp4|mov|ogg|webm)(\?.*)?$/i,
+      loader: isProd ? 'file-loader' : 'url-loader'
+    }
+  );
 
   let API_URL;
 
