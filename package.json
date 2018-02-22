@@ -9,7 +9,7 @@
     "prod": "cross-env NODE_ENV=production npm run build && npm run serve",
     "build": "preact build --template ./src/index.html",
     "watch": "preact watch --template ./src/index.html",
-    "serve": "node ./src/server.js ./data",
+    "serve": "node ./src/server.js",
     "test": "jest ./tests",
     "lint": "eslint src",
     "precommit": "lint-staged"

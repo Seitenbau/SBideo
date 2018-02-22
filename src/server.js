@@ -17,7 +17,7 @@ const env = process.env.NODE_ENV || 'production';
 const port = process.env.PORT || 3000;
 server.listen(port);
 
-const dataFolder = argv._[0];
+const dataFolder = argv._[0] || './data';
 
 const defaultItem = {
   meta: {},
@@ -42,6 +42,7 @@ app.use('/items.json', (req, res) => {
     // serve testdata when available
     const testDataFileName = 'items-testdata.json';
     if (fs.existsSync(testDataFileName)) {
+      console.log('serving items-testdata.json');
       res.sendFile(path.resolve(__dirname + '/../' + testDataFileName));
       return;
     }
@@ -215,3 +216,4 @@ chokidar
 console.log(
   'App running under http://' + require('os').hostname() + ':' + port + '/'
 );
+console.log('...data folder:', dataFolder);
