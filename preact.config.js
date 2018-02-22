@@ -2,7 +2,9 @@ import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default (config, env, helpers) => {
-  const isProd = process.env.NODE_ENV === 'production';
+  const isProd =
+    process.env.NODE_ENV === 'production' ||
+    process.env.NODE_ENV === 'clientdemo';
 
   // inline all styles
   const { plugin } =
@@ -26,7 +28,10 @@ export default (config, env, helpers) => {
   }
 
   // Remove url loaders to implement own svg loader
-  const loader = helpers.getLoadersByName(config, 'url-loader');
+  // const loader = helpers.getLoadersByName(config, 'url-loader');
+  const loader = isProd
+    ? helpers.getLoadersByName(config, 'file-loader')
+    : helpers.getLoadersByName(config, 'url-loader');
 
   if (loader.length > 0 && loader[0]['ruleIndex']) {
     config.module.loaders.splice(loader[0]['ruleIndex'], 1);
@@ -40,7 +45,7 @@ export default (config, env, helpers) => {
           loader: 'svgr/webpack'
         },
         {
-          loader: require.resolve('file-loader'),
+          loader: require.resolve(isProd ? 'file-loader' : 'url-loader'),
           options: {
             name: '[name].[hash:8].[ext]'
           }
