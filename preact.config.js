@@ -2,10 +2,6 @@ import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default (config, env, helpers) => {
-  const isProd =
-    process.env.NODE_ENV === 'production' ||
-    process.env.NODE_ENV === 'clientdemo';
-
   // inline all styles
   const { plugin } =
     helpers.getPluginsByName(config, 'HtmlWebpackPlugin')[0] || {};
@@ -27,11 +23,11 @@ export default (config, env, helpers) => {
     ];
   }
 
-  // Remove url loaders to implement own svg loader
-  // const loader = helpers.getLoadersByName(config, 'url-loader');
-  const loader = isProd
-    ? helpers.getLoadersByName(config, 'file-loader')
-    : helpers.getLoadersByName(config, 'url-loader');
+  // Remove loaders to implement own svg loader
+  const loader =
+    process.env.NODE_ENV === 'production'
+      ? helpers.getLoadersByName(config, 'file-loader')
+      : helpers.getLoadersByName(config, 'url-loader');
 
   if (loader.length > 0 && loader[0]['ruleIndex']) {
     config.module.loaders.splice(loader[0]['ruleIndex'], 1);
@@ -45,23 +41,26 @@ export default (config, env, helpers) => {
           loader: 'svgr/webpack'
         },
         {
-          loader: require.resolve(isProd ? 'file-loader' : 'url-loader'),
+          loader: require.resolve(
+            process.env.NODE_ENV === 'production' ? 'file-loader' : 'url-loader'
+          ),
           options: {
-            name: '[name].[hash:8].[ext]'
+            name: 'svgs/[name].[hash:8].[ext]'
           }
         }
       ]
     },
     {
       test: /\.(woff2?|ttf|eot|jpe?g|png|gif|mp4|mov|ogg|webm)(\?.*)?$/i,
-      loader: isProd ? 'file-loader' : 'url-loader'
+      loader:
+        process.env.NODE_ENV === 'production' ? 'file-loader' : 'url-loader'
     }
   );
 
   let API_URL;
 
   // Configure demo mode
-  if (process.env.NODE_ENV === 'clientdemo') {
+  if (process.env.PUBLISH_ENV === 'github') {
     API_URL = '/SBideo/items-demo.json';
     config.output.publicPath = '/SBideo/';
 
