@@ -8230,7 +8230,7 @@ var app_App = function (_Component) {
 
   App.prototype.render = function render() {
     var store = createStore_createStore(reducers_0, applyMiddleware(lib_default.a));
-    var createHashHistory = typeof document !== undefined && process.env.PUBLISH_ENV === 'github' ? __webpack_require__("nqnI") : function () {
+    var createHashHistory = typeof document !== undefined && "github" === 'github' ? __webpack_require__("nqnI") : function () {
       return null;
     };
 
