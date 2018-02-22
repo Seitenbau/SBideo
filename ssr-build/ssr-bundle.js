@@ -3,6 +3,12 @@ module.exports =
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
+/******/ 	// object to store loaded chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	var installedChunks = {
+/******/ 		176: 0
+/******/ 	};
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -27,6 +33,21 @@ module.exports =
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] !== 0) {
+/******/ 			var chunk = require("./" + ({}[chunkId]||chunkId) + ".chunk." + {"0":"c20bd","1":"93b3c","2":"2e10c","3":"4e271","4":"41f48","5":"8b17f","6":"8f7c8","7":"31684","8":"ddbb4","9":"db449","10":"d83fe","11":"490d7","12":"bd0c9","13":"3ff5f","14":"00877","15":"eb69f","16":"55834","17":"f9032","18":"9eeca","19":"58208","20":"ae225","21":"9c250","22":"01dfa","23":"9daaa","24":"52bda","25":"65c32","26":"b81f2","27":"c5dd2","28":"c5de0","29":"8ad12","30":"06d40","31":"6482c","32":"04979","33":"efd27","34":"83d6e","35":"714ba","36":"6aa03","37":"5cb3a","38":"3087b","39":"10c98","40":"26e60","41":"fc06f","42":"71af1","43":"08e3c","44":"7eff8","45":"301c9","46":"f2e30","47":"b65aa","48":"e1b11","49":"47ad4","50":"42708","51":"e50b6","52":"09bf5","53":"0d072","54":"1d758","55":"3c1b1","56":"8844b","57":"37566","58":"34778","59":"28dd9","60":"81f68","61":"2f413","62":"211e6","63":"8a2df","64":"9337e","65":"91c7a","66":"7411d","67":"574af","68":"e38af","69":"866ad","70":"87fe1","71":"3a27a","72":"e4b49","73":"8ecd9","74":"626a7","75":"edd9e","76":"f58d0","77":"96b66","78":"1f261","79":"b00fa","80":"3958b","81":"d6010","82":"f930b","83":"9757f","84":"e16a2","85":"cedc0","86":"e8308","87":"f9112","88":"51978","89":"5f8bc","90":"014b3","91":"ce305","92":"e2279","93":"2d9dd","94":"0d084","95":"367fb","96":"5eda9","97":"02dc5","98":"4ba36","99":"07620","100":"096e8","101":"95ce6","102":"e88e6","103":"38e40","104":"bd8c0","105":"86c33","106":"6d53e","107":"ea97b","108":"dd8f7","109":"cff02","110":"c16db","111":"6f9cf","112":"ad76b","113":"8b2d7","114":"93c99","115":"38eab","116":"d1057","117":"bf98a","118":"4c80e","119":"83c9c","120":"6d528","121":"4d7ae","122":"f21b2","123":"213d1","124":"8ce6b","125":"13b76","126":"dad12","127":"8b820","128":"ab418","129":"75e41","130":"65cfa","131":"fd14d","132":"6312a","133":"f00c9","134":"e009e","135":"60804","136":"69f47","137":"fcf59","138":"eff9a","139":"206ac","140":"81429","141":"5adc2","142":"69911","143":"b9c5b","144":"1ea08","145":"2dabf","146":"a1ddd","147":"2180f","148":"fc9b6","149":"c73f8","150":"9b865","151":"e97d2","152":"5e0f4","153":"c1900","154":"aa5e9","155":"0b3e5","156":"8dab9","157":"44fca","158":"75103","159":"ea2df","160":"761f1","161":"c8a54","162":"6cc6c","163":"309a7","164":"a7daf","165":"c219c","166":"f4951","167":"9f464","168":"dd507","169":"bebb1","170":"8a9f8","171":"e2afb","172":"597bc","173":"b2d2d","174":"5531a","175":"3ad89"}[chunkId] + ".js");
+/******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
+/******/ 			for(var moduleId in moreModules) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 			for(var i = 0; i < chunkIds.length; i++)
+/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 		}
+/******/ 		return Promise.resolve();
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -59,6 +80,13 @@ module.exports =
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/SBideo/";
+/******/
+/******/ 	// uncatched error handler for webpack runtime
+/******/ 	__webpack_require__.oe = function(err) {
+/******/ 		process.nextTick(function() {
+/******/ 			throw err; // catch this error by using System.import().catch()
+/******/ 		});
+/******/ 	};
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "JkW7");
@@ -2365,36 +2393,52 @@ var meta_style_default = /*#__PURE__*/__webpack_require__.n(meta_style);
 var prop_types = __webpack_require__("5D9O");
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
-// EXTERNAL MODULE: ./components/octicon/style.scss
-var octicon_style = __webpack_require__("P2gu");
-var octicon_style_default = /*#__PURE__*/__webpack_require__.n(octicon_style);
-
 // CONCATENATED MODULE: ./components/octicon/index.js
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+var octicon_Octicon = function (_Component) {
+  _inherits(Octicon, _Component);
 
+  function Octicon() {
+    var _temp, _this, _ret;
 
+    _classCallCheck(this, Octicon);
 
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-var octicon_Octicon = function Octicon(_ref) {
-  var children = _ref.children,
-      props = _objectWithoutProperties(_ref, ['children']);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+      icon: {}
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
-  return Object(preact_min["h"])(
-    'span',
-    _extends({ className: octicon_style_default.a.span }, props),
-    Object(preact_min["h"])('img', {
-      src: "/SBideo/" + 'octicons/build/svg/' + props.name + '.svg',
-      alt: props.alt || props.name,
-      role: 'presentation'
-    }),
-    children
-  );
-};
+  Octicon.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
+    __webpack_require__("KvKk")("./" + this.props.name + '.svg').then(function (icon) {
+      _this2.setState({
+        icon: icon
+      });
+    });
+  };
+
+  Octicon.prototype.render = function render(props, state) {
+    // inline svg as react component
+    return Object(preact_min["h"])(state.icon.ReactComponent, props);
+  };
+
+  return Octicon;
+}(preact_min["Component"]);
 
 /* harmony default export */ var octicon = (octicon_Octicon);
 // EXTERNAL MODULE: ../node_modules/react-autolink/dist/react-autolink.js
@@ -2408,11 +2452,11 @@ var lodash_truncate_default = /*#__PURE__*/__webpack_require__.n(lodash_truncate
 // CONCATENATED MODULE: ./components/meta/index.js
 
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function meta__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function meta__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function meta__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
@@ -2424,12 +2468,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var meta_Meta = function (_Component) {
-  _inherits(Meta, _Component);
+  meta__inherits(Meta, _Component);
 
   function Meta(props, context) {
-    _classCallCheck(this, Meta);
+    meta__classCallCheck(this, Meta);
 
-    var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+    var _this = meta__possibleConstructorReturn(this, _Component.call(this, props, context));
 
     _this.handleEditButton = _this.handleEditButton.bind(_this);
     return _this;
@@ -3435,7 +3479,7 @@ function compose() {
   });
 }
 // CONCATENATED MODULE: ../node_modules/redux/es/applyMiddleware.js
-var applyMiddleware__extends = Object.assign || function (target) {
+var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];for (var key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
@@ -3485,7 +3529,7 @@ function applyMiddleware() {
       });
       _dispatch = compose.apply(undefined, chain)(store.dispatch);
 
-      return applyMiddleware__extends({}, store, {
+      return _extends({}, store, {
         dispatch: _dispatch
       });
     };
@@ -4908,7 +4952,7 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 
-function es__objectWithoutProperties(source, excluded) {
+function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
@@ -5189,7 +5233,7 @@ function (_React$Component) {
         _onHeightChange = _props.onHeightChange,
         _useCacheForDOMMeasurements = _props.useCacheForDOMMeasurements,
         _inputRef = _props.inputRef,
-        props = es__objectWithoutProperties(_props, ["minRows", "maxRows", "onHeightChange", "useCacheForDOMMeasurements", "inputRef"]);
+        props = _objectWithoutProperties(_props, ["minRows", "maxRows", "onHeightChange", "useCacheForDOMMeasurements", "inputRef"]);
     props.style = es__extends({}, props.style, {
       height: this.state.height
     });
@@ -6943,6 +6987,731 @@ if (typeof window !== 'undefined') {
 
 /***/ }),
 
+/***/ "KvKk":
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./alert.svg": [
+		"pAKb",
+		175
+	],
+	"./arrow-down.svg": [
+		"zSCw",
+		174
+	],
+	"./arrow-left.svg": [
+		"z/+L",
+		173
+	],
+	"./arrow-right.svg": [
+		"g3Zp",
+		172
+	],
+	"./arrow-small-down.svg": [
+		"+DQM",
+		171
+	],
+	"./arrow-small-left.svg": [
+		"lQaC",
+		170
+	],
+	"./arrow-small-right.svg": [
+		"LLIp",
+		169
+	],
+	"./arrow-small-up.svg": [
+		"cVyN",
+		168
+	],
+	"./arrow-up.svg": [
+		"IjvC",
+		167
+	],
+	"./beaker.svg": [
+		"eMGi",
+		166
+	],
+	"./bell.svg": [
+		"xZHs",
+		165
+	],
+	"./bold.svg": [
+		"FElK",
+		164
+	],
+	"./book.svg": [
+		"7dDG",
+		163
+	],
+	"./bookmark.svg": [
+		"ozJF",
+		162
+	],
+	"./briefcase.svg": [
+		"7+3N",
+		161
+	],
+	"./broadcast.svg": [
+		"d0Ys",
+		160
+	],
+	"./browser.svg": [
+		"hAtG",
+		159
+	],
+	"./bug.svg": [
+		"ecpI",
+		158
+	],
+	"./calendar.svg": [
+		"VfLe",
+		157
+	],
+	"./check.svg": [
+		"9qhj",
+		156
+	],
+	"./checklist.svg": [
+		"5ot4",
+		155
+	],
+	"./chevron-down.svg": [
+		"fpiC",
+		154
+	],
+	"./chevron-left.svg": [
+		"hK6e",
+		153
+	],
+	"./chevron-right.svg": [
+		"Nzf5",
+		152
+	],
+	"./chevron-up.svg": [
+		"zTyt",
+		151
+	],
+	"./circle-slash.svg": [
+		"61Hl",
+		150
+	],
+	"./circuit-board.svg": [
+		"4W/G",
+		149
+	],
+	"./clippy.svg": [
+		"XQHe",
+		148
+	],
+	"./clock.svg": [
+		"hq+T",
+		147
+	],
+	"./cloud-download.svg": [
+		"/GvX",
+		146
+	],
+	"./cloud-upload.svg": [
+		"05Y4",
+		145
+	],
+	"./code.svg": [
+		"wwSz",
+		144
+	],
+	"./comment-discussion.svg": [
+		"aySx",
+		143
+	],
+	"./comment.svg": [
+		"iVrv",
+		142
+	],
+	"./credit-card.svg": [
+		"HPmD",
+		141
+	],
+	"./dash.svg": [
+		"FZov",
+		140
+	],
+	"./dashboard.svg": [
+		"1BXL",
+		139
+	],
+	"./database.svg": [
+		"O+z4",
+		138
+	],
+	"./desktop-download.svg": [
+		"z90S",
+		137
+	],
+	"./device-camera-video.svg": [
+		"6KKn",
+		136
+	],
+	"./device-camera.svg": [
+		"rT+b",
+		135
+	],
+	"./device-desktop.svg": [
+		"tI5c",
+		134
+	],
+	"./device-mobile.svg": [
+		"W6H5",
+		133
+	],
+	"./diff-added.svg": [
+		"DVrx",
+		132
+	],
+	"./diff-ignored.svg": [
+		"7oBN",
+		131
+	],
+	"./diff-modified.svg": [
+		"mORK",
+		130
+	],
+	"./diff-removed.svg": [
+		"+vVE",
+		129
+	],
+	"./diff-renamed.svg": [
+		"Drsf",
+		128
+	],
+	"./diff.svg": [
+		"9IC9",
+		127
+	],
+	"./ellipsis.svg": [
+		"P+QF",
+		126
+	],
+	"./eye.svg": [
+		"YPsS",
+		125
+	],
+	"./file-binary.svg": [
+		"DXyB",
+		124
+	],
+	"./file-code.svg": [
+		"Xc9g",
+		123
+	],
+	"./file-directory.svg": [
+		"9N38",
+		122
+	],
+	"./file-media.svg": [
+		"PFRA",
+		121
+	],
+	"./file-pdf.svg": [
+		"dQs4",
+		120
+	],
+	"./file-submodule.svg": [
+		"EQO5",
+		119
+	],
+	"./file-symlink-directory.svg": [
+		"Ky6g",
+		118
+	],
+	"./file-symlink-file.svg": [
+		"gl4A",
+		117
+	],
+	"./file-zip.svg": [
+		"eRXv",
+		116
+	],
+	"./file.svg": [
+		"/+cI",
+		115
+	],
+	"./flame.svg": [
+		"z/0L",
+		114
+	],
+	"./fold.svg": [
+		"5R5o",
+		113
+	],
+	"./gear.svg": [
+		"Zu6g",
+		112
+	],
+	"./gift.svg": [
+		"2Mp3",
+		111
+	],
+	"./gist-secret.svg": [
+		"99qj",
+		110
+	],
+	"./gist.svg": [
+		"6ouv",
+		109
+	],
+	"./git-branch.svg": [
+		"WKcr",
+		108
+	],
+	"./git-commit.svg": [
+		"0PFz",
+		107
+	],
+	"./git-compare.svg": [
+		"01A+",
+		106
+	],
+	"./git-merge.svg": [
+		"Ur8E",
+		105
+	],
+	"./git-pull-request.svg": [
+		"T78t",
+		104
+	],
+	"./globe.svg": [
+		"YLE7",
+		103
+	],
+	"./grabber.svg": [
+		"cDnE",
+		102
+	],
+	"./graph.svg": [
+		"zGe3",
+		101
+	],
+	"./heart.svg": [
+		"YmUh",
+		100
+	],
+	"./history.svg": [
+		"90Vg",
+		99
+	],
+	"./home.svg": [
+		"RwvC",
+		98
+	],
+	"./horizontal-rule.svg": [
+		"u4FJ",
+		97
+	],
+	"./hubot.svg": [
+		"YsJC",
+		96
+	],
+	"./inbox.svg": [
+		"h1Cz",
+		95
+	],
+	"./info.svg": [
+		"nsGl",
+		94
+	],
+	"./issue-closed.svg": [
+		"04ei",
+		93
+	],
+	"./issue-opened.svg": [
+		"rOPw",
+		92
+	],
+	"./issue-reopened.svg": [
+		"a9+m",
+		91
+	],
+	"./italic.svg": [
+		"or0o",
+		90
+	],
+	"./jersey.svg": [
+		"grJc",
+		89
+	],
+	"./kebab-horizontal.svg": [
+		"svn9",
+		88
+	],
+	"./kebab-vertical.svg": [
+		"7tJ5",
+		87
+	],
+	"./key.svg": [
+		"IcJO",
+		86
+	],
+	"./keyboard.svg": [
+		"9B/3",
+		85
+	],
+	"./law.svg": [
+		"YMLx",
+		84
+	],
+	"./light-bulb.svg": [
+		"u1E+",
+		83
+	],
+	"./link-external.svg": [
+		"4cOr",
+		82
+	],
+	"./link.svg": [
+		"AyBU",
+		81
+	],
+	"./list-ordered.svg": [
+		"T0Xe",
+		80
+	],
+	"./list-unordered.svg": [
+		"JHJ3",
+		79
+	],
+	"./location.svg": [
+		"X3H4",
+		78
+	],
+	"./lock.svg": [
+		"vXWj",
+		77
+	],
+	"./logo-gist.svg": [
+		"KpFB",
+		76
+	],
+	"./logo-github.svg": [
+		"0xk/",
+		75
+	],
+	"./mail-read.svg": [
+		"MAS7",
+		74
+	],
+	"./mail.svg": [
+		"gkOk",
+		73
+	],
+	"./mark-github.svg": [
+		"lvC2",
+		72
+	],
+	"./markdown.svg": [
+		"DVsB",
+		71
+	],
+	"./megaphone.svg": [
+		"Q66k",
+		70
+	],
+	"./mention.svg": [
+		"6M/R",
+		69
+	],
+	"./milestone.svg": [
+		"40ne",
+		68
+	],
+	"./mirror.svg": [
+		"Qe3U",
+		67
+	],
+	"./mortar-board.svg": [
+		"/1zE",
+		66
+	],
+	"./mute.svg": [
+		"LnpU",
+		65
+	],
+	"./no-newline.svg": [
+		"g+rb",
+		64
+	],
+	"./note.svg": [
+		"pQBH",
+		63
+	],
+	"./octoface.svg": [
+		"3q80",
+		62
+	],
+	"./organization.svg": [
+		"QYXE",
+		61
+	],
+	"./package.svg": [
+		"Gopd",
+		60
+	],
+	"./paintcan.svg": [
+		"N+0L",
+		59
+	],
+	"./pencil.svg": [
+		"V4tj",
+		58
+	],
+	"./person.svg": [
+		"sOF0",
+		57
+	],
+	"./pin.svg": [
+		"jNCR",
+		56
+	],
+	"./plug.svg": [
+		"SjvS",
+		55
+	],
+	"./plus-small.svg": [
+		"BxHY",
+		54
+	],
+	"./plus.svg": [
+		"Hgwu",
+		53
+	],
+	"./primitive-dot.svg": [
+		"+6Ic",
+		52
+	],
+	"./primitive-square.svg": [
+		"kVm1",
+		51
+	],
+	"./project.svg": [
+		"1t3N",
+		50
+	],
+	"./pulse.svg": [
+		"p9T9",
+		49
+	],
+	"./question.svg": [
+		"pQQx",
+		48
+	],
+	"./quote.svg": [
+		"pHrD",
+		47
+	],
+	"./radio-tower.svg": [
+		"KKp5",
+		46
+	],
+	"./reply.svg": [
+		"VjpO",
+		45
+	],
+	"./repo-clone.svg": [
+		"Fcom",
+		44
+	],
+	"./repo-force-push.svg": [
+		"GNsk",
+		43
+	],
+	"./repo-forked.svg": [
+		"Z94a",
+		42
+	],
+	"./repo-pull.svg": [
+		"6h00",
+		41
+	],
+	"./repo-push.svg": [
+		"k+fY",
+		40
+	],
+	"./repo.svg": [
+		"Lsv1",
+		39
+	],
+	"./report.svg": [
+		"zTn5",
+		38
+	],
+	"./rocket.svg": [
+		"4uUu",
+		37
+	],
+	"./rss.svg": [
+		"ZsKT",
+		36
+	],
+	"./ruby.svg": [
+		"eeRY",
+		35
+	],
+	"./screen-full.svg": [
+		"VjfW",
+		34
+	],
+	"./screen-normal.svg": [
+		"k8j0",
+		33
+	],
+	"./search.svg": [
+		"Sk8/",
+		32
+	],
+	"./server.svg": [
+		"VHK7",
+		31
+	],
+	"./settings.svg": [
+		"6ru8",
+		30
+	],
+	"./shield.svg": [
+		"xer3",
+		29
+	],
+	"./sign-in.svg": [
+		"zwoG",
+		28
+	],
+	"./sign-out.svg": [
+		"cG/w",
+		27
+	],
+	"./smiley.svg": [
+		"OP5W",
+		26
+	],
+	"./squirrel.svg": [
+		"QzWe",
+		25
+	],
+	"./star.svg": [
+		"Bi3V",
+		24
+	],
+	"./stop.svg": [
+		"NIVM",
+		23
+	],
+	"./sync.svg": [
+		"WplN",
+		22
+	],
+	"./tag.svg": [
+		"Giwm",
+		21
+	],
+	"./tasklist.svg": [
+		"D5ct",
+		20
+	],
+	"./telescope.svg": [
+		"bFS6",
+		19
+	],
+	"./terminal.svg": [
+		"ibGD",
+		18
+	],
+	"./text-size.svg": [
+		"bTeo",
+		17
+	],
+	"./three-bars.svg": [
+		"sNox",
+		16
+	],
+	"./thumbsdown.svg": [
+		"+yTe",
+		15
+	],
+	"./thumbsup.svg": [
+		"2rxk",
+		14
+	],
+	"./tools.svg": [
+		"oNST",
+		13
+	],
+	"./trashcan.svg": [
+		"7/8x",
+		12
+	],
+	"./triangle-down.svg": [
+		"fB72",
+		11
+	],
+	"./triangle-left.svg": [
+		"foDN",
+		10
+	],
+	"./triangle-right.svg": [
+		"OepP",
+		9
+	],
+	"./triangle-up.svg": [
+		"HV7y",
+		8
+	],
+	"./unfold.svg": [
+		"LJrH",
+		7
+	],
+	"./unmute.svg": [
+		"6MeA",
+		6
+	],
+	"./unverified.svg": [
+		"iX/j",
+		5
+	],
+	"./verified.svg": [
+		"ihsD",
+		4
+	],
+	"./versions.svg": [
+		"L3dZ",
+		3
+	],
+	"./watch.svg": [
+		"oGtc",
+		2
+	],
+	"./x.svg": [
+		"O/F3",
+		1
+	],
+	"./zap.svg": [
+		"rezj",
+		0
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "KvKk";
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
 /***/ "LGzG":
 /***/ (function(module, exports) {
 
@@ -7483,13 +8252,6 @@ var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */
 
 // removed by extract-text-webpack-plugin
 module.exports = {"buttonContainer":"buttonContainer__3ltan"};
-
-/***/ }),
-
-/***/ "P2gu":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ }),
 
