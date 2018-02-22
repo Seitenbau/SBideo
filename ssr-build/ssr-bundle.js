@@ -6,7 +6,7 @@ module.exports =
 /******/ 	// object to store loaded chunks
 /******/ 	// "0" means "already loaded"
 /******/ 	var installedChunks = {
-/******/ 		176: 0
+/******/ 		177: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -38,7 +38,7 @@ module.exports =
 /******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
 /******/ 		// "0" is the signal for "already loaded"
 /******/ 		if(installedChunks[chunkId] !== 0) {
-/******/ 			var chunk = require("./" + ({}[chunkId]||chunkId) + ".chunk." + {"0":"99a15","1":"f1e0e","2":"ad18e","3":"012d9","4":"8ed7e","5":"0b318","6":"785de","7":"44c93","8":"020ab","9":"c9cc0","10":"ba1c8","11":"95bc1","12":"fcc23","13":"84a49","14":"8db8e","15":"f6f94","16":"a41d7","17":"8acd2","18":"7311e","19":"f0f78","20":"2ad79","21":"c64fb","22":"8cfe1","23":"6eeb5","24":"3cceb","25":"f802b","26":"85810","27":"35e29","28":"d6bb3","29":"ff8de","30":"10cbb","31":"4c05e","32":"f7eb5","33":"77d01","34":"5d71e","35":"88d04","36":"793a6","37":"7af6e","38":"c3a01","39":"8f098","40":"096f6","41":"a17aa","42":"49fd0","43":"5cbce","44":"56c8f","45":"5f4b9","46":"63f6b","47":"23f8d","48":"56bc6","49":"38749","50":"69f6d","51":"7823d","52":"49912","53":"e96b2","54":"bb0ca","55":"06b34","56":"a19b8","57":"40ec3","58":"b0b8f","59":"16bee","60":"db1d5","61":"716c3","62":"9855d","63":"6a070","64":"4fdbb","65":"54863","66":"047fa","67":"2fdc0","68":"b1a16","69":"72e33","70":"cbd2f","71":"031fe","72":"3595a","73":"6d7f9","74":"b2ee9","75":"cc456","76":"71331","77":"3bb9d","78":"5ab66","79":"8ed5c","80":"798e8","81":"aef71","82":"c9d2b","83":"c6497","84":"99c9d","85":"96b0f","86":"84b8e","87":"d79aa","88":"9c98d","89":"7de02","90":"40b88","91":"5bfb3","92":"98a08","93":"c3853","94":"caf71","95":"cf153","96":"5f115","97":"96553","98":"bc632","99":"e968c","100":"5c6c9","101":"74bda","102":"238ca","103":"4201f","104":"3ca0c","105":"6e37b","106":"45c14","107":"dbac0","108":"78876","109":"46276","110":"f4b0e","111":"4ce48","112":"e9bc7","113":"8a1e5","114":"f5f65","115":"8898d","116":"64af5","117":"622fd","118":"b1b60","119":"378c1","120":"65244","121":"fc88a","122":"77084","123":"87ca6","124":"ffb17","125":"3d493","126":"7183a","127":"1777e","128":"4e183","129":"2a008","130":"a418d","131":"721ea","132":"9112e","133":"a93ed","134":"72f47","135":"c6ed1","136":"9af9e","137":"e14c7","138":"3aa86","139":"044f9","140":"e3064","141":"18228","142":"e58a7","143":"0a767","144":"10f81","145":"b961c","146":"aeb16","147":"1bd05","148":"6549a","149":"7cc67","150":"5d57c","151":"f4c7e","152":"052d1","153":"7da19","154":"823ff","155":"13964","156":"e9ddb","157":"eb067","158":"e2fc1","159":"d8eb0","160":"81231","161":"a161b","162":"bd8cd","163":"1d9e1","164":"55739","165":"47d00","166":"bd3f1","167":"87ea0","168":"ddbf3","169":"b631c","170":"e4139","171":"762c9","172":"cf272","173":"8c6d8","174":"a7b0d","175":"4a679"}[chunkId] + ".js");
+/******/ 			var chunk = require("./" + ({}[chunkId]||chunkId) + ".chunk." + {"0":"d1237","1":"180a7","2":"2901c","3":"b900f","4":"134a5","5":"08ca0","6":"bf738","7":"7683d","8":"3d58e","9":"fe4f6","10":"ff31f","11":"89e5d","12":"9dc96","13":"0fc8d","14":"bf711","15":"ee218","16":"dde58","17":"f54e6","18":"72b32","19":"a96d3","20":"4b493","21":"e8da2","22":"96be6","23":"bc8c5","24":"7d46e","25":"19b1b","26":"57c81","27":"b4872","28":"db862","29":"c4b7b","30":"b8975","31":"09f28","32":"e66fc","33":"31c06","34":"1cee3","35":"49385","36":"acf3f","37":"68c62","38":"401d0","39":"734ca","40":"22ec2","41":"2f06a","42":"8b173","43":"8b6be","44":"61b7f","45":"7f483","46":"11672","47":"2008c","48":"4c95f","49":"4ed65","50":"6a4a7","51":"032be","52":"72e95","53":"aa190","54":"9bbed","55":"20268","56":"76934","57":"35910","58":"76ada","59":"a4666","60":"b5928","61":"fbca0","62":"7d29e","63":"ee6db","64":"c0f21","65":"9bbe5","66":"7088b","67":"32838","68":"a2260","69":"a556e","70":"adee6","71":"329a4","72":"45908","73":"284c0","74":"36c6c","75":"19832","76":"c926c","77":"ba4bb","78":"943a8","79":"18012","80":"cb4fb","81":"4d765","82":"645db","83":"f961d","84":"c6b98","85":"b3828","86":"df001","87":"355f1","88":"d8d0d","89":"d17ad","90":"baea5","91":"84f09","92":"8c1fa","93":"d9552","94":"ebd46","95":"be6a2","96":"63abf","97":"a9012","98":"d1c6f","99":"f3cc7","100":"6589a","101":"d624b","102":"9738e","103":"f21a1","104":"29f7a","105":"b4c37","106":"50f84","107":"a3c7d","108":"0abb5","109":"f7eee","110":"9a504","111":"0223c","112":"60146","113":"c0985","114":"5e435","115":"57583","116":"330cd","117":"e823f","118":"9cde4","119":"22f7d","120":"bb0e3","121":"8bbc9","122":"8e23a","123":"8c65b","124":"4c564","125":"37b7e","126":"d6c3e","127":"22da4","128":"4aee6","129":"52b36","130":"99d15","131":"92ce1","132":"4fad3","133":"8038d","134":"00117","135":"9ee1c","136":"3a52a","137":"6b48f","138":"43108","139":"62a48","140":"9b992","141":"0aa19","142":"8282a","143":"e553e","144":"350d2","145":"b02fa","146":"35f86","147":"a4de2","148":"5f010","149":"1081a","150":"b8f6f","151":"1fabb","152":"bc5c4","153":"4a5b1","154":"2edf1","155":"ba51c","156":"1a546","157":"c28ed","158":"ae015","159":"9adc5","160":"74e3a","161":"fb6d4","162":"eac8a","163":"970b9","164":"07708","165":"e14b7","166":"5d815","167":"7d9af","168":"9a257","169":"7043c","170":"31e0b","171":"386a4","172":"ef51f","173":"dfe6f","174":"bddf6","175":"668df","176":"e65f6"}[chunkId] + ".js");
 /******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				modules[moduleId] = moreModules[moduleId];
@@ -7979,7 +7979,11 @@ var app_App = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = app__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.handleRoute = function (e) {
+    return _ret = (_temp = (_this = app__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+      createHashHistory: function createHashHistory() {
+        return null;
+      }
+    }, _this.handleRoute = function (e) {
       _this.currentUrl = e.url;
     }, _temp), app__possibleConstructorReturn(_this, _ret);
   }
@@ -7988,6 +7992,19 @@ var app_App = function (_Component) {
    *	@param {string} event.url	The newly routed URL
    */
 
+
+  App.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
+    // dynamically import hash history when on github
+    if (process && "github" === 'github') {
+      __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, "nqnI")).then(function (createHashHistory) {
+        _this2.setState({
+          createHashHistory: createHashHistory
+        });
+      });
+    }
+  };
 
   App.prototype.render = function render() {
     var store = createStore_createStore(reducers_0, applyMiddleware(lib_default.a));
@@ -8000,7 +8017,10 @@ var app_App = function (_Component) {
         { id: 'app' },
         Object(preact_min["h"])(
           preact_router_es["Router"],
-          { onChange: this.handleRoute },
+          {
+            history: this.state.createHashHistory(),
+            onChange: this.handleRoute
+          },
           app__ref
         )
       )
@@ -8232,707 +8252,707 @@ if (typeof window !== 'undefined') {
 var map = {
 	"./alert.svg": [
 		"pAKb",
-		175
+		176
 	],
 	"./arrow-down.svg": [
 		"zSCw",
-		174
+		175
 	],
 	"./arrow-left.svg": [
 		"z/+L",
-		173
+		174
 	],
 	"./arrow-right.svg": [
 		"g3Zp",
-		172
+		173
 	],
 	"./arrow-small-down.svg": [
 		"+DQM",
-		171
+		172
 	],
 	"./arrow-small-left.svg": [
 		"lQaC",
-		170
+		171
 	],
 	"./arrow-small-right.svg": [
 		"LLIp",
-		169
+		170
 	],
 	"./arrow-small-up.svg": [
 		"cVyN",
-		168
+		169
 	],
 	"./arrow-up.svg": [
 		"IjvC",
-		167
+		168
 	],
 	"./beaker.svg": [
 		"eMGi",
-		166
+		167
 	],
 	"./bell.svg": [
 		"xZHs",
-		165
+		166
 	],
 	"./bold.svg": [
 		"FElK",
-		164
+		165
 	],
 	"./book.svg": [
 		"7dDG",
-		163
+		164
 	],
 	"./bookmark.svg": [
 		"ozJF",
-		162
+		163
 	],
 	"./briefcase.svg": [
 		"7+3N",
-		161
+		162
 	],
 	"./broadcast.svg": [
 		"d0Ys",
-		160
+		161
 	],
 	"./browser.svg": [
 		"hAtG",
-		159
+		160
 	],
 	"./bug.svg": [
 		"ecpI",
-		158
+		159
 	],
 	"./calendar.svg": [
 		"VfLe",
-		157
+		158
 	],
 	"./check.svg": [
 		"9qhj",
-		156
+		157
 	],
 	"./checklist.svg": [
 		"5ot4",
-		155
+		156
 	],
 	"./chevron-down.svg": [
 		"fpiC",
-		154
+		155
 	],
 	"./chevron-left.svg": [
 		"hK6e",
-		153
+		154
 	],
 	"./chevron-right.svg": [
 		"Nzf5",
-		152
+		153
 	],
 	"./chevron-up.svg": [
 		"zTyt",
-		151
+		152
 	],
 	"./circle-slash.svg": [
 		"61Hl",
-		150
+		151
 	],
 	"./circuit-board.svg": [
 		"4W/G",
-		149
+		150
 	],
 	"./clippy.svg": [
 		"XQHe",
-		148
+		149
 	],
 	"./clock.svg": [
 		"hq+T",
-		147
+		148
 	],
 	"./cloud-download.svg": [
 		"/GvX",
-		146
+		147
 	],
 	"./cloud-upload.svg": [
 		"05Y4",
-		145
+		146
 	],
 	"./code.svg": [
 		"wwSz",
-		144
+		145
 	],
 	"./comment-discussion.svg": [
 		"aySx",
-		143
+		144
 	],
 	"./comment.svg": [
 		"iVrv",
-		142
+		143
 	],
 	"./credit-card.svg": [
 		"HPmD",
-		141
+		142
 	],
 	"./dash.svg": [
 		"FZov",
-		140
+		141
 	],
 	"./dashboard.svg": [
 		"1BXL",
-		139
+		140
 	],
 	"./database.svg": [
 		"O+z4",
-		138
+		139
 	],
 	"./desktop-download.svg": [
 		"z90S",
-		137
+		138
 	],
 	"./device-camera-video.svg": [
 		"6KKn",
-		136
+		137
 	],
 	"./device-camera.svg": [
 		"rT+b",
-		135
+		136
 	],
 	"./device-desktop.svg": [
 		"tI5c",
-		134
+		135
 	],
 	"./device-mobile.svg": [
 		"W6H5",
-		133
+		134
 	],
 	"./diff-added.svg": [
 		"DVrx",
-		132
+		133
 	],
 	"./diff-ignored.svg": [
 		"7oBN",
-		131
+		132
 	],
 	"./diff-modified.svg": [
 		"mORK",
-		130
+		131
 	],
 	"./diff-removed.svg": [
 		"+vVE",
-		129
+		130
 	],
 	"./diff-renamed.svg": [
 		"Drsf",
-		128
+		129
 	],
 	"./diff.svg": [
 		"9IC9",
-		127
+		128
 	],
 	"./ellipsis.svg": [
 		"P+QF",
-		126
+		127
 	],
 	"./eye.svg": [
 		"YPsS",
-		125
+		126
 	],
 	"./file-binary.svg": [
 		"DXyB",
-		124
+		125
 	],
 	"./file-code.svg": [
 		"Xc9g",
-		123
+		124
 	],
 	"./file-directory.svg": [
 		"9N38",
-		122
+		123
 	],
 	"./file-media.svg": [
 		"PFRA",
-		121
+		122
 	],
 	"./file-pdf.svg": [
 		"dQs4",
-		120
+		121
 	],
 	"./file-submodule.svg": [
 		"EQO5",
-		119
+		120
 	],
 	"./file-symlink-directory.svg": [
 		"Ky6g",
-		118
+		119
 	],
 	"./file-symlink-file.svg": [
 		"gl4A",
-		117
+		118
 	],
 	"./file-zip.svg": [
 		"eRXv",
-		116
+		117
 	],
 	"./file.svg": [
 		"/+cI",
-		115
+		116
 	],
 	"./flame.svg": [
 		"z/0L",
-		114
+		115
 	],
 	"./fold.svg": [
 		"5R5o",
-		113
+		114
 	],
 	"./gear.svg": [
 		"Zu6g",
-		112
+		113
 	],
 	"./gift.svg": [
 		"2Mp3",
-		111
+		112
 	],
 	"./gist-secret.svg": [
 		"99qj",
-		110
+		111
 	],
 	"./gist.svg": [
 		"6ouv",
-		109
+		110
 	],
 	"./git-branch.svg": [
 		"WKcr",
-		108
+		109
 	],
 	"./git-commit.svg": [
 		"0PFz",
-		107
+		108
 	],
 	"./git-compare.svg": [
 		"01A+",
-		106
+		107
 	],
 	"./git-merge.svg": [
 		"Ur8E",
-		105
+		106
 	],
 	"./git-pull-request.svg": [
 		"T78t",
-		104
+		105
 	],
 	"./globe.svg": [
 		"YLE7",
-		103
+		104
 	],
 	"./grabber.svg": [
 		"cDnE",
-		102
+		103
 	],
 	"./graph.svg": [
 		"zGe3",
-		101
+		102
 	],
 	"./heart.svg": [
 		"YmUh",
-		100
+		101
 	],
 	"./history.svg": [
 		"90Vg",
-		99
+		100
 	],
 	"./home.svg": [
 		"RwvC",
-		98
+		99
 	],
 	"./horizontal-rule.svg": [
 		"u4FJ",
-		97
+		98
 	],
 	"./hubot.svg": [
 		"YsJC",
-		96
+		97
 	],
 	"./inbox.svg": [
 		"h1Cz",
-		95
+		96
 	],
 	"./info.svg": [
 		"nsGl",
-		94
+		95
 	],
 	"./issue-closed.svg": [
 		"04ei",
-		93
+		94
 	],
 	"./issue-opened.svg": [
 		"rOPw",
-		92
+		93
 	],
 	"./issue-reopened.svg": [
 		"a9+m",
-		91
+		92
 	],
 	"./italic.svg": [
 		"or0o",
-		90
+		91
 	],
 	"./jersey.svg": [
 		"grJc",
-		89
+		90
 	],
 	"./kebab-horizontal.svg": [
 		"svn9",
-		88
+		89
 	],
 	"./kebab-vertical.svg": [
 		"7tJ5",
-		87
+		88
 	],
 	"./key.svg": [
 		"IcJO",
-		86
+		87
 	],
 	"./keyboard.svg": [
 		"9B/3",
-		85
+		86
 	],
 	"./law.svg": [
 		"YMLx",
-		84
+		85
 	],
 	"./light-bulb.svg": [
 		"u1E+",
-		83
+		84
 	],
 	"./link-external.svg": [
 		"4cOr",
-		82
+		83
 	],
 	"./link.svg": [
 		"AyBU",
-		81
+		82
 	],
 	"./list-ordered.svg": [
 		"T0Xe",
-		80
+		81
 	],
 	"./list-unordered.svg": [
 		"JHJ3",
-		79
+		80
 	],
 	"./location.svg": [
 		"X3H4",
-		78
+		79
 	],
 	"./lock.svg": [
 		"vXWj",
-		77
+		78
 	],
 	"./logo-gist.svg": [
 		"KpFB",
-		76
+		77
 	],
 	"./logo-github.svg": [
 		"0xk/",
-		75
+		76
 	],
 	"./mail-read.svg": [
 		"MAS7",
-		74
+		75
 	],
 	"./mail.svg": [
 		"gkOk",
-		73
+		74
 	],
 	"./mark-github.svg": [
 		"lvC2",
-		72
+		73
 	],
 	"./markdown.svg": [
 		"DVsB",
-		71
+		72
 	],
 	"./megaphone.svg": [
 		"Q66k",
-		70
+		71
 	],
 	"./mention.svg": [
 		"6M/R",
-		69
+		70
 	],
 	"./milestone.svg": [
 		"40ne",
-		68
+		69
 	],
 	"./mirror.svg": [
 		"Qe3U",
-		67
+		68
 	],
 	"./mortar-board.svg": [
 		"/1zE",
-		66
+		67
 	],
 	"./mute.svg": [
 		"LnpU",
-		65
+		66
 	],
 	"./no-newline.svg": [
 		"g+rb",
-		64
+		65
 	],
 	"./note.svg": [
 		"pQBH",
-		63
+		64
 	],
 	"./octoface.svg": [
 		"3q80",
-		62
+		63
 	],
 	"./organization.svg": [
 		"QYXE",
-		61
+		62
 	],
 	"./package.svg": [
 		"Gopd",
-		60
+		61
 	],
 	"./paintcan.svg": [
 		"N+0L",
-		59
+		60
 	],
 	"./pencil.svg": [
 		"V4tj",
-		58
+		59
 	],
 	"./person.svg": [
 		"sOF0",
-		57
+		58
 	],
 	"./pin.svg": [
 		"jNCR",
-		56
+		57
 	],
 	"./plug.svg": [
 		"SjvS",
-		55
+		56
 	],
 	"./plus-small.svg": [
 		"BxHY",
-		54
+		55
 	],
 	"./plus.svg": [
 		"Hgwu",
-		53
+		54
 	],
 	"./primitive-dot.svg": [
 		"+6Ic",
-		52
+		53
 	],
 	"./primitive-square.svg": [
 		"kVm1",
-		51
+		52
 	],
 	"./project.svg": [
 		"1t3N",
-		50
+		51
 	],
 	"./pulse.svg": [
 		"p9T9",
-		49
+		50
 	],
 	"./question.svg": [
 		"pQQx",
-		48
+		49
 	],
 	"./quote.svg": [
 		"pHrD",
-		47
+		48
 	],
 	"./radio-tower.svg": [
 		"KKp5",
-		46
+		47
 	],
 	"./reply.svg": [
 		"VjpO",
-		45
+		46
 	],
 	"./repo-clone.svg": [
 		"Fcom",
-		44
+		45
 	],
 	"./repo-force-push.svg": [
 		"GNsk",
-		43
+		44
 	],
 	"./repo-forked.svg": [
 		"Z94a",
-		42
+		43
 	],
 	"./repo-pull.svg": [
 		"6h00",
-		41
+		42
 	],
 	"./repo-push.svg": [
 		"k+fY",
-		40
+		41
 	],
 	"./repo.svg": [
 		"Lsv1",
-		39
+		40
 	],
 	"./report.svg": [
 		"zTn5",
-		38
+		39
 	],
 	"./rocket.svg": [
 		"4uUu",
-		37
+		38
 	],
 	"./rss.svg": [
 		"ZsKT",
-		36
+		37
 	],
 	"./ruby.svg": [
 		"eeRY",
-		35
+		36
 	],
 	"./screen-full.svg": [
 		"VjfW",
-		34
+		35
 	],
 	"./screen-normal.svg": [
 		"k8j0",
-		33
+		34
 	],
 	"./search.svg": [
 		"Sk8/",
-		32
+		33
 	],
 	"./server.svg": [
 		"VHK7",
-		31
+		32
 	],
 	"./settings.svg": [
 		"6ru8",
-		30
+		31
 	],
 	"./shield.svg": [
 		"xer3",
-		29
+		30
 	],
 	"./sign-in.svg": [
 		"zwoG",
-		28
+		29
 	],
 	"./sign-out.svg": [
 		"cG/w",
-		27
+		28
 	],
 	"./smiley.svg": [
 		"OP5W",
-		26
+		27
 	],
 	"./squirrel.svg": [
 		"QzWe",
-		25
+		26
 	],
 	"./star.svg": [
 		"Bi3V",
-		24
+		25
 	],
 	"./stop.svg": [
 		"NIVM",
-		23
+		24
 	],
 	"./sync.svg": [
 		"WplN",
-		22
+		23
 	],
 	"./tag.svg": [
 		"Giwm",
-		21
+		22
 	],
 	"./tasklist.svg": [
 		"D5ct",
-		20
+		21
 	],
 	"./telescope.svg": [
 		"bFS6",
-		19
+		20
 	],
 	"./terminal.svg": [
 		"ibGD",
-		18
+		19
 	],
 	"./text-size.svg": [
 		"bTeo",
-		17
+		18
 	],
 	"./three-bars.svg": [
 		"sNox",
-		16
+		17
 	],
 	"./thumbsdown.svg": [
 		"+yTe",
-		15
+		16
 	],
 	"./thumbsup.svg": [
 		"2rxk",
-		14
+		15
 	],
 	"./tools.svg": [
 		"oNST",
-		13
+		14
 	],
 	"./trashcan.svg": [
 		"7/8x",
-		12
+		13
 	],
 	"./triangle-down.svg": [
 		"fB72",
-		11
+		12
 	],
 	"./triangle-left.svg": [
 		"foDN",
-		10
+		11
 	],
 	"./triangle-right.svg": [
 		"OepP",
-		9
+		10
 	],
 	"./triangle-up.svg": [
 		"HV7y",
-		8
+		9
 	],
 	"./unfold.svg": [
 		"LJrH",
-		7
+		8
 	],
 	"./unmute.svg": [
 		"6MeA",
-		6
+		7
 	],
 	"./unverified.svg": [
 		"iX/j",
-		5
+		6
 	],
 	"./verified.svg": [
 		"ihsD",
-		4
+		5
 	],
 	"./versions.svg": [
 		"L3dZ",
-		3
+		4
 	],
 	"./watch.svg": [
 		"oGtc",
-		2
+		3
 	],
 	"./x.svg": [
 		"O/F3",
-		1
+		2
 	],
 	"./zap.svg": [
 		"rezj",
-		0
+		1
 	]
 };
 function webpackAsyncContext(req) {
