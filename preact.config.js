@@ -25,13 +25,10 @@ export default (config, env, helpers) => {
     ];
   }
 
-  // Remove file/url loaders to implement own svg loader
-  const loader = isProd
-    ? helpers.getLoadersByName(config, 'file-loader')
-    : helpers.getLoadersByName(config, 'url-loader');
+  // Remove url loaders to implement own svg loader
+  const loader = helpers.getLoadersByName(config, 'url-loader');
 
-  console.log(config);
-  if (loader[0]['ruleIndex']) {
+  if (loader.length > 0 && loader[0]['ruleIndex']) {
     config.module.loaders.splice(loader[0]['ruleIndex'], 1);
   }
 
