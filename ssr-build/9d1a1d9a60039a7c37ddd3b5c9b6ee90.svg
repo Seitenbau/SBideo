@@ -1,0 +1,19 @@
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+import React from "react";
+
+var _ref = React.createElement("path", {
+  fillRule: "evenodd",
+  d: "M13 10h1v3c0 .547-.453 1-1 1h-3v-1h3v-3zM1 10H0v3c0 .547.453 1 1 1h3v-1H1v-3zm0-7h3V2H1c-.547 0-1 .453-1 1v3h1V3zm1 1h10v8H2V4zm2 6h6V6H4v4zm6-8v1h3v3h1V3c0-.547-.453-1-1-1h-3z"
+});
+
+var SvgComponent = function SvgComponent(props) {
+  return React.createElement("svg", _extends({
+    width: 14,
+    height: 16,
+    viewBox: "0 0 14 16"
+  }, props), _ref);
+};
+
+export default __webpack_public_path__ + "screen-full.dc52b60c.svg";
+export { SvgComponent as ReactComponent };
