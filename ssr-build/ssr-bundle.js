@@ -79,7 +79,7 @@ module.exports =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "/SBideo/";
 /******/
 /******/ 	// uncatched error handler for webpack runtime
 /******/ 	__webpack_require__.oe = function(err) {
@@ -6498,7 +6498,7 @@ function retrieveDataFailure(error) {
 
 function actions_retrieveData() {
   return function (dispatch) {
-    fetch("/items.json").then(function (response) {
+    fetch("/SBideo/items-demo.json").then(function (response) {
       if (!response.ok) {
         throw Error(response.statusText);
       }
