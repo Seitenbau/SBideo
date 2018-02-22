@@ -30,6 +30,9 @@
     shell: npm install
     args:
       chdir: /usr/lib/sbideo
+
+  - name: install preact-cli globally with npm
+    shell: npm install -g preact-cli
         
   - name: build sbideo with npm
     shell: npm run build
