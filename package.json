@@ -5,11 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"npm run serve\" --kill-others",
-    "prod": "cross-env NODE_ENV=production npm run build && npm run serve",
-    "build": "preact build --template ./src/index.html",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"nodemon ./src/server.js\" --kill-others",
+    "build": "cross-env NODE_ENV=production preact build --template ./src/index.html --dest ./build/public",
     "watch": "preact watch --template ./src/index.html",
-    "serve": "node ./src/server.js ./data",
+    "serve": "node ./build/server.js",
     "test": "jest ./tests",
     "lint": "eslint src",
     "precommit": "lint-staged"
@@ -51,6 +50,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "concurrently": "^3.5.1",
+    "copy-webpack-plugin": "^4.4.1",
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard-preact": "^1.1.6",
@@ -60,6 +60,7 @@
     "jest": "^22.2.2",
     "lint-staged": "^6.1.0",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.15.1",
     "preact-cli": "^2.1.1",
     "preact-render-spy": "^1.2.1",
     "prettier": "^1.10.2",
