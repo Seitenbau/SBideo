@@ -1,11 +1,12 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
 import { connect } from 'preact-redux';
-import poster from './FuBK_testcard_vectorized.svg';
 
 export class VideoPlayer extends Component {
   render(props) {
-    const bgImageStyle = `background-image: url(${poster})`;
+    const bgImageStyle = `background-image: url(${
+      process.env.ASSET_PATH
+    }FuBK_testcard_vectorized.svg)`;
     return (
       <div className={props.className}>
         <div className={style.sizer}>

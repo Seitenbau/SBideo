@@ -23,6 +23,11 @@ export default (config, env, helpers) => {
     ];
   }
 
+  // copy assets
+  config.plugins.push(
+    new CopyWebpackPlugin([{ context: `${__dirname}/src/assets`, from: `*.*` }])
+  );
+
   // Remove loaders to implement own svg loader
   const loader =
     process.env.NODE_ENV === 'production'
@@ -41,9 +46,7 @@ export default (config, env, helpers) => {
           loader: 'svgr/webpack'
         },
         {
-          loader: require.resolve(
-            process.env.NODE_ENV === 'production' ? 'file-loader' : 'url-loader'
-          ),
+          loader: require.resolve('file-loader'),
           options: {
             name: 'svgs/[name].[hash:8].[ext]'
           }
@@ -52,8 +55,7 @@ export default (config, env, helpers) => {
     },
     {
       test: /\.(woff2?|ttf|eot|jpe?g|png|gif|mp4|mov|ogg|webm)(\?.*)?$/i,
-      loader:
-        process.env.NODE_ENV === 'production' ? 'file-loader' : 'url-loader'
+      loader: 'file-loader'
     }
   );
 
