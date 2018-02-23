@@ -10,6 +10,15 @@ export default (config, env, helpers) => {
   }
   config.plugins.push(new HtmlWebpackInlineSourcePlugin());
 
+  // copy server files and assets
+  config.plugins.push(
+    new CopyWebpackPlugin([
+      { from: `${__dirname}/src/server.js`, to: '../server.js' },
+      { from: `${__dirname}/src/transcode.js`, to: '../transcode.js' },
+      { context: `${__dirname}/src/assets`, from: `*.*` }
+    ])
+  );
+
   if (config.devServer) {
     config.devServer.proxy = [
       {
@@ -22,11 +31,6 @@ export default (config, env, helpers) => {
       }
     ];
   }
-
-  // copy assets
-  config.plugins.push(
-    new CopyWebpackPlugin([{ context: `${__dirname}/src/assets`, from: `*.*` }])
-  );
 
   // Remove loaders to implement own svg loader
   const loader =
