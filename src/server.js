@@ -44,6 +44,7 @@ app.use('/items.json', (req, res) => {
     // serve testdata when available
     const testDataFileName = 'items-testdata.json';
     if (fs.existsSync(testDataFileName)) {
+      console.log('serving items-testdata.json');
       res.sendFile(path.resolve(__dirname + '/../' + testDataFileName));
       return;
     }
@@ -217,3 +218,4 @@ chokidar
 console.log(
   'App running under http://' + require('os').hostname() + ':' + port + '/'
 );
+console.log('...data folder:', dataFolder);
