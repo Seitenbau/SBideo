@@ -4,6 +4,9 @@ import { connect } from 'preact-redux';
 
 export class VideoPlayer extends Component {
   render(props) {
+    const bgImageStyle = `background-image: url(${
+      process.env.ASSET_PATH
+    }FuBK_testcard_vectorized.svg)`;
     return (
       <div className={props.className}>
         <div className={style.sizer}>
@@ -13,9 +16,10 @@ export class VideoPlayer extends Component {
               controls
               autoPlay
               src={props.activeVideo.src}
+              style={bgImageStyle}
             />
           ) : (
-            <div className={style.poster} />
+            <div className={style.poster} style={bgImageStyle} />
           )}
         </div>
       </div>

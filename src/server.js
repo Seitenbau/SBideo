@@ -18,7 +18,7 @@ const env = process.env.NODE_ENV || 'production';
 const port = process.env.PORT || 3000;
 server.listen(port);
 
-const dataFolder = argv._[0];
+const dataFolder = argv._[0] || './data';
 
 const defaultItem = {
   meta: {},
@@ -27,12 +27,10 @@ const defaultItem = {
 
 let allItems = [];
 
+const publicFolder = path.resolve(__dirname + '/../build/public');
+
 // serve static files
-app.use(express.static(path.resolve(__dirname + '/../build')));
-app.use(
-  '/octicons',
-  express.static(path.resolve(__dirname + '/../node_modules/octicons'))
-);
+app.use(express.static(publicFolder));
 
 // serve video folder
 app.use('/data', express.static(dataFolder));
@@ -43,6 +41,7 @@ app.use('/items.json', (req, res) => {
     // serve testdata when available
     const testDataFileName = 'items-testdata.json';
     if (fs.existsSync(testDataFileName)) {
+      console.log('serving items-testdata.json');
       res.sendFile(path.resolve(__dirname + '/../' + testDataFileName));
       return;
     }
@@ -80,7 +79,7 @@ app.post('**/meta.json', jsonParser, (req, res) => {
 
 // catch all unmatched, this needs to come last
 app.use('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/../build/index.html'));
+  res.sendFile(path.resolve(`${publicFolder}/index.html`));
 });
 
 const getCategoryByPath = function(filePath) {
@@ -242,3 +241,4 @@ chokidar
 console.log(
   'App running under http://' + require('os').hostname() + ':' + port + '/'
 );
+console.log('...data folder:', dataFolder);

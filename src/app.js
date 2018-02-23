@@ -23,10 +23,16 @@ export default class App extends Component {
   render() {
     let store = createStore(reducers, applyMiddleware(thunk));
 
+    // switch to hash history for routing on github
+    const createHashHistory =
+      typeof window !== 'undefined' && process.env.PUBLISH_ENV === 'github'
+        ? require('history/createHashHistory').default
+        : () => null;
+
     return (
       <Provider store={store}>
         <div id="app">
-          <Router onChange={this.handleRoute}>
+          <Router history={createHashHistory()} onChange={this.handleRoute}>
             <Home path="/:id?/:term?/:mode?" />
           </Router>
         </div>
