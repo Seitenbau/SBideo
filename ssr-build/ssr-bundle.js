@@ -7106,7 +7106,7 @@ var reducer_reducer = function reducer() {
         notificationStack: [].concat(state.notificationStack, [{
           id: Date.now(),
           type: 'error',
-          messages: ['Data could not be saved be saved on the server']
+          messages: ['Data could not be saved on the server']
         }])
       });
     case 'POP_NOTIFICATION_STACK':
