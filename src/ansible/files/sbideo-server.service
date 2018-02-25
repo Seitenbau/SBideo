@@ -5,7 +5,7 @@ After=mountall.service
 [Service]
 User=www-data
 Environment="NODE_ENV=production"
-ExecStart=/bin/bash -ce "/usr/bin/node /usr/lib/sbideo/src/server.js /media/recordings/sbideo-data >> /var/log/sbideo/server.log 2>&1"
+ExecStart=/bin/bash -ce "/usr/bin/node /usr/lib/sbideo/build/server.js /media/recordings/sbideo-data >> /var/log/sbideo/server.log 2>&1"
 
 [Install]
 WantedBy=multi-user.target
