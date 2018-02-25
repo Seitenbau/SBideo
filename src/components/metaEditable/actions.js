@@ -1,15 +1,10 @@
 import crawl from 'tree-crawl';
 
 const actions = ({ setState }) => ({
-  saveTree: (state, newMeta) => {
-    return {
-      data: setNewMetaInTree(state.data, newMeta)
-    };
-  },
-
   handleSave: (state, newMeta, src) => {
     setState({ saving: true });
-    this.saveTree(state, newMeta);
+
+    setNewMetaInTree(state.data, newMeta); // TODO: check why is this enough
 
     return fetch(src.replace('video.mp4', 'meta.json'), {
       headers: {
