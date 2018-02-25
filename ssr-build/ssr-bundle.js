@@ -4289,22 +4289,15 @@ function crawl(root, iteratee, options) {
   }
 }
 // CONCATENATED MODULE: ./components/metaEditable/actions.js
-var actions__this = this;
-
 
 
 var actions = function actions(_ref) {
   var setState = _ref.setState;
   return {
-    saveTree: function saveTree(state, newMeta) {
-      return {
-        data: actions_setNewMetaInTree(state.data, newMeta)
-      };
-    },
-
     handleSave: function handleSave(state, newMeta, src) {
       setState({ saving: true });
-      actions__this.saveTree(state, newMeta);
+
+      actions_setNewMetaInTree(state.data, newMeta); // TODO: check why is this enough
 
       return fetch(src.replace('video.mp4', 'meta.json'), {
         headers: {
