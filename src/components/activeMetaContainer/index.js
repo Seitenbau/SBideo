@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import Meta from '../../components/meta';
 import MetaEditable from 'async!../../components/metaEditable';
 import PropTypes from 'prop-types';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 export class ActiveMetaContainer extends Component {
   static propTypes = {

@@ -5,7 +5,7 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import fuzzysort from 'fuzzysort';
 import { setSearchResults } from './actions';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 export class Search extends Component {
   state = {

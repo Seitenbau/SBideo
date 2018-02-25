@@ -3,7 +3,7 @@ import VideoPlayer from '../../components/videoPlayer';
 import ActiveMetaContainer from '../../components/activeMetaContainer';
 import PropTypes from 'prop-types';
 import style from './style.scss';
-import { connect } from 'preact-redux';
+import { connect } from 'react-redux';
 
 export class VideoContainer extends Component {
   propTypes = {
