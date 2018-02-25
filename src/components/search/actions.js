@@ -1,6 +1,5 @@
-export function setSearchResults(data) {
-  return {
-    type: 'SET_SEARCH_RESULTS',
-    data: data
-  };
-}
+const actions = () => ({
+  setSearchResults: (state, searchResults) => ({ searchResults: searchResults })
+});
+
+export default actions;

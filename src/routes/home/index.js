@@ -4,8 +4,8 @@ import Folder from '../../components/folder';
 import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { retrieveData, setActiveVideo, announceEditMode } from './actions';
+import { connect } from 'redux-zero/preact';
+import actions from './actions';
 import crawl from 'tree-crawl';
 
 export class Home extends Component {
@@ -69,19 +69,6 @@ export class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    data: state.home.data,
-    searchResults: state.home.searchResults
-  };
-};
+const mapStateToProps = ({ data, searchResults }) => ({ data, searchResults });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    retrieveData: () => dispatch(retrieveData()),
-    setActiveVideo: video => dispatch(setActiveVideo(video)),
-    announceEditMode: editing => dispatch(announceEditMode(editing))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, actions)(Home);

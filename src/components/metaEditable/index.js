@@ -6,8 +6,8 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
 import InlineEditor from '../inlineEditor';
-import { connect } from 'react-redux';
-import { saveData } from './actions';
+import { connect } from 'redux-zero/preact';
+import actions from './actions';
 import crawl from 'tree-crawl';
 
 export class MetaEditable extends Component {
@@ -184,16 +184,6 @@ export class MetaEditable extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    data: state.home.data
-  };
-};
+const mapStateToProps = ({ data }) => ({ data });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleSave: (data, src) => dispatch(saveData(data, src))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MetaEditable);
+export default connect(mapStateToProps, actions)(MetaEditable);

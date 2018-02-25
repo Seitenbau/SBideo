@@ -2,14 +2,24 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Home from './routes/home';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import reducers from './reducers';
+import createStore from 'redux-zero';
+import { Provider } from 'redux-zero/react';
 
 if (module.hot) {
   require('preact/debug');
 }
+
+const initialState = {
+  data: [],
+  activeVideo: {
+    meta: {},
+    src: ''
+  },
+  newData: null,
+  editMode: false,
+  searchResults: null
+};
+const store = createStore(initialState);
 
 export default class App extends Component {
   /** Gets fired when the route changes.
@@ -21,8 +31,6 @@ export default class App extends Component {
   };
 
   render() {
-    let store = createStore(reducers, applyMiddleware(thunk));
-
     // switch to hash history for routing on github
     const createHashHistory =
       typeof window !== 'undefined' && process.env.PUBLISH_ENV === 'github'

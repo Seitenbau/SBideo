@@ -4,8 +4,8 @@ import style from './style.scss';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import fuzzysort from 'fuzzysort';
-import { setSearchResults } from './actions';
-import { connect } from 'react-redux';
+import actions from './actions';
+import { connect } from 'redux-zero/preact';
 
 export class Search extends Component {
   state = {
@@ -168,16 +168,6 @@ export class Search extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    data: state.home.data
-  };
-};
+const mapStateToProps = ({ data }) => ({ data });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setSearchResults: data => dispatch(setSearchResults(data))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, actions)(Search);

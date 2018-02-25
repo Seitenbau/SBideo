@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
-import { connect } from 'react-redux';
+import { connect } from 'redux-zero/preact';
 
 export class VideoPlayer extends Component {
   render(props) {
@@ -27,10 +27,6 @@ export class VideoPlayer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    activeVideo: state.home.activeVideo
-  };
-};
+const mapStateToProps = ({ activeVideo }) => ({ activeVideo });
 
 export default connect(mapStateToProps)(VideoPlayer);

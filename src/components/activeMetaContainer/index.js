@@ -1,12 +1,13 @@
 import { h, Component } from 'preact';
+import { connect } from 'redux-zero/preact';
 import Meta from '../../components/meta';
-import MetaEditable from 'async!../../components/metaEditable';
+import MetaEditable from '../../components/metaEditable';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 export class ActiveMetaContainer extends Component {
   static propTypes = {
-    activeVideo: PropTypes.object
+    activeVideo: PropTypes.object,
+    editMode: PropTypes.bool
   };
 
   render(props) {
@@ -37,11 +38,9 @@ export class ActiveMetaContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    activeVideo: state.home.activeVideo,
-    editMode: state.home.editMode
-  };
-};
+const mapStateToProps = ({ activeVideo, editMode }) => ({
+  activeVideo,
+  editMode
+});
 
 export default connect(mapStateToProps)(ActiveMetaContainer);
