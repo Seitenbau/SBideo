@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"nodemon ./src/server.js\" --kill-others",
-    "build": "cross-env NODE_ENV=production preact build --template ./src/index.html --dest ./build/public",
+    "build": "cross-env NODE_ENV=production preact build --template ./src/index.html --dest ./build/public --service-worker false --clean",
     "watch": "preact watch --template ./src/index.html",
     "serve": "node ./build/server.js",
     "test": "jest ./tests",
@@ -55,6 +55,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard-preact": "^1.1.6",
     "eslint-plugin-react": "^7.6.1",
+    "filemanager-webpack-plugin": "^1.0.24",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.2.2",
