@@ -1,4 +1,4 @@
-const fs = require('fs');
+const jf = require('jsonfile');
 const path = require('path');
 const chokidar = require('chokidar');
 const child_process = require('child_process');
@@ -41,7 +41,7 @@ function transcodeAndMoveNextFile() {
 
   const title = path.basename(filePath, path.extname(filePath));
   const id = shortid.generate();
-  const outputPath = dataFolder + '/_new/' + title + '-' + id;
+  const outputPath = path.join(dataFolder, '/_new/' + title + '-' + id);
 
   child_process.exec(
     `mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf "format=yuv420p, yadif" "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`,
@@ -56,10 +56,14 @@ function transcodeAndMoveNextFile() {
           tags: [],
           people: []
         };
-        const json = JSON.stringify(metaJson, null, 4);
-        fs.writeFile(outputPath + '/meta.json', json, function() {});
-
-        console.log('finished transcoding of file:', filePath);
+        jf.writeFile(
+          path.join(outputPath, '/meta.json'),
+          metaJson,
+          { spaces: 4 },
+          () => {
+            console.log('finished transcoding of file:', filePath);
+          }
+        );
       } else {
         console.log('errors while transcoding:', error, stdout, stderr);
       }
