@@ -26,7 +26,8 @@ export class MetaEditable extends Component {
     data: PropTypes.object,
     src: PropTypes.string,
     onSave: PropTypes.func,
-    handleSave: PropTypes.func
+    handleSave: PropTypes.func,
+    onMount: PropTypes.func
   };
 
   getListOfArrayKey(tree, key) {
@@ -58,6 +59,12 @@ export class MetaEditable extends Component {
 
   uniqueArray(a) {
     return Array.from(new Set(a));
+  }
+
+  componentDidMount() {
+    if (typeof this.props.onMount === 'function') {
+      this.props.onMount();
+    }
   }
 
   componentWillMount() {
