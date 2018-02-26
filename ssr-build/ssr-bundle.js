@@ -1476,7 +1476,7 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"sizer":"sizer__3PJsw","poster":"poster__27R4r","video":"video__2ty1_"};
+module.exports = {"sizer":"sizer___D9IJ","poster":"poster__qX1jE","video":"video__YZfJn"};
 
 /***/ }),
 
@@ -1901,7 +1901,7 @@ exports.default = Target;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"react-tags":"react-tags__1sgoR","is-focused":"is-focused__3DKXl","react-tags__selected":"react-tags__selected__1KLbo","react-tags__selected-tag":"react-tags__selected-tag__2tfr2","react-tags__search":"react-tags__search__2vI7p","react-tags__suggestions":"react-tags__suggestions__3vjwO","is-active":"is-active__GCAGT","is-disabled":"is-disabled__1B5Xk"};
+module.exports = {"react-tags":"react-tags__1IXaB","is-focused":"is-focused__5ntMM","react-tags__selected":"react-tags__selected__1-344","react-tags__selected-tag":"react-tags__selected-tag__3654e","react-tags__search":"react-tags__search__25QWo","react-tags__suggestions":"react-tags__suggestions__2Xuhs","is-active":"is-active__3-PAg","is-disabled":"is-disabled__1_h41"};
 
 /***/ }),
 
@@ -1928,7 +1928,7 @@ module.exports = ReactPropTypesSecret;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"textarea":"textarea__3xwbu"};
+module.exports = {"textarea":"textarea__3l31V"};
 
 /***/ }),
 
@@ -2563,7 +2563,7 @@ USAGE:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"wrapper":"wrapper__ZvzR1","videoPlayer":"videoPlayer__3mHME","activeMetaContainer":"activeMetaContainer__11_8X"};
+module.exports = {"wrapper":"wrapper__NvrK4","videoPlayer":"videoPlayer__rYGia","activeMetaContainer":"activeMetaContainer__2Nf11"};
 
 /***/ }),
 
@@ -2571,187 +2571,7 @@ module.exports = {"wrapper":"wrapper__ZvzR1","videoPlayer":"videoPlayer__3mHME",
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"searchForm":"searchForm__11aN7","searchField":"searchField__3ED4k","resetButton":"resetButton__2KlfD","resetIcon":"resetIcon__ZhtMV"};
-
-/***/ }),
-
-/***/ "J9yG":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var React = __webpack_require__("eW0v");
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-    d.__proto__ = b;
-} || function (d, b) {
-    for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
-    }
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() {
-        this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = Object.assign || function __assign(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) {
-            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-    }
-    return t;
-};
-
-function shallowEqual(a, b) {
-    for (var i in a) {
-        if (a[i] !== b[i]) return false;
-    }for (var i in b) {
-        if (!(i in a)) return false;
-    }return true;
-}
-
-function propsValidation(props, propName, componentName) {
-    if (typeof props === "object") {
-        return null;
-    }
-    return new Error("Invalid prop " + propName + " supplied to " + componentName);
-}
-
-function set(store, ret) {
-    if (ret != null) {
-        if (ret.then) return ret.then(store.setState);
-        store.setState(ret);
-    }
-}
-
-function bindActions(actions, store) {
-    actions = typeof actions === "function" ? actions(store) : actions;
-    var bound = {};
-    var _loop_1 = function _loop_1(name_1) {
-        bound[name_1] = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var action = actions[name_1];
-            if (typeof store.middleware === "function") {
-                return store.middleware(store, action, args);
-            }
-            return set(store, action.apply(void 0, [store.getState()].concat(args)));
-        };
-    };
-    for (var name_1 in actions) {
-        _loop_1(name_1);
-    }
-    return bound;
-}
-
-var Connect = /** @class */function (_super) {
-    __extends(Connect, _super);
-    function Connect() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = _this.getProps();
-        _this.actions = _this.getActions();
-        _this.update = function () {
-            var mapped = _this.getProps();
-            if (!shallowEqual(mapped, _this.state)) {
-                _this.setState(mapped);
-            }
-        };
-        return _this;
-    }
-    Connect.prototype.componentWillMount = function () {
-        this.unsubscribe = this.context.store.subscribe(this.update);
-    };
-    Connect.prototype.componentWillUnmount = function () {
-        this.unsubscribe(this.update);
-    };
-    Connect.prototype.getProps = function () {
-        var mapToProps = this.props.mapToProps;
-        var state = this.context.store && this.context.store.getState() || {};
-        return mapToProps ? mapToProps(state, this.props) : state;
-    };
-    Connect.prototype.getActions = function () {
-        var actions = this.props.actions;
-        return bindActions(actions, this.context.store);
-    };
-    Connect.prototype.render = function () {
-        return this.props.children(__assign({ store: this.context.store }, this.state, this.actions));
-    };
-    Connect.contextTypes = {
-        store: propsValidation
-    };
-    return Connect;
-}(React.Component);
-function connect(mapToProps, actions) {
-    if (actions === void 0) {
-        actions = {};
-    }
-    return function (Child) {
-        return (/** @class */function (_super) {
-                __extends(ConnectWrapper, _super);
-                function ConnectWrapper() {
-                    return _super !== null && _super.apply(this, arguments) || this;
-                }
-                ConnectWrapper.prototype.render = function () {
-                    var props = this.props;
-                    return React.createElement(Connect, __assign({}, props, { mapToProps: mapToProps, actions: actions }), function (mappedProps) {
-                        return React.createElement(Child, __assign({}, mappedProps, props));
-                    });
-                };
-                return ConnectWrapper;
-            }(React.Component)
-        );
-    };
-}
-
-var Provider = /** @class */function (_super) {
-    __extends(Provider, _super);
-    function Provider() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Provider.prototype.getChildContext = function () {
-        var store = this.props.store;
-        return { store: store };
-    };
-    Provider.prototype.render = function () {
-        var children = this.props.children;
-        return React.Children.only(children);
-    };
-    Provider.childContextTypes = {
-        store: propsValidation
-    };
-    return Provider;
-}(React.Component);
-
-exports.connect = connect;
-exports.Provider = Provider;
-exports.Connect = Connect;
+module.exports = {"searchForm":"searchForm__1vb3l","searchField":"searchField__2wR68","resetButton":"resetButton__oSKOb","resetIcon":"resetIcon__2Hb5I"};
 
 /***/ }),
 
@@ -3161,8 +2981,8 @@ var folder_Folder = function (_Component) {
 var videoPlayer_style = __webpack_require__("5GlD");
 var videoPlayer_style_default = /*#__PURE__*/__webpack_require__.n(videoPlayer_style);
 
-// EXTERNAL MODULE: ../node_modules/redux-zero/preact/index.js
-var preact = __webpack_require__("OA8u");
+// EXTERNAL MODULE: ../node_modules/unistore/preact.js
+var preact = __webpack_require__("o6ac");
 var preact_default = /*#__PURE__*/__webpack_require__.n(preact);
 
 // CONCATENATED MODULE: ./components/videoPlayer/index.js
@@ -5007,14 +4827,37 @@ var home_mapStateToProps = function mapStateToProps(_ref) {
 };
 
 /* harmony default export */ var home = (Object(preact["connect"])(home_mapStateToProps, home_actions)(home_Home));
-// EXTERNAL MODULE: ../node_modules/redux-zero/dist/redux-zero.js
-var redux_zero = __webpack_require__("L0+G");
-var redux_zero_default = /*#__PURE__*/__webpack_require__.n(redux_zero);
-
-// EXTERNAL MODULE: ../node_modules/redux-zero/react/index.js
-var react = __webpack_require__("J9yG");
-var react_default = /*#__PURE__*/__webpack_require__.n(react);
-
+// CONCATENATED MODULE: ../node_modules/unistore/dist/unistore.es.js
+function n(n, t) {
+  for (var u in t) {
+    n[u] = t[u];
+  }return n;
+}function t(t) {
+  var u = [];function r(n) {
+    for (var t = [], r = 0; r < u.length; r++) {
+      u[r] === n ? n = null : t.push(u[r]);
+    }u = t;
+  }function e(r, e, o) {
+    t = e ? r : n(n({}, t), r);for (var f = u, i = 0; i < f.length; i++) {
+      f[i](t, o);
+    }
+  }return t = t || {}, { action: function action(n) {
+      function u(t) {
+        e(t, !1, n);
+      }return function () {
+        for (var r = arguments, e = [t], o = 0; o < arguments.length; o++) {
+          e.push(r[o]);
+        }var f = n.apply(this, e);null != f && (f.then ? f.then(u) : u(f));
+      };
+    }, setState: e, subscribe: function subscribe(n) {
+      return u.push(n), function () {
+        r(n);
+      };
+    }, unsubscribe: r, getState: function getState() {
+      return t;
+    } };
+}/* harmony default export */ var unistore_es = (t);
+//# sourceMappingURL=unistore.es.js.map
 // CONCATENATED MODULE: ./app.js
 
 
@@ -5045,7 +4888,7 @@ var initialState = {
   editMode: false,
   searchResults: null
 };
-var store = redux_zero_default()(initialState);
+var store = unistore_es(initialState);
 
 var app__ref = Object(preact_min["h"])(home, { path: '/:id?/:term?/:mode?' });
 
@@ -5078,7 +4921,7 @@ var app_App = function (_Component) {
     };
 
     return Object(preact_min["h"])(
-      react["Provider"],
+      preact["Provider"],
       { store: store },
       Object(preact_min["h"])(
         'div',
@@ -6036,75 +5879,11 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ "L0+G":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var __assign = Object.assign || function __assign(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) {
-            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-    }
-    return t;
-};
-
-function createStore$1(state, middleware) {
-    if (state === void 0) {
-        state = {};
-    }
-    if (middleware === void 0) {
-        middleware = null;
-    }
-    var listeners = [];
-    return {
-        middleware: middleware,
-        setState: function setState(update) {
-            state = typeof update === "function" ? __assign({}, state, update(state)) : __assign({}, state, update);
-            listeners.forEach(function (f) {
-                return f(state);
-            });
-        },
-        subscribe: function subscribe(f) {
-            listeners.push(f);
-            return function () {
-                listeners.splice(listeners.indexOf(f), 1);
-            };
-        },
-        getState: function getState() {
-            return state;
-        }
-    };
-}
-
-module.exports = createStore$1;
-
-/***/ }),
-
 /***/ "LGzG":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"icon":"icon__s7ZQj","editButton":"editButton__2a7gk","meta":"meta__1Dx-r","people":"people__3DRyi","tags":"tags__3TXqc","tag":"tag__1KJwZ","description":"description__1nwmV"};
+module.exports = {"icon":"icon__1ugZA","editButton":"editButton__1vvdd","meta":"meta__1gAwD","people":"people__3HOh8","tags":"tags__eAw30","tag":"tag__1THdN","description":"description__o9Q9_"};
 
 /***/ }),
 
@@ -6603,7 +6382,7 @@ exports.default = Manager;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"home":"home__1CGvB"};
+module.exports = {"home":"home__1j6dU"};
 
 /***/ }),
 
@@ -6611,178 +6390,7 @@ module.exports = {"home":"home__1CGvB"};
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"buttonContainer":"buttonContainer__3ltan"};
-
-/***/ }),
-
-/***/ "OA8u":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var preact = __webpack_require__("KM04");
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
-    d.__proto__ = b;
-} || function (d, b) {
-    for (var p in b) {
-        if (b.hasOwnProperty(p)) d[p] = b[p];
-    }
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() {
-        this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = Object.assign || function __assign(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) {
-            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-    }
-    return t;
-};
-
-function shallowEqual(a, b) {
-    for (var i in a) {
-        if (a[i] !== b[i]) return false;
-    }for (var i in b) {
-        if (!(i in a)) return false;
-    }return true;
-}
-
-function set(store, ret) {
-    if (ret != null) {
-        if (ret.then) return ret.then(store.setState);
-        store.setState(ret);
-    }
-}
-
-function bindActions(actions, store) {
-    actions = typeof actions === "function" ? actions(store) : actions;
-    var bound = {};
-    var _loop_1 = function _loop_1(name_1) {
-        bound[name_1] = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var action = actions[name_1];
-            if (typeof store.middleware === "function") {
-                return store.middleware(store, action, args);
-            }
-            return set(store, action.apply(void 0, [store.getState()].concat(args)));
-        };
-    };
-    for (var name_1 in actions) {
-        _loop_1(name_1);
-    }
-    return bound;
-}
-
-var Connect = /** @class */function (_super) {
-    __extends(Connect, _super);
-    function Connect() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.state = _this.getProps();
-        _this.actions = _this.getActions();
-        _this.update = function () {
-            var mapped = _this.getProps();
-            if (!shallowEqual(mapped, _this.state)) {
-                _this.setState(mapped);
-            }
-        };
-        return _this;
-    }
-    Connect.prototype.componentWillMount = function () {
-        this.unsubscribe = this.context.store.subscribe(this.update);
-    };
-    Connect.prototype.componentWillUnmount = function () {
-        this.unsubscribe(this.update);
-    };
-    Connect.prototype.getProps = function () {
-        var mapToProps = this.props.mapToProps;
-        var state = this.context.store && this.context.store.getState() || {};
-        return mapToProps ? mapToProps(state, this.props) : state;
-    };
-    Connect.prototype.getActions = function () {
-        var actions = this.props.actions;
-        return bindActions(actions, this.context.store);
-    };
-    Connect.prototype.render = function (_a, state, _b) {
-        var children = _a.children;
-        var store = _b.store;
-        return children[0](__assign({ store: store }, state, this.actions));
-    };
-    return Connect;
-}(preact.Component);
-// [ HACK ] to avoid Typechecks
-// since there is a small conflict between preact and react typings
-// in the future this might become unecessary by updating typings
-var ConnectUntyped = Connect;
-function connect(mapToProps, actions) {
-    if (actions === void 0) {
-        actions = {};
-    }
-    return function (Child) {
-        return (/** @class */function (_super) {
-                __extends(ConnectWrapper, _super);
-                function ConnectWrapper() {
-                    return _super !== null && _super.apply(this, arguments) || this;
-                }
-                ConnectWrapper.prototype.render = function () {
-                    var props = this.props;
-                    return preact.h(ConnectUntyped, __assign({}, props, { mapToProps: mapToProps, actions: actions }), function (mappedProps) {
-                        return preact.h(Child, __assign({}, mappedProps, props));
-                    });
-                };
-                return ConnectWrapper;
-            }(preact.Component)
-        );
-    };
-}
-
-var Provider = /** @class */function (_super) {
-    __extends(Provider, _super);
-    function Provider() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Provider.prototype.getChildContext = function () {
-        return { store: this.props.store };
-    };
-    Provider.prototype.render = function () {
-        return this.props.children[0];
-    };
-    return Provider;
-}(preact.Component);
-
-exports.connect = connect;
-exports.Provider = Provider;
-exports.Connect = Connect;
+module.exports = {"buttonContainer":"buttonContainer__uzkAP"};
 
 /***/ }),
 
@@ -6964,7 +6572,7 @@ module.exports = function (props) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"parent":"parent__Xi3bm","title":"title__2NALV"};
+module.exports = {"parent":"parent__3zOVQ","title":"title__EYb7v"};
 
 /***/ }),
 
@@ -10466,6 +10074,56 @@ exports.default = createHashHistory;
 
 /***/ }),
 
+/***/ "o6ac":
+/***/ (function(module, exports, __webpack_require__) {
+
+var t = __webpack_require__("KM04");function n(t, n) {
+  "function" == typeof t && (t = t(n));var r = {};for (var e in t) {
+    r[e] = n.action(t[e]);
+  }return r;
+}function r(t) {
+  return "string" == typeof t && (t = t.split(/\s*,\s*/)), function (n) {
+    for (var r = {}, e = 0; e < t.length; e++) {
+      r[t[e]] = n[t[e]];
+    }return r;
+  };
+}function e(t, n) {
+  for (var r in n) {
+    t[r] = n[r];
+  }return t;
+}function o(o, i) {
+  return "function" != typeof o && (o = r(o || [])), function (r) {
+    function u(u, c) {
+      var f = this,
+          s = c.store,
+          p = o(s ? s.getState() : {}, u),
+          a = i ? n(i, s) : { store: s },
+          l = function l() {
+        var t = o(s ? s.getState() : {}, f.props);for (var n in t) {
+          if (t[n] !== p[n]) return p = t, f.setState(null);
+        }for (var r in p) {
+          if (!(r in t)) return p = t, f.setState(null);
+        }
+      };this.componentDidMount = function () {
+        l(), s.subscribe(l);
+      }, this.componentWillUnmount = function () {
+        s.unsubscribe(l);
+      }, this.render = function (n) {
+        return t.h(r, e(e(e({}, a), n), p));
+      };
+    }return (u.prototype = new t.Component()).constructor = u;
+  };
+}function i(t) {
+  this.getChildContext = function () {
+    return { store: t.store };
+  };
+}i.prototype.render = function (t) {
+  return t.children[0];
+}, exports.connect = o, exports.Provider = i;
+//# sourceMappingURL=preact.js.map
+
+/***/ }),
+
 /***/ "piIJ":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10910,7 +10568,7 @@ function valueEqual(a, b) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"video":"video__mNK9R","videoLink":"videoLink__3Gu3e","active":"active__2_iOI","popper":"popper__1jV98","popperarrow":"popperarrow__1-LH5"};
+module.exports = {"video":"video__F9GPG","videoLink":"videoLink__1i84Q","active":"active__3WG8V","popper":"popper__117hH","popperarrow":"popperarrow__2Gw4m"};
 
 /***/ }),
 
