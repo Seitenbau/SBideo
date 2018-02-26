@@ -2,8 +2,8 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 
 import Home from './routes/home';
-import createStore from 'redux-zero';
-import { Provider } from 'redux-zero/react';
+import createStore from 'unistore';
+import { Provider } from 'unistore/preact';
 
 if (module.hot) {
   require('preact/debug');

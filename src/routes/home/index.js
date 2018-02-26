@@ -4,7 +4,7 @@ import Folder from '../../components/folder';
 import VideoContainer from '../../components/videoContainer';
 import Search from '../../components/search';
 import PropTypes from 'prop-types';
-import { connect } from 'redux-zero/preact';
+import { connect } from 'unistore/preact';
 import actions from './actions';
 import crawl from 'tree-crawl';
 

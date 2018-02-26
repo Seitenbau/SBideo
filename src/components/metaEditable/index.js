@@ -6,7 +6,7 @@ import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import TagsEditable from '../tagsEditable';
 import InlineEditor from '../inlineEditor';
-import { connect } from 'redux-zero/preact';
+import { connect } from 'unistore/preact';
 import actions from './actions';
 import crawl from 'tree-crawl';
 

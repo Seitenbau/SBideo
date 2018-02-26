@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
-import { connect } from 'redux-zero/preact';
+import { connect } from 'unistore/preact';
 
 export class VideoPlayer extends Component {
   render(props) {

@@ -93,12 +93,12 @@
     "react-popper": "^0.8.2",
     "react-tag-autocomplete": "^5.5.0",
     "react-textarea-autosize": "^5.2.1",
-    "redux-zero": "^4.10.1",
     "shortid": "^2.2.8",
     "smoothscroll-polyfill": "^0.4.0",
     "speakingurl": "^14.0.1",
     "svgr": "^1.8.1",
-    "tree-crawl": "^1.0.5"
+    "tree-crawl": "^1.0.5",
+    "unistore": "^3.0.4"
   },
   "jest": {
     "verbose": true,

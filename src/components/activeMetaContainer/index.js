@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { connect } from 'redux-zero/preact';
+import { connect } from 'unistore/preact';
 import Meta from '../../components/meta';
 import MetaEditable from 'async!../../components/metaEditable';
 import PropTypes from 'prop-types';
