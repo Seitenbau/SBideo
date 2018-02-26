@@ -1,5 +1,4 @@
 import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 import FileManagerPlugin from 'filemanager-webpack-plugin';
 
 export default (config, env, helpers) => {
@@ -11,26 +10,21 @@ export default (config, env, helpers) => {
   }
   config.plugins.push(new HtmlWebpackInlineSourcePlugin());
 
-  // copy assets
-  config.plugins.push(
-    new CopyWebpackPlugin([
-      { from: `${__dirname}/src/server.js`, to: './server.js' },
-      { from: `${__dirname}/src/transcode.js`, to: './transcode.js' }
-    ])
-  );
-
-  // move assets
+  // File management
   config.plugins.push(
     new FileManagerPlugin({
+      onStart: {
+        delete: ['./build/*.*']
+      },
       onEnd: {
-        move: [
+        copy: [
           {
-            source: './build/public/server.js',
-            destination: './build/server.js'
+            source: './src/server.js',
+            destination: env.dest + '/../server.js'
           },
           {
-            source: './build/public/transcode.js',
-            destination: './build/transcode.js'
+            source: './src/transcode.js',
+            destination: env.dest + '/../transcode.js'
           }
         ]
       }
