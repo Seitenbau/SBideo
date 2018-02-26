@@ -1,59 +1,45 @@
 import { h, Component } from 'preact';
+import { connect } from 'unistore/preact';
 import Meta from '../../components/meta';
 import MetaEditable from 'async!../../components/metaEditable';
 import PropTypes from 'prop-types';
+import style from './loader.scss';
 
-export default class ActiveMetaContainer extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.onSave = this.onSave.bind(this);
-    this.getCurrentMeta = this.getCurrentMeta.bind(this);
-  }
-
+export class ActiveMetaContainer extends Component {
   state = {
-    savedMeta: {}
+    editComponentMounted: false
   };
-
-  componentWillReceiveProps(nextprops) {
-    if (this.props.meta !== nextprops.meta) {
-      this.setState({ savedMeta: {} }); // reset saved meta
-    }
-  }
-  /**
-   * Temporary function to show saved data
-   * TODO: Instead of showing the saved data here, update the whole client data tree
-   *
-   * @param {object} metaData
-   */
-  onSave(metaData) {
-    this.setState({ savedMeta: metaData });
-  }
-
   static propTypes = {
-    meta: PropTypes.object
+    activeVideo: PropTypes.object,
+    editMode: PropTypes.bool
   };
 
-  getCurrentMeta() {
-    return Object.keys(this.state.savedMeta).length > 0
-      ? this.state.savedMeta
-      : this.props.meta;
-  }
+  editComponentMounted = () => {
+    this.setState({
+      editComponentMounted: true
+    });
+  };
 
-  render(props) {
-    if (Object.keys(props.meta).length > 0) {
+  render(props, state) {
+    const meta = props.activeVideo.meta;
+    if (meta && Object.keys(meta).length > 0) {
       return (
         <div className={props.className}>
           {props.editMode ? (
-            <MetaEditable
-              meta={this.getCurrentMeta()}
-              src={props.src}
-              data={props.data}
-              showTitle="true"
-              onSave={this.onSave}
-            />
+            <div>
+              {!state.editComponentMounted && (
+                <p className={style.loader}>Loading</p>
+              )}
+              <MetaEditable
+                meta={meta}
+                src={props.activeVideo.src}
+                showTitle="true"
+                onSave={this.onSave}
+                onMount={this.editComponentMounted}
+              />
+            </div>
           ) : (
-            <Meta meta={this.getCurrentMeta()} showTitle="true" />
+            <Meta meta={meta} showTitle="true" />
           )}
         </div>
       );
@@ -67,3 +53,10 @@ export default class ActiveMetaContainer extends Component {
     }
   }
 }
+
+const mapStateToProps = ({ activeVideo, editMode }) => ({
+  activeVideo,
+  editMode
+});
+
+export default connect(mapStateToProps)(ActiveMetaContainer);
