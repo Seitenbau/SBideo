@@ -4111,15 +4111,14 @@ function crawl(root, iteratee, options) {
 // CONCATENATED MODULE: ./components/metaEditable/actions.js
 
 
-var actions = function actions(_ref) {
-  var setState = _ref.setState;
+var actions = function actions() {
   return {
     handleSave: function handleSave(state, newMeta, src) {
-      setState({ saving: true });
-
+      // we're optimistic, so update client state
       actions_setNewMetaInTree(state.data, newMeta); // TODO: check why is this enough
 
-      return fetch(src.replace('video.mp4', 'meta.json'), {
+      // send POST request to server
+      fetch(src.replace('video.mp4', 'meta.json'), {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -4128,13 +4127,9 @@ var actions = function actions(_ref) {
         body: JSON.stringify(newMeta)
       }).then(function (response) {
         if (!response.ok) {
-          throw Error(response.statusText);
+          alert('Error while saving: ' + response.statusText + ' ' + response.url);
+          // TODO revert client state
         }
-        return response.json();
-      }).then(function (json) {
-        return { data: json, saving: false };
-      }).catch(function (error) {
-        return { error: error, saving: false };
       });
     }
   };
@@ -4287,6 +4282,12 @@ var metaEditable_MetaEditable = function (_Component) {
     return Array.from(new Set(a));
   };
 
+  MetaEditable.prototype.componentDidMount = function componentDidMount() {
+    if (typeof this.props.onMount === 'function') {
+      this.props.onMount();
+    }
+  };
+
   MetaEditable.prototype.componentWillMount = function componentWillMount() {
     // TODO call this on componentWillReceiveProps?
     // TODO combine these two iterations, so both keys will be returned without iterating twice
@@ -4312,7 +4313,10 @@ var metaEditable_MetaEditable = function (_Component) {
           Object(preact_min["h"])(inlineEditor_InlineEditor, {
             value: state.meta.title,
             placeholder: 'Enter title...',
-            onChange: this.handleTitleChange
+            onChange: this.handleTitleChange,
+            minlength: '3',
+            maxlength: '150',
+            required: true
           })
         ),
         Object(preact_min["h"])(
@@ -4342,7 +4346,8 @@ var metaEditable_MetaEditable = function (_Component) {
           Object(preact_min["h"])(inlineEditor_InlineEditor, {
             value: state.meta.description,
             placeholder: 'Enter description...',
-            onChange: this.handleDescriptionChange
+            onChange: this.handleDescriptionChange,
+            maxlength: '1500'
           })
         ),
         Object(preact_min["h"])(
@@ -4372,6 +4377,10 @@ var metaEditable_mapStateToProps = function mapStateToProps(_ref2) {
 };
 
 /* harmony default export */ var metaEditable = (Object(preact["connect"])(metaEditable_mapStateToProps, metaEditable_actions)(metaEditable_MetaEditable));
+// EXTERNAL MODULE: ./components/activeMetaContainer/loader.scss
+var loader = __webpack_require__("jNht");
+var loader_default = /*#__PURE__*/__webpack_require__.n(loader);
+
 // CONCATENATED MODULE: ./components/activeMetaContainer/index.js
 
 
@@ -4380,6 +4389,7 @@ function activeMetaContainer__classCallCheck(instance, Constructor) { if (!(inst
 function activeMetaContainer__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function activeMetaContainer__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -4403,23 +4413,45 @@ var activeMetaContainer_ActiveMetaContainer = function (_Component) {
   activeMetaContainer__inherits(ActiveMetaContainer, _Component);
 
   function ActiveMetaContainer() {
+    var _temp, _this, _ret;
+
     activeMetaContainer__classCallCheck(this, ActiveMetaContainer);
 
-    return activeMetaContainer__possibleConstructorReturn(this, _Component.apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = activeMetaContainer__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
+      editComponentMounted: false
+    }, _this.editComponentMounted = function () {
+      _this.setState({
+        editComponentMounted: true
+      });
+    }, _temp), activeMetaContainer__possibleConstructorReturn(_this, _ret);
   }
 
-  ActiveMetaContainer.prototype.render = function render(props) {
+  ActiveMetaContainer.prototype.render = function render(props, state) {
     var meta = props.activeVideo.meta;
     if (meta && Object.keys(meta).length > 0) {
       return Object(preact_min["h"])(
         'div',
         { className: props.className },
-        props.editMode ? Object(preact_min["h"])(metaEditable, {
-          meta: meta,
-          src: props.activeVideo.src,
-          showTitle: 'true',
-          onSave: this.onSave
-        }) : Object(preact_min["h"])(meta_Meta, { meta: meta, showTitle: 'true' })
+        props.editMode ? Object(preact_min["h"])(
+          'div',
+          null,
+          !state.editComponentMounted && Object(preact_min["h"])(
+            'p',
+            { className: loader_default.a.loader },
+            'Loading'
+          ),
+          Object(preact_min["h"])(metaEditable, {
+            meta: meta,
+            src: props.activeVideo.src,
+            showTitle: 'true',
+            onSave: this.onSave,
+            onMount: this.editComponentMounted
+          })
+        ) : Object(preact_min["h"])(meta_Meta, { meta: meta, showTitle: 'true' })
       );
     } else {
       return Object(preact_min["h"])(
@@ -7264,6 +7296,14 @@ var index = {
 
 /* harmony default export */ __webpack_exports__["default"] = (index);
 //# sourceMappingURL=preact-compat.es.js.map
+
+/***/ }),
+
+/***/ "jNht":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"loader":"loader__3hvNA","load7":"load7__3r1q_"};
 
 /***/ }),
 

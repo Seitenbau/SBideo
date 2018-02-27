@@ -53,28 +53,30 @@ app.use('/items.json', (req, res) => {
 
 // handle POST requests to edit meta data via UI
 app.post('**/meta.json', jsonParser, (req, res) => {
-  const metaFilePath = dataFolder + req.path.replace('data/', '');
+  const metaFilePath = path.join(dataFolder, req.path.replace('data/', ''));
   console.log('POST ', metaFilePath);
 
-  if (!fs.existsSync(metaFilePath)) {
-    res.status(404).end();
-  }
-
-  // save meta.json
-  // TODO refactor; make async
-  const newMeta = req.body;
-  const meta = jf.readFileSync(metaFilePath);
-  meta.title = newMeta.title;
-  meta.description = newMeta.description;
-  meta.people = newMeta.people;
-  meta.tags = newMeta.tags;
-  fs.writeFileSync(metaFilePath, JSON.stringify(meta, null, 4));
-
-  // TODO refactor
-  // reindex all items and send to client
-  allItems = [];
-  walkSync(dataFolder);
-  res.json({ items: allItems });
+  fs.exists(metaFilePath, exists => {
+    if (exists) {
+      // save meta.json
+      const newMeta = req.body;
+      jf.readFile(metaFilePath, {}, (errorRead, meta) => {
+        if (!errorRead) {
+          meta.title = newMeta.title;
+          meta.description = newMeta.description;
+          meta.people = newMeta.people;
+          meta.tags = newMeta.tags;
+          jf.writeFile(metaFilePath, meta, { spaces: 4 }, errorWrite => {
+            res.status(!errorWrite ? 204 : 500).end();
+          });
+        } else {
+          res.status(500).end();
+        }
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
 });
 
 // catch all unmatched, this needs to come last
@@ -157,7 +159,7 @@ const addItemRecursive = function(items, category, meta) {
 const walkSync = function(dir) {
   try {
     fs.readdirSync(dir).forEach(function(file) {
-      const filePath = dir + '/' + file;
+      const filePath = path.join(dir, file);
       if (fs.statSync(filePath).isDirectory()) {
         walkSync(filePath);
       } else {
@@ -169,10 +171,13 @@ const walkSync = function(dir) {
             meta: jf.readFileSync(filePath)
           };
 
-          const videoFile = path.dirname(filePath) + '/video.mp4';
+          const videoFile = path.join(path.dirname(filePath), 'video.mp4');
           if (fs.existsSync(videoFile)) {
             item.type = 'video';
-            item.src = '/data/' + path.relative(dataFolder, videoFile);
+            item.src = path.join(
+              '/data/',
+              path.relative(dataFolder, videoFile)
+            );
           }
           const relativeFilePath = path.relative(dataFolder, filePath);
           const category = getCategoryByPath(relativeFilePath);
