@@ -80,8 +80,7 @@ export default (config, env, helpers) => {
   config.plugins.push(
     new helpers.webpack.DefinePlugin({
       'process.env.API_URL': JSON.stringify(API_URL || '/items.json'),
-      'process.env.ASSET_PATH': JSON.stringify(config.output.publicPath || '/'),
-      'process.env.PUBLISH_ENV': JSON.stringify(process.env.PUBLISH_ENV)
+      'process.env.ASSET_PATH': JSON.stringify(config.output.publicPath || '/')
     })
   );
 };
