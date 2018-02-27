@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"nodemon ./src/server.js\" --kill-others",
-    "build": "cross-env NODE_ENV=production preact build --template ./src/index.html --dest ./build/public --service-worker false",
+    "build": "cross-env NODE_ENV=production preact build --template ./src/index.html --dest ./build/public --no-service-worker --clean",
     "watch": "preact watch --template ./src/index.html",
     "publish-demo": "cross-env PUBLISH_ENV=github npm run build && gh-pages -d build/public",
     "serve": "node ./build/server.js",
@@ -63,7 +63,7 @@
     "lint-staged": "^6.1.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.15.1",
-    "preact-cli": "^2.1.1",
+    "preact-cli": "^2.2.1",
     "preact-render-spy": "^1.2.1",
     "prettier": "^1.10.2",
     "sass-loader": "^6.0.6",

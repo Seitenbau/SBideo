@@ -7408,7 +7408,7 @@ postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.17, postcss@^6.0.2:
     source-map "^0.6.1"
     supports-color "^5.2.0"
 
-preact-cli@^2.1.1:
+preact-cli@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/preact-cli/-/preact-cli-2.2.1.tgz#05a3311e89bdb120a5273532c77b87bdd710e04b"
   dependencies:
