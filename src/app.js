@@ -34,7 +34,7 @@ export default class App extends Component {
     // switch to hash history for routing on github
     const createHashHistory =
       typeof window !== 'undefined' && process.env.PUBLISH_ENV === 'github'
-        ? require('history/createHashHistory').default
+        ? require('history/createHashHistory').default // TODO make sure the history dep isn't included in regular build
         : () => null;
 
     return (
