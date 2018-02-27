@@ -4111,11 +4111,13 @@ function crawl(root, iteratee, options) {
 // CONCATENATED MODULE: ./components/metaEditable/actions.js
 
 
-var actions = function actions() {
+var actions = function actions(_ref) {
+  var setState = _ref.setState;
   return {
     handleSave: function handleSave(state, newMeta, src) {
       // we're optimistic, so update client state
-      actions_setNewMetaInTree(state.data, newMeta); // TODO: check why is this enough
+      var newData = actions_setNewMetaInTree(JSON.parse(JSON.stringify(state.data)), newMeta);
+      setState({ data: newData });
 
       // send POST request to server
       fetch(src.replace('video.mp4', 'meta.json'), {
