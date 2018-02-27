@@ -17,14 +17,13 @@ export class MetaEditable extends Component {
     this.state = {
       peopleSuggestions: [],
       tagsSuggestions: [],
-      meta: { ...props.meta }
+      meta: { ...props.video.meta }
     };
   }
 
   propTypes = {
-    meta: PropTypes.object,
+    video: PropTypes.object,
     data: PropTypes.object,
-    src: PropTypes.string,
     onSave: PropTypes.func,
     handleSave: PropTypes.func,
     onMount: PropTypes.func
@@ -112,10 +111,10 @@ export class MetaEditable extends Component {
       event.preventDefault();
     }
 
-    this.props.handleSave(this.state.meta, this.props.src);
+    this.props.handleSave(this.state.meta, this.props.video.src);
 
     // end edit mode
-    route(`/${this.props.meta.id}/${this.props.meta.slug}`);
+    route(`/${this.props.video.meta.id}/${this.props.video.meta.slug}`);
   };
 
   handleCancel = event => {
@@ -141,8 +140,17 @@ export class MetaEditable extends Component {
   };
 
   render(props, state) {
+    const { video } = props;
     return (
       <div className={metaStyle.meta}>
+        <div className={metaStyle.breadcrumb}>
+          {video.path.map((folder, j) => (
+            <span key={`folder${j}`}>
+              {folder}
+              {video.path.length === j + 1 ? '' : ' / '}
+            </span>
+          ))}
+        </div>
         <form
           onSubmit={this.handleSubmit}
           className={style.form}
