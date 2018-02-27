@@ -20,7 +20,7 @@ export default class Folder extends Component {
     }
 
     if (data.type === 'video') {
-      return <VideoLink meta={data.meta} />;
+      return <VideoLink video={data} />;
     } else {
       return (
         <li className={style.parent}>

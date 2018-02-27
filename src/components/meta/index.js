@@ -15,6 +15,8 @@ export default class Meta extends Component {
 
   propTypes = {
     video: PropTypes.object,
+    showTitle: PropTypes.bool,
+    showPath: PropTypes.bool,
     limitDescription: PropTypes.bool
   };
 
@@ -25,18 +27,20 @@ export default class Meta extends Component {
   }
 
   render(props) {
-    const { showTitle, video } = props;
+    const { showTitle, showPath, video } = props;
     const meta = video.meta;
     return (
       <div className={style.meta}>
-        <div className={style.breadcrumb}>
-          {video.path.map((folder, j) => (
-            <span key={`folder${j}`}>
-              {folder}
-              {video.path.length === j + 1 ? '' : ' / '}
-            </span>
-          ))}
-        </div>
+        {showPath && (
+          <div className={style.path}>
+            {video.path.map((folder, j) => (
+              <span key={`folder${j}`}>
+                {folder}
+                {video.path.length === j + 1 ? '' : ' / '}
+              </span>
+            ))}
+          </div>
+        )}
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
           {meta.people.length > 0 && (

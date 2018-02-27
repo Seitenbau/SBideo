@@ -32,13 +32,12 @@ export class ActiveMetaContainer extends Component {
               )}
               <MetaEditable
                 video={props.activeVideo}
-                showTitle="true"
                 onSave={this.onSave}
                 onMount={this.editComponentMounted}
               />
             </div>
           ) : (
-            <Meta video={props.activeVideo} showTitle="true" />
+            <Meta video={props.activeVideo} showTitle="true" showPath="true" />
           )}
         </div>
       );

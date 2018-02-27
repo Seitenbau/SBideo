@@ -143,7 +143,7 @@ export class MetaEditable extends Component {
     const { video } = props;
     return (
       <div className={metaStyle.meta}>
-        <div className={metaStyle.breadcrumb}>
+        <div className={metaStyle.path}>
           {video.path.map((folder, j) => (
             <span key={`folder${j}`}>
               {folder}
