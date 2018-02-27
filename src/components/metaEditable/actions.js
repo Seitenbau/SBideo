@@ -2,9 +2,6 @@ import crawl from 'tree-crawl';
 
 const actions = () => ({
   handleSave: (state, newMeta, src) => {
-    // we're optimistic, so update client state
-    setNewMetaInTree(state.data, newMeta); // TODO: check why is this enough
-
     // send POST request to server
     fetch(src.replace('video.mp4', 'meta.json'), {
       headers: {
@@ -19,6 +16,15 @@ const actions = () => ({
         // TODO revert client state
       }
     });
+
+    // we're optimistic, so update client state
+    const newData = setNewMetaInTree(
+      JSON.parse(JSON.stringify(state.data)),
+      newMeta
+    );
+    return {
+      data: newData
+    };
   }
 });
 
