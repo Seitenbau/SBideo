@@ -30,6 +30,15 @@ export class Home extends Component {
       (node, context) => {
         if (node.type === 'video' && node.meta && node.meta.id === videoId) {
           result = node;
+
+          // generate path to show breadcrumb and add to node
+          node.path = context.cursor.stack.xs.reduce((result, item) => {
+            if (item.node && item.node.meta) {
+              result.push(item.node.meta.title);
+            }
+            return result;
+          }, []);
+
           context.break();
         }
       },

@@ -14,20 +14,33 @@ export default class Meta extends Component {
   }
 
   propTypes = {
-    meta: PropTypes.object,
+    video: PropTypes.object,
+    showTitle: PropTypes.bool,
+    showPath: PropTypes.bool,
     limitDescription: PropTypes.bool
   };
 
   handleEditButton(event) {
     event.preventDefault();
-    const { meta } = this.props;
+    const { meta } = this.props.video;
     route(`/${meta.id}/${meta.slug}/edit`);
   }
 
   render(props) {
-    const { showTitle, meta } = props;
+    const { showTitle, showPath, video } = props;
+    const meta = video.meta;
     return (
       <div className={style.meta}>
+        {showPath && (
+          <div className={style.path}>
+            {video.path.map((folder, j) => (
+              <span key={`folder${j}`}>
+                {folder}
+                {video.path.length === j + 1 ? '' : ' / '}
+              </span>
+            ))}
+          </div>
+        )}
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
           {meta.people.length > 0 && (
