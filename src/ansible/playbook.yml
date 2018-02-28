@@ -22,9 +22,9 @@
     
   - name: create logging directory
     file: path=/var/log/sbideo state=directory owner=www-data group=www-data
-    
+
   - name: download dependencies for sbideo with npm
-    shell: npm install
+    shell: npm install --unsafe-perm
     args:
       chdir: /usr/lib/sbideo
     environment:
