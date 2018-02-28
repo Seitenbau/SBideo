@@ -10,6 +10,18 @@
     copy: src={{ item }} dest=/tmp/sbideo/sbideo.deb
     with_fileglob:
       - ../pkg/sbideo*.deb
+      
+  - name: stop sbideo server
+    shell: systemctl stop sbideo-server.service 
+    ignore_errors: yes
+    
+  - name: stop sbideo transcode
+    shell: systemctl stop sbideo-transcode.service
+    ignore_errors: yes
+    
+  - name: disable start on bootup for sbideo server
+    shell: systemctl disable sbideo-server.service
+    ignore_errors: yes
 
   - name: remove sbideo debian package
     apt: name=sbideo state=absent
@@ -42,6 +54,9 @@
     
   - name: Add sbideo transcode systemd service configuration file
     copy: src=files/sbideo-transcode.service dest=/etc/systemd/system/sbideo-transcode.service owner=root group=root mode=0644
+    
+  - name: Reload systemctl daemon
+    shell: systemctl daemon-reload
     
   - name: start sbideo server
     shell: systemctl start sbideo-server.service 
