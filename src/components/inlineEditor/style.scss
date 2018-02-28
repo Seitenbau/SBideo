@@ -6,4 +6,5 @@
   resize: none;
   background-color: rgba(0, 0, 0, 0.05);
   font: inherit; /* inherit all font styles from parent element, so it looks like real inline editing */
+  overflow: hidden; /* prevent scrollbars */
 }
