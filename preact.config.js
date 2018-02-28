@@ -1,23 +1,37 @@
 import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+import FileManagerPlugin from 'filemanager-webpack-plugin';
 
 export default (config, env, helpers) => {
-  // inline all styles
-  const { plugin } =
-    helpers.getPluginsByName(config, 'HtmlWebpackPlugin')[0] || {};
-  if (plugin) {
-    plugin.options.inlineSource = '.(css)$';
-  }
-  config.plugins.push(new HtmlWebpackInlineSourcePlugin());
+  if (process.env.NODE_ENV === 'production') {
+    // inline all styles
+    const { plugin } =
+      helpers.getPluginsByName(config, 'HtmlWebpackPlugin')[0] || {};
+    if (plugin) {
+      plugin.options.inlineSource = '.(css)$';
+    }
+    config.plugins.push(new HtmlWebpackInlineSourcePlugin());
 
-  // copy server files and assets
-  config.plugins.push(
-    new CopyWebpackPlugin([
-      { from: `${__dirname}/src/server.js`, to: '../server.js' },
-      { from: `${__dirname}/src/transcode.js`, to: '../transcode.js' },
-      { context: `${__dirname}/src/assets`, from: `*.*` }
-    ])
-  );
+    // File management
+    config.plugins.push(
+      new FileManagerPlugin({
+        onStart: {
+          delete: ['./build/*.*']
+        },
+        onEnd: {
+          copy: [
+            {
+              source: './src/server.js',
+              destination: env.dest + '/../server.js'
+            },
+            {
+              source: './src/transcode.js',
+              destination: env.dest + '/../transcode.js'
+            }
+          ]
+        }
+      })
+    );
+  }
 
   if (config.devServer) {
     config.devServer.proxy = [
@@ -80,7 +94,9 @@ export default (config, env, helpers) => {
   config.plugins.push(
     new helpers.webpack.DefinePlugin({
       'process.env.API_URL': JSON.stringify(API_URL || '/items.json'),
-      'process.env.ASSET_PATH': JSON.stringify(config.output.publicPath || '/')
+      'process.env.ASSET_PATH': JSON.stringify(
+        (config.output.publicPath || '/') + 'assets/'
+      )
     })
   );
 };
