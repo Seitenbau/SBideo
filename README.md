@@ -1,5 +1,7 @@
 # SBideo [![Build Status](https://travis-ci.org/Seitenbau/SBideo.svg?branch=master)](https://travis-ci.org/Seitenbau/SBideo) [![Dependencies](https://david-dm.org/Seitenbau/SBideo.svg)](https://david-dm.org/Seitenbau/SBideo)
 
+**DEMO**: https://seitenbau.github.io/SBideo/
+
 A very simplistic video archive including video transcoding and following features:
 
 - web interface for listing all videos in a flexible multi-level folder structure
