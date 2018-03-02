@@ -1,0 +1,5 @@
+# FE Container
+docker run -it -d -P -p 3000:3000 --mount type=bind,source=/data,target=/data sbideo:latest
+
+# Transcoding Container
+docker run -it -d -P --mount type=bind,source=/incoming,target=/incoming --mount type=bind,source=/data,target=/data sbideo-transcoder:latest
