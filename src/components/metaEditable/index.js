@@ -26,7 +26,8 @@ export class MetaEditable extends Component {
     data: PropTypes.object,
     onSave: PropTypes.func,
     handleSave: PropTypes.func,
-    onMount: PropTypes.func
+    onMount: PropTypes.func,
+    getLatestMeta: PropTypes.func
   };
 
   getListOfArrayKey(tree, key) {
@@ -64,6 +65,10 @@ export class MetaEditable extends Component {
     if (typeof this.props.onMount === 'function') {
       this.props.onMount();
     }
+
+    // make sure to get the latest state from server, in case someone
+    // else edited this video before and client state is out of date
+    this.props.getLatestMeta();
   }
 
   componentWillMount() {

@@ -1,6 +1,49 @@
 import crawl from 'tree-crawl';
 
 const actions = ({ setState }) => ({
+  getLatestMeta: state => {
+    const src = state.activeVideo.src;
+    const clientMeta = state.activeVideo.meta;
+
+    fetch(src.replace('video.mp4', 'meta.json'), { cache: 'no-cache' })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(serverMeta => {
+        const isEqual =
+          JSON.stringify({
+            title: clientMeta.title,
+            description: clientMeta.description,
+            tags: clientMeta.tags,
+            people: clientMeta.people
+          }) ===
+          JSON.stringify({
+            title: serverMeta.title,
+            description: serverMeta.description,
+            tags: serverMeta.tags,
+            people: serverMeta.people
+          });
+
+        if (!isEqual) {
+          const newData = setNewMetaInTree(
+            JSON.parse(JSON.stringify(state.data)),
+            serverMeta
+          );
+          setState({ data: newData });
+          // TODO force rerendering of form
+          // TODO fix slug
+
+          alert(
+            'Someone edited this video as well; data synced, now its save to continue editing.'
+          );
+        }
+      })
+      .catch(e => console.log(e));
+  },
+
   handleSave: (state, newMeta, src) => {
     // we're optimistic, so update client state
     const newData = setNewMetaInTree(
