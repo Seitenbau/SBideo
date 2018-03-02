@@ -76,8 +76,8 @@ body:before {
   pointer-events: none;
 }
 
-/** Detect firefox older than quantum and browser without css grid support */
-@supports (not (animation: calc(0s))) or (not (display: grid)) {
+/** Detect browser without css grid support */
+@supports (not (display: grid)) {
   body:before {
     display: block;
   }
