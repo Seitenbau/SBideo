@@ -1,4 +1,4 @@
-# FE Container
+# Frontend Container
 docker run -it -d -P -p 3000:3000 --mount type=bind,source=/data,target=/data sbideo:latest
 
 # Transcoding Container
