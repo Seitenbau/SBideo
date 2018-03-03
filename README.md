@@ -8,12 +8,36 @@ A very simplistic video archive including video transcoding and following featur
 - video player
 - editable metadata for videos and folders e.g. title, description, speaker, tags ([in development](https://github.com/Seitenbau/SBideo/pull/19))
 - ultra fast client-side fuzzy search through video metadata
-- async video transcoding from any ffmpeg supported format to mp4
+- async video transcoding from any [ffmpeg](https://www.ffmpeg.org/) supported format to mp4
 - simple file system based data structure, no database required
 - integrated web- and pseudo-streaming server (express)
 - very lightweight client-side code: total 28kb JS + 6kb CSS gzipped (based on [preact-cli](https://github.com/developit/preact-cli))
 
-## CLI Commands
+## Basic Usage
+
+The easiest way to run SBideo is using [Docker](https://www.docker.com/).
+You can use the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like this by altering the mount points.
+
+### Frontend Container
+```sh
+docker build -t sbideo .
+docker run -it -d -P -p 3000:3000 --mount type=bind,source=/data,target=/data sbideo:latest
+```
+Now the frontend is available at http://localhost:3000/
+
+### Transcoding Container
+```sh
+docker build -f Dockerfile-Transcoder -t sbideo-transcoder .
+docker run -it -d -P --mount type=bind,source=/incoming,target=/incoming --mount type=bind,source=/data,target=/data sbideo-transcoder:latest
+```
+
+Now every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
+
+
+## Development
+SBideo is based on [preact-cli](https://github.com/developit/preact-cli); for detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+
+### Basic CLI Commands
 
 ```bash
 # install dependencies
@@ -34,24 +58,6 @@ yarn test
 # code linting
 yarn lint
 ```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
-
-
-## Basic usage
-
-You can use the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like `data` by altering the parameter of `server.js`.
-
-## Uploading and transcoding files
-For video transcoding you also need a working [ffmpeg](https://www.ffmpeg.org/) installation.
-
-In addition to the server, run
-
-```sh
-node transcode.js ./incoming ./data
-```
-
-Every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
 
 
 ## Migrate script
