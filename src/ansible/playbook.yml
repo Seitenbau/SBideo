@@ -2,9 +2,6 @@
   name: Install and setup sbideo server and transcode 
   sudo: yes
 
-  environment:
-    NODE_ENV: production
-  
   tasks:
   - name: create target directory
     file: path=/tmp/sbideo state=directory
@@ -13,6 +10,18 @@
     copy: src={{ item }} dest=/tmp/sbideo/sbideo.deb
     with_fileglob:
       - ../pkg/sbideo*.deb
+      
+  - name: stop sbideo server
+    shell: systemctl stop sbideo-server.service 
+    ignore_errors: yes
+    
+  - name: stop sbideo transcode
+    shell: systemctl stop sbideo-transcode.service
+    ignore_errors: yes
+    
+  - name: disable start on bootup for sbideo server
+    shell: systemctl disable sbideo-server.service
+    ignore_errors: yes
 
   - name: remove sbideo debian package
     apt: name=sbideo state=absent
@@ -25,17 +34,29 @@
     
   - name: create logging directory
     file: path=/var/log/sbideo state=directory owner=www-data group=www-data
-    
-  - name: download dependencies for sbideo with npm
-    shell: npm install
+
+  - name: download dependencies for sbideo with yarn
+    shell: yarn install
     args:
       chdir: /usr/lib/sbideo
-        
+    environment:
+      NODE_ENV: development
+
+  - name: build sbideo
+    shell: yarn build
+    args:
+      chdir: /usr/lib/sbideo
+    environment:
+      NODE_ENV: production
+  
   - name: Add sbideo server systemd service configuration file
     copy: src=files/sbideo-server.service dest=/etc/systemd/system/sbideo-server.service owner=root group=root mode=0644
     
   - name: Add sbideo transcode systemd service configuration file
     copy: src=files/sbideo-transcode.service dest=/etc/systemd/system/sbideo-transcode.service owner=root group=root mode=0644
+    
+  - name: Reload systemctl daemon
+    shell: systemctl daemon-reload
     
   - name: start sbideo server
     shell: systemctl start sbideo-server.service 
