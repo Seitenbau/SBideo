@@ -15,19 +15,25 @@ A very simplistic video archive including video transcoding and following featur
 
 ## Basic Usage
 
-The easiest way to run SBideo is using [Docker](https://www.docker.com/).
-You can use the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like this by altering the mount points.
+The easiest way to run SBideo is using [Docker](https://www.docker.com/), there are ready-built containers available at [Docker Hub](https://hub.docker.com).
+
+- Just pull the containers and mount them to your local `data` folder for the frontend, and to your `incoming` folder for transcoding.
+Look at the the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like this by altering the mount points.
 
 ### Frontend Container
+Just pull the frontend container and mount it to your local `data` folder. Look at the the [data folder](https://github.com/Seitenbau/SBideo/tree/master/data)  in this repo as a reference for your directory layout.
+
 ```sh
-docker build -t sbideo .
+docker pull seitenbau/sbideo
 docker run -it -d -P -p 3000:3000 --mount type=bind,source=/data,target=/data sbideo:latest
 ```
 Now the frontend is available at http://localhost:3000/
 
 ### Transcoding Container
+The SBideo frontend is only able to handle mp4 video, as it's the best format for showing videos on the web. To convert other video files to mp4, SBideo comes with a transcoding option which handles all sorts of video formats.
+All the video files you put in your `/incoming` folder will be automatically transcoded and transferred to the `/data` folder in this example:
 ```sh
-docker build -f Dockerfile-Transcoder -t sbideo-transcoder .
+docker pull seitenbau/sbideo-transcoder
 docker run -it -d -P --mount type=bind,source=/incoming,target=/incoming --mount type=bind,source=/data,target=/data sbideo-transcoder:latest
 ```
 
