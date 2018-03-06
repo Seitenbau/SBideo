@@ -17,9 +17,6 @@ A very simplistic video archive including video transcoding and following featur
 
 The easiest way to run SBideo is using [Docker](https://www.docker.com/), there are ready-built containers available at [Docker Hub](https://hub.docker.com).
 
-- Just pull the containers and mount them to your local `data` folder for the frontend, and to your `incoming` folder for transcoding.
-Look at the the `data` folder in this repo as a reference for your directory layout. You can serve any folder having a structure like this by altering the mount points.
-
 ### Frontend Container
 Just pull the frontend container and mount it to your local `data` folder. Look at the the [data folder](https://github.com/Seitenbau/SBideo/tree/master/data)  in this repo as a reference for your directory layout.
 
