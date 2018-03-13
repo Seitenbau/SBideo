@@ -158,9 +158,7 @@ export class Search extends Component {
             value={state.searchTerm}
           />
           {this.state.searchTerm && (
-            <button onClick={this.resetSearch} className={style.resetButton}>
-              <Octicon name="x" className={style.resetIcon} />
-            </button>
+            <button onClick={this.resetSearch} className={style.resetButton} />
           )}
         </span>
       </form>
