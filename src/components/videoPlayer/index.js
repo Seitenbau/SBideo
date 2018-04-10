@@ -2,13 +2,6 @@ import { h, Component } from 'preact';
 import style from './style.scss';
 
 export default class VideoPlayer extends Component {
-  videoRef = null;
-
-  componentDidUpdate() {
-    if (this.props.src && this.props.currentTime) {
-      this.videoRef.currentTime = this.props.currentTime;
-    }
-  }
 
   render(props) {
     return (
@@ -16,9 +9,7 @@ export default class VideoPlayer extends Component {
         <div className={style.sizer}>
           {props.src ? (
             <video
-              ref={videoEl => {
-                this.videoRef = videoEl;
-              }}
+              currentTime={this.props.currentTime}
               className={style.video}
               controls
               autoPlay
