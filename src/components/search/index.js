@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import PropTypes from 'prop-types';
 import style from './style.scss';
-import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
 import fuzzysort from 'fuzzysort';
 import actions from './actions';
