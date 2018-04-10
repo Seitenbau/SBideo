@@ -61,7 +61,7 @@ h1 {
 }
 
 button {
-  font-size: inherit;
+  font: inherit; /* inherit all font styles from parent element */
   outline: 0;
   cursor: pointer;
   color: #333;
