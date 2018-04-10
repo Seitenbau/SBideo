@@ -1,7 +1,11 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
+import PropTypes from 'prop-types';
 
 export default class VideoPlayer extends Component {
+  propTypes = {
+    currentTime: PropTypes.number,
+  };
 
   render(props) {
     return (
