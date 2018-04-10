@@ -48,6 +48,7 @@ export default class Home extends Component {
           data={state.data}
           activeVideoId={this.props.id}
           className={style.layoutElement}
+          startTime={this.props.t}
         />
         <Search
           data={state.data}

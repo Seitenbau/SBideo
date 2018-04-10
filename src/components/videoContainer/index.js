@@ -12,7 +12,8 @@ export default class VideoContainer extends Component {
 
   propTypes = {
     activeVideoId: PropTypes.number,
-    data: PropTypes.object
+    data: PropTypes.object,
+    startTime: 0
   };
 
   getVideoById(items, videoId) {
@@ -47,10 +48,40 @@ export default class VideoContainer extends Component {
     }
   }
 
+  /**
+   * Converts for example 1m4s to 64
+   *
+   * @param {string} duration in youtube time format
+   *
+   * @return {integer} duration in seconds
+   */
+  durationToSeconds(duration) {
+    const match = duration.match(/(\d+h)?(\d+m)?(\d+s)?/i);
+
+    const matches = match.slice(1).map(function(x) {
+      if (x != null) {
+        return x.replace(/\D/, '');
+      }
+    });
+
+    const hours = parseInt(matches[0]) || 0;
+    const minutes = parseInt(matches[1]) || 0;
+    const seconds = parseInt(matches[2]) || 0;
+
+    return hours * 3600 + minutes * 60 + seconds;
+  }
+
   render() {
+    const currentTime = this.props.startTime
+      ? this.durationToSeconds(this.props.startTime)
+      : 0;
     return (
       <div className={style.wrapper}>
-        <VideoPlayer className={style.videoPlayer} src={this.state.src} />
+        <VideoPlayer
+          className={style.videoPlayer}
+          currentTime={currentTime}
+          src={this.state.src}
+        />
         <ActiveMetaContainer
           className={style.activeMetaContainer}
           meta={this.state.meta}
