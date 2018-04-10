@@ -1,3 +1,5 @@
+@import 'src/style/variables';
+
 /**
  * <div class="react-tags">
  *   <div class="react-tags__selected">
@@ -23,17 +25,11 @@
  *   </div>
  */
 .react-tags {
-  display: inline-block;
+  display: inline;
   position: relative;
-
-  /* shared font styles */
-  font-size: 0.7rem;
-  line-height: 0.8rem;
 
   /* clicking anywhere will focus the input */
   cursor: text;
-
-  margin-bottom: 10px;
 }
 
 .react-tags.is-focused {
@@ -44,35 +40,20 @@
   display: inline;
 }
 
+/*
 .react-tags__selected-tag {
-  display: inline-block;
 
-  /* match the font styles */
-  font-size: inherit;
-  line-height: inherit;
-
-  background-color: #002d47;
-  font-weight: 600;
-  color: #0f0;
-  border: 0;
-  display: inline-block;
-  padding: 2px 4px;
-  text-transform: uppercase;
-  margin-right: 3px;
-  margin-bottom: 3px;
-  text-decoration: none;
 }
+*/
 
 .react-tags__selected-tag:after {
   content: '\2715';
   color: #aaa;
-  margin-left: 8px;
+  margin-left: 2px;
 }
 
-.react-tags__selected-tag:hover,
-.react-tags__selected-tag:focus {
-  background-color: #0f0;
-  color: #002d47;
+.react-tags__selected-tag-name {
+  line-height: inherit;
 }
 
 .react-tags__search {
@@ -133,7 +114,7 @@
   list-style: none;
   background: white;
   border: 1px solid #d1d1d1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: $popoverBoxShadow;
 }
 
 .react-tags__suggestions li {

@@ -32,6 +32,13 @@
   margin-bottom: 10px;
 }
 
+.person {
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid #0f0;
+}
+
 .tags {
   margin-bottom: 10px;
 }
@@ -51,7 +58,8 @@
   text-decoration: none;
 }
 
-.tag:hover {
+.tag:hover,
+.tag:focus {
   background-color: #0f0;
   color: #002d47;
 }

@@ -48,7 +48,10 @@ export default class Meta extends Component {
           )}
           {meta.people.map((person, j) => (
             <span key={`person${j}`}>
-              <Link href={`/search/${encodeURIComponent(person)}`}>
+              <Link
+                href={`/search/${encodeURIComponent(person)}`}
+                className={style.person}
+              >
                 {person}
               </Link>
               {meta.people.length === j + 1 ? '' : ', '}

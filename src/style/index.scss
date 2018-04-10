@@ -61,10 +61,16 @@ h1 {
 }
 
 button {
-  font-size: 0.9rem;
+  font-size: inherit;
   outline: 0;
   cursor: pointer;
   color: #333;
+
+  /* reset button default styles */
+  border: 0;
+  background: none;
+  border-radius: 0;
+  padding: 0;
 
   &.primary {
     font-weight: bold;

@@ -178,6 +178,9 @@ export class MetaEditable extends Component {
               suggestions={state.peopleSuggestions}
               placeholder="Add person"
               onChange={this.handlePeopleChange}
+              classNames={{
+                selectedTag: metaStyle.person
+              }}
             />
           </div>
           <div className={metaStyle.tags}>
@@ -186,6 +189,9 @@ export class MetaEditable extends Component {
               suggestions={state.tagsSuggestions}
               placeholder="Add tag"
               onChange={this.handleTagsChange}
+              classNames={{
+                selectedTag: metaStyle.tag
+              }}
             />
           </div>
           <div className={metaStyle.description}>
