@@ -6,7 +6,7 @@ A very simplistic video archive including video transcoding and following featur
 
 * web interface for listing all videos in a flexible multi-level folder structure
 * video player
-* editable metadata for videos and folders e.g. title, description, speaker, tags ([in development](https://github.com/Seitenbau/SBideo/pull/19))
+* editable metadata for videos and folders e.g. title, description, speaker, tags
 * ultra fast client-side fuzzy search through video metadata
 * async video transcoding from any [ffmpeg](https://www.ffmpeg.org/) supported format to mp4
 * simple file system based data structure, no database required
