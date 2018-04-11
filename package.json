@@ -10,6 +10,7 @@
     "watch": "preact watch --template ./src/index.html",
     "serve": "node ./build/server.js",
     "test": "jest ./tests",
+    "test:watch": "jest ./tests --watch",
     "lint": "eslint src",
     "precommit": "lint-staged"
   },
