@@ -8,7 +8,7 @@ export default class VideoContainer extends Component {
   state = {
     src: '',
     meta: {},
-    currentTime: 0,
+    currentTime: 0
   };
 
   propTypes = {
@@ -59,17 +59,12 @@ export default class VideoContainer extends Component {
   }
 
   /**
-   * Converts for example 1m4s to 64
+   * Sets the current time for a video, in this case the start time
+   * It takes a time string like "1m21s" and converts it to an integer, e.g. 81
    *
-   * @param {string} duration in youtube time format
-   *
-   * @return {integer} duration in seconds
+   * @param {string} startTime in youtube time format, e.g. 14m44s
    */
   setCurrentTime(startTime) {
-    if(!startTime) {
-      return 0;
-    }
-
     const match = startTime.match(/(\d+h)?(\d+m)?(\d+s)?/i);
 
     const matches = match.slice(1).map(function(x) {
@@ -83,11 +78,10 @@ export default class VideoContainer extends Component {
     const seconds = parseInt(matches[2]) || 0;
 
     const currentTime = hours * 3600 + minutes * 60 + seconds;
-    this.setState({currentTime});
+    this.setState({ currentTime });
   }
 
   render(props, state) {
-
     return (
       <div className={style.wrapper}>
         <VideoPlayer
