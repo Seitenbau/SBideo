@@ -5,9 +5,16 @@ import { shallow } from 'preact-render-spy';
 describe('Test of the Video Container', () => {
 
   test('Video Container converts duration strings to correct integer value', () => {
-    const context = shallow(<VideoContainer />);
-    expect(context.component().durationToSeconds('2h21m34s')).toEqual(8494);
-    expect(context.component().durationToSeconds('2h34s')).toEqual(7234);
-    expect(context.component().durationToSeconds('43s')).toEqual(43);
+    const context = shallow(<VideoContainer startTime="2h21m34s" />);
+    expect(context.state('currentTime')).toEqual(8494);
+
+    context.render(<VideoContainer startTime="2h34s" />);
+    expect(context.state('currentTime')).toEqual(7234);
+
+    context.render(<VideoContainer startTime="55m" />);
+    expect(context.state('currentTime')).toEqual(3300);
+
+    context.render(<VideoContainer startTime="43s" />);
+    expect(context.state('currentTime')).toEqual(43);
   });
 });

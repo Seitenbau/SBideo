@@ -7,13 +7,14 @@ import style from './style.scss';
 export default class VideoContainer extends Component {
   state = {
     src: '',
-    meta: {}
+    meta: {},
+    currentTime: 0,
   };
 
   propTypes = {
     activeVideoId: PropTypes.number,
     data: PropTypes.object,
-    startTime: 0
+    startTime: PropTypes.number
   };
 
   getVideoById(items, videoId) {
@@ -32,9 +33,8 @@ export default class VideoContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const shouldScroll = this.props.activeVideoId !== nextProps.activeVideoId;
+    // set (new) video
     const { activeVideoId, data } = nextProps;
-
     const video =
       activeVideoId && activeVideoId.length > 0
         ? this.getVideoById(data, activeVideoId)
@@ -42,10 +42,20 @@ export default class VideoContainer extends Component {
 
     if (video) {
       this.setState({ ...video });
+
+      // check if we should scroll
+      const shouldScroll = this.props.activeVideoId !== nextProps.activeVideoId;
       if (shouldScroll) {
         window.scroll({ top: 0, left: 0, behavior: 'smooth' });
       }
     }
+
+    // we set the current time as well
+    this.setCurrentTime(nextProps.startTime);
+  }
+
+  componentDidMount() {
+    this.setCurrentTime(this.props.startTime);
   }
 
   /**
@@ -55,8 +65,12 @@ export default class VideoContainer extends Component {
    *
    * @return {integer} duration in seconds
    */
-  durationToSeconds(duration) {
-    const match = duration.match(/(\d+h)?(\d+m)?(\d+s)?/i);
+  setCurrentTime(startTime) {
+    if(!startTime) {
+      return 0;
+    }
+
+    const match = startTime.match(/(\d+h)?(\d+m)?(\d+s)?/i);
 
     const matches = match.slice(1).map(function(x) {
       if (x != null) {
@@ -68,23 +82,22 @@ export default class VideoContainer extends Component {
     const minutes = parseInt(matches[1]) || 0;
     const seconds = parseInt(matches[2]) || 0;
 
-    return hours * 3600 + minutes * 60 + seconds;
+    const currentTime = hours * 3600 + minutes * 60 + seconds;
+    this.setState({currentTime});
   }
 
-  render() {
-    const currentTime = this.props.startTime
-      ? this.durationToSeconds(this.props.startTime)
-      : 0;
+  render(props, state) {
+
     return (
       <div className={style.wrapper}>
         <VideoPlayer
           className={style.videoPlayer}
-          currentTime={currentTime}
-          src={this.state.src}
+          currentTime={state.currentTime}
+          src={state.src}
         />
         <ActiveMetaContainer
           className={style.activeMetaContainer}
-          meta={this.state.meta}
+          meta={state.meta}
         />
       </div>
     );
