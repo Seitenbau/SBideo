@@ -43,7 +43,7 @@
     "build/*"
   ],
   "lint-staged": {
-    "*.{js,json,css,scss,md}, !package.json": [
+    "*.{js,json,css,scss,md}": [
       "prettier --single-quote --write",
       "git add"
     ]
