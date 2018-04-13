@@ -179,7 +179,7 @@ export class MetaEditable extends Component {
               placeholder="Add person"
               onChange={this.handlePeopleChange}
               classNames={{
-                selectedTag: metaStyle.person
+                selectedTagName: metaStyle.person
               }}
             />
           </div>

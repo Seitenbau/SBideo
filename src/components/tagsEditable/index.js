@@ -72,9 +72,14 @@ export default class TagsEditable extends Component {
       selected: style['react-tags__selected'],
       selectedTag:
         style['react-tags__selected-tag'] +
-        ' ' +
-        (props.classNames.selectedTag ? props.classNames.selectedTag : ''),
-      selectedTagName: style['react-tags__selected-tag-name'],
+        (props.classNames.selectedTag
+          ? ' ' + props.classNames.selectedTag
+          : ''),
+      selectedTagName:
+        style['react-tags__selected-tag-name'] +
+        (props.classNames.selectedTagName
+          ? ' ' + props.classNames.selectedTagName
+          : ''),
       search: style['react-tags__search'],
       searchInput: style['react-tags__search-input'],
       suggestions: style['react-tags__suggestions'],
