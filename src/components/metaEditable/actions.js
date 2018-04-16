@@ -45,7 +45,10 @@ const actions = ({ setState }) => ({
   },
 
   handleSave: (state, newMeta, src) => {
-    // we're optimistic, so update client state
+    // keep old state for the case we need to revert
+    const oldData = JSON.stringify(state.data);
+
+    // we're optimistic, so update client state immediately
     const newData = setNewMetaInTree(
       JSON.parse(JSON.stringify(state.data)),
       newMeta
@@ -63,7 +66,8 @@ const actions = ({ setState }) => ({
     }).then(response => {
       if (!response.ok) {
         alert(`Error while saving: ${response.statusText} ${response.url}`);
-        // TODO revert client state
+        // revert client state
+        setState({ data: JSON.parse(oldData) });
       }
     });
   }
