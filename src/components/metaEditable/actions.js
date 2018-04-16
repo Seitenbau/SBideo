@@ -63,13 +63,19 @@ const actions = ({ setState }) => ({
       },
       method: 'POST',
       body: JSON.stringify(newMeta)
-    }).then(response => {
-      if (!response.ok) {
-        alert(`Error while saving: ${response.statusText} ${response.url}`);
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response;
+      })
+      .catch(error => {
+        alert(`Error while saving: ${error.message}`);
         // revert client state
+        // TODO don't revert complete state, could have changed in the meantime if request is slow
         setState({ data: JSON.parse(oldData) });
-      }
-    });
+      });
   }
 });
 
