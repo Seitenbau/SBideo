@@ -8,7 +8,6 @@ const path = require('path');
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
 const jf = require('jsonfile');
-const speakingurl = require('speakingurl');
 const debounce = require('lodash.debounce');
 
 // check env
@@ -62,6 +61,7 @@ app.post('**/meta.json', jsonParser, (req, res) => {
       const newMeta = req.body;
       jf.readFile(metaFilePath, {}, (errorRead, meta) => {
         if (!errorRead) {
+          meta.slug = newMeta.slug;
           meta.title = newMeta.title;
           meta.description = newMeta.description;
           meta.people = newMeta.people;
@@ -104,9 +104,6 @@ const createItem = function(item, name) {
   }
   if (!item.type) {
     item.type = 'folder';
-  }
-  if (item.type == 'video') {
-    item.meta.slug = speakingurl(item.meta.title);
   }
   item.items = [];
   return item;

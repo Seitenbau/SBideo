@@ -4,6 +4,7 @@ const chokidar = require('chokidar');
 const child_process = require('child_process');
 const argv = require('minimist')(process.argv.slice(2));
 const shortid = require('shortid');
+const speakingurl = require('speakingurl');
 
 const incomingFolder = argv._[0];
 const dataFolder = argv._[1];
@@ -51,6 +52,7 @@ function transcodeAndMoveNextFile() {
         // write meta.json
         const metaJson = {
           id: id,
+          slug: speakingurl(title),
           title: title,
           description: '',
           tags: [],

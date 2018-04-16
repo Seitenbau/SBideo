@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.scss';
-import metaStyle from '../meta/style.scss'; // TODO is this good or is there any other solution?
+import metaStyle from '../meta/style.scss';
 import PropTypes from 'prop-types';
 import Octicon from '../../components/octicon';
 import { route } from 'preact-router';
@@ -9,6 +9,7 @@ import InlineEditor from '../inlineEditor';
 import { connect } from 'unistore/preact';
 import actions from './actions';
 import crawl from 'tree-crawl';
+import speakingurl from 'speakingurl';
 
 export class MetaEditable extends Component {
   constructor(props, context) {
@@ -116,10 +117,19 @@ export class MetaEditable extends Component {
       event.preventDefault();
     }
 
-    this.props.handleSave(this.state.meta, this.props.video.src);
+    this.setState(
+      prevState => {
+        const meta = prevState.meta;
+        meta.slug = speakingurl(prevState.meta.title);
+        return { meta };
+      },
+      () => {
+        this.props.handleSave(this.state.meta, this.props.video.src);
 
-    // end edit mode
-    route(`/${this.props.video.meta.id}/${this.props.video.meta.slug}`);
+        // end edit mode
+        route(`/${this.state.meta.id}/${this.state.meta.slug}`);
+      }
+    );
   };
 
   handleCancel = event => {

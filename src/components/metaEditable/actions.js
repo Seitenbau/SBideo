@@ -34,7 +34,6 @@ const actions = ({ setState }) => ({
           );
           setState({ data: newData });
           // TODO force rerendering of form
-          // TODO fix slug
 
           alert(
             'Someone edited this video as well; data synced, now its save to continue editing.'
