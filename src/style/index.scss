@@ -60,6 +60,29 @@ h1 {
   font-size: 3vh;
 }
 
+button {
+  font: inherit; /* inherit all font styles from parent element */
+  outline: 0;
+  cursor: pointer;
+  color: #333;
+
+  /* reset button default styles */
+  border: 0;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+
+  &.primary {
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #0f0;
+  }
+}
+
 /** Old browser warning */
 body:before {
   content: 'Your browser is not supported, please install the latest version of Chrome, Firefox, Edge or Safari.';

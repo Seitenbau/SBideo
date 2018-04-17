@@ -1,20 +1,42 @@
+@import 'src/style/variables';
+
 .icon {
   width: 16px;
   height: 16px;
   display: inline-block;
   margin-right: 5px;
+  margin-bottom: -2px;
 }
-.icon img {
-  margin-top: 3px;
+
+.editButton {
+  float: right;
+  margin-top: $marginSmall;
+
+  &::after {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
 }
 
 .meta {
   height: auto;
 }
 
+.path {
+  font-size: 0.8rem;
+}
+
 .people {
   font-size: 1rem;
   margin-bottom: 10px;
+}
+
+.person {
+  font-weight: 500;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 2px solid #0f0;
 }
 
 .tags {
@@ -36,7 +58,8 @@
   text-decoration: none;
 }
 
-.tag:hover {
+.tag:hover,
+.tag:focus {
   background-color: #0f0;
   color: #002d47;
 }

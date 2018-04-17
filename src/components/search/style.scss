@@ -34,7 +34,7 @@
   padding: 0 15px;
 }
 
-.resetIcon {
-  display: block;
+.resetButton:after {
+  content: '\2715';
   opacity: 0.6;
 }
