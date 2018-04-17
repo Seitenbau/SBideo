@@ -80,6 +80,15 @@ export class MetaEditable extends Component {
     this.setState({ peopleSuggestions, tagsSuggestions });
   }
 
+  componentWillReceiveProps(nextProps) {
+    // We need watch for changes in props.video.meta manually,
+    // as we copy props.video.meta to the state
+    // This is actually an anti-pattern, but still valid in our "editing" use-case
+    if (nextProps.video.meta !== this.props.video.meta) {
+      this.setState({ meta: nextProps.video.meta });
+    }
+  }
+
   handleTitleChange = title => {
     this.setState(prevState => {
       const meta = prevState.meta;
