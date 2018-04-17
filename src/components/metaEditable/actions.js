@@ -33,7 +33,6 @@ const actions = ({ setState }) => ({
             serverMeta
           );
           setState({ data: newData });
-          // TODO force rerendering of form
 
           alert(
             'Someone edited this video as well; data synced, now its save to continue editing.'
