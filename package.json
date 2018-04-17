@@ -79,7 +79,7 @@
     "react-popper": "^0.10.1",
     "react-tag-autocomplete": "^5.5.0",
     "react-textarea-autosize": "^5.2.1",
-    "sass-loader": "^6.0.6",
+    "sass-loader": "^7.0.1",
     "smoothscroll-polyfill": "^0.4.0",
     "svgr": "^1.8.1",
     "tree-crawl": "^1.0.5",
