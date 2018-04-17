@@ -40,6 +40,10 @@ docker run -it -d -P --mount type=bind,source=/incoming,target=/incoming --mount
 
 Now every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
 
+## Security
+
+SBideo is kept very simple. Therefore, it has no built-in permission management etc (see https://github.com/Seitenbau/SBideo/issues/9). Everyone who is able to access the frontend is allowed to edit the video meta data. In case you want to restrict editing rights, you may want to simple restrict POST requests to the server via a reverse proxy.
+
 ## Development
 
 SBideo is based on [preact-cli](https://github.com/developit/preact-cli); for detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
