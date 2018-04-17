@@ -1,6 +1,9 @@
 import crawl from 'tree-crawl';
 
 const actions = ({ setState }) => ({
+  /**
+   * Loads the latest meta from server; update client state if it isn't up to date
+   */
   getLatestMeta: state => {
     const src = state.activeVideo.src;
     const clientMeta = state.activeVideo.meta;
@@ -28,14 +31,16 @@ const actions = ({ setState }) => ({
           });
 
         if (!isEqual) {
-          const newData = setNewMetaInTree(
-            JSON.parse(JSON.stringify(state.data)),
-            serverMeta
-          );
-          setState({ data: newData });
+          // something was changed, so update client state to match server
+          setState({
+            data: setNewMetaInTree(
+              JSON.parse(JSON.stringify(state.data)),
+              serverMeta
+            )
+          });
 
           alert(
-            'Someone edited this video as well; data synced, now its save to continue editing.'
+            'Someone edited this video as well. We just synced the data, please continue editing.'
           );
         }
       })
@@ -43,15 +48,13 @@ const actions = ({ setState }) => ({
   },
 
   handleSave: (state, newMeta, src) => {
-    // keep old state for the case we need to revert
-    const oldData = JSON.stringify(state.data);
+    // keep old meta for the case we need to revert
+    const oldMeta = JSON.stringify(state.activeVideo.meta);
 
     // we're optimistic, so update client state immediately
-    const newData = setNewMetaInTree(
-      JSON.parse(JSON.stringify(state.data)),
-      newMeta
-    );
-    setState({ data: newData });
+    setState({
+      data: setNewMetaInTree(JSON.parse(JSON.stringify(state.data)), newMeta)
+    });
 
     // send POST request to server
     fetch(src.replace('video.mp4', 'meta.json'), {
@@ -70,9 +73,13 @@ const actions = ({ setState }) => ({
       })
       .catch(error => {
         alert(`Error while saving: ${error.message}`);
-        // revert client state
-        // TODO don't revert complete state, could have changed in the meantime if request is slow
-        setState({ data: JSON.parse(oldData) });
+        // revert client state to old meta
+        setState({
+          data: setNewMetaInTree(
+            JSON.parse(JSON.stringify(state.data)),
+            JSON.parse(oldMeta)
+          )
+        });
       });
   }
 });
