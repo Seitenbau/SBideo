@@ -36,3 +36,18 @@ To actually run the migration including writing meta files, run
 ```sh
 node generateMissingIds.js /newDataPath --hot
 ```
+
+## Generate missing slugs
+In case you have JSON meta files with missing slugs, this may be helpful:
+
+To test the migration without writing files, run
+
+```sh
+node generateMissingSlugs.js /newDataPath
+```
+
+To actually run the migration including writing meta files, run
+
+```sh
+node generateMissingSlugs.js /newDataPath --hot
+```

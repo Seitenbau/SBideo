@@ -13,8 +13,10 @@
     "bytes": "^3.0.0",
     "detect-character-encoding": "^0.5.1",
     "iconv": "^2.3.0",
+    "jsonfile": "^4.0.0",
     "minimist": "^1.2.0",
-    "xml2js": "^0.4.19",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "speakingurl": "^14.0.1",
+    "xml2js": "^0.4.19"
   }
 }
