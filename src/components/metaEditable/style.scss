@@ -1,0 +1,8 @@
+@import 'src/style/variables';
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: $marginSmall;
+}

@@ -3,11 +3,11 @@ const compression = require('compression');
 const express = require('express');
 const app = express().use(compression());
 const server = require('http').createServer(app);
+const jsonParser = require('body-parser').json();
 const path = require('path');
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
 const jf = require('jsonfile');
-const speakingurl = require('speakingurl');
 const debounce = require('lodash.debounce');
 
 // check env
@@ -30,10 +30,6 @@ const publicFolder = path.resolve(__dirname + '/../build/public');
 
 // serve static files
 app.use(express.static(publicFolder));
-app.use(
-  '/octicons',
-  express.static(path.resolve(__dirname + '/../node_modules/octicons'))
-);
 
 // serve video folder
 app.use('/data', express.static(dataFolder));
@@ -51,7 +47,36 @@ app.use('/items.json', (req, res) => {
   }
 
   // serve real data
-  res.json(allItems);
+  res.json({ items: allItems });
+});
+
+// handle POST requests to edit meta data via UI
+app.post('**/meta.json', jsonParser, (req, res) => {
+  const metaFilePath = path.join(dataFolder, req.path.replace('data/', ''));
+  console.log('POST ', metaFilePath);
+
+  fs.exists(metaFilePath, exists => {
+    if (exists) {
+      // save meta.json
+      const newMeta = req.body;
+      jf.readFile(metaFilePath, {}, (errorRead, meta) => {
+        if (!errorRead) {
+          meta.slug = newMeta.slug;
+          meta.title = newMeta.title;
+          meta.description = newMeta.description;
+          meta.people = newMeta.people;
+          meta.tags = newMeta.tags;
+          jf.writeFile(metaFilePath, meta, { spaces: 4 }, errorWrite => {
+            res.status(!errorWrite ? 204 : 500).end();
+          });
+        } else {
+          res.status(500).end();
+        }
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
 });
 
 // catch all unmatched, this needs to come last
@@ -79,9 +104,6 @@ const createItem = function(item, name) {
   }
   if (!item.type) {
     item.type = 'folder';
-  }
-  if (item.type == 'video') {
-    item.meta.slug = speakingurl(item.meta.title);
   }
   item.items = [];
   return item;
@@ -134,7 +156,7 @@ const addItemRecursive = function(items, category, meta) {
 const walkSync = function(dir) {
   try {
     fs.readdirSync(dir).forEach(function(file) {
-      const filePath = dir + '/' + file;
+      const filePath = path.join(dir, file);
       if (fs.statSync(filePath).isDirectory()) {
         walkSync(filePath);
       } else {
@@ -146,10 +168,13 @@ const walkSync = function(dir) {
             meta: jf.readFileSync(filePath)
           };
 
-          const videoFile = path.dirname(filePath) + '/video.mp4';
+          const videoFile = path.join(path.dirname(filePath), 'video.mp4');
           if (fs.existsSync(videoFile)) {
             item.type = 'video';
-            item.src = '/data/' + path.relative(dataFolder, videoFile);
+            item.src = path.join(
+              '/data/',
+              path.relative(dataFolder, videoFile)
+            );
           }
           const relativeFilePath = path.relative(dataFolder, filePath);
           const category = getCategoryByPath(relativeFilePath);

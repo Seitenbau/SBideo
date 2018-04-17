@@ -4,18 +4,43 @@ import PropTypes from 'prop-types';
 import { Link } from 'preact-router/match';
 import Octicon from '../../components/octicon';
 import ReactAutolink from 'react-autolink';
+import { route } from 'preact-router';
 import truncate from 'lodash.truncate';
 
-export default class MetaContainer extends Component {
+export default class Meta extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleEditButton = this.handleEditButton.bind(this);
+  }
+
   propTypes = {
-    meta: PropTypes.object,
+    video: PropTypes.object,
+    showTitle: PropTypes.bool,
+    showPath: PropTypes.bool,
     limitDescription: PropTypes.bool
   };
 
+  handleEditButton(event) {
+    event.preventDefault();
+    const { meta } = this.props.video;
+    route(`/${meta.id}/${meta.slug}/edit`);
+  }
+
   render(props) {
-    const { meta, showTitle } = props;
+    const { showTitle, showPath, video } = props;
+    const meta = video.meta;
     return (
       <div className={style.meta}>
+        {showPath && (
+          <div className={style.path}>
+            {video.path.map((folder, j) => (
+              <span key={`folder${j}`}>
+                {folder}
+                {video.path.length === j + 1 ? '' : ' / '}
+              </span>
+            ))}
+          </div>
+        )}
         {showTitle && <h1>{meta.title}</h1>}
         <div className={style.people}>
           {meta.people.length > 0 && (
@@ -23,7 +48,10 @@ export default class MetaContainer extends Component {
           )}
           {meta.people.map((person, j) => (
             <span key={`person${j}`}>
-              <Link href={`/search/${encodeURIComponent(person)}`}>
+              <Link
+                href={`/search/${encodeURIComponent(person)}`}
+                className={style.person}
+              >
                 {person}
               </Link>
               {meta.people.length === j + 1 ? '' : ', '}
@@ -42,8 +70,21 @@ export default class MetaContainer extends Component {
           ))}
         </div>
         <div className={style.description}>
-          {ReactAutolink.autolink(props.limitDescription ? truncate(meta.description, {'length': props.limitDescription, 'separator': ' '}) : meta.description)}
+          {ReactAutolink.autolink(
+            props.limitDescription
+              ? truncate(meta.description, {
+                  length: props.limitDescription,
+                  separator: ' '
+                })
+              : meta.description
+          )}
         </div>
+        {showTitle && (
+          <button className={style.editButton} onClick={this.handleEditButton}>
+            <Octicon name="pencil" className={style.icon} />
+            Edit
+          </button>
+        )}
       </div>
     );
   }

@@ -1,9 +1,8 @@
 {
   "id": "S1Ntf-fIz",
+  "slug": "keynote",
   "title": "Keynote",
   "description": "SEITENBAU Developer Convention",
   "tags": ["Keynote"],
-  "people": [
-    "Stefan Eichenhofer"
-  ]
+  "people": ["Stefan Eichenhofer"]
 }

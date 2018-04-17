@@ -13,7 +13,7 @@ export default class VideoLink extends Component {
   };
 
   static propTypes = {
-    meta: PropTypes.object
+    video: PropTypes.object
   };
 
   showOrHideTooltip() {
@@ -40,12 +40,12 @@ export default class VideoLink extends Component {
   };
 
   metaHasContent = () => {
-    const { meta } = this.props;
+    const { meta } = this.props.video;
     return meta && (meta.description.trim() || meta.people.length > 0);
   };
 
   render(props, state) {
-    const { meta } = props;
+    const { meta } = props.video;
     return (
       <li className={style.video}>
         <Manager>
@@ -75,7 +75,7 @@ export default class VideoLink extends Component {
                   }
                 }}
               >
-                <Meta meta={meta} limitDescription="250" />
+                <Meta video={props.video} limitDescription="250" />
                 <Arrow className={style.popperarrow} />
               </TopPopper>
             )}

@@ -3,51 +3,20 @@ import VideoPlayer from '../../components/videoPlayer';
 import ActiveMetaContainer from '../../components/activeMetaContainer';
 import PropTypes from 'prop-types';
 import style from './style.scss';
+import { connect } from 'unistore/preact';
 
-export default class VideoContainer extends Component {
-  state = {
-    src: '',
-    meta: {},
-    currentTime: 0
-  };
-
+export class VideoContainer extends Component {
   propTypes = {
-    activeVideoId: PropTypes.number,
-    data: PropTypes.object,
-    startTime: PropTypes.number
+    activeVideo: PropTypes.object,
+    startTime: PropTypes.string
   };
-
-  getVideoById(items, videoId) {
-    var result;
-
-    const checkMatch = item => {
-      if (item.type === 'video' && item.meta && item.meta.id === videoId) {
-        result = item;
-        return true;
-      }
-      return Array.isArray(item.items) && item.items.some(checkMatch);
-    };
-
-    items.some(checkMatch);
-    return result;
-  }
 
   componentWillReceiveProps(nextProps) {
-    // set (new) video
-    const { activeVideoId, data } = nextProps;
-    const video =
-      activeVideoId && activeVideoId.length > 0
-        ? this.getVideoById(data, activeVideoId)
-        : null;
+    const shouldScroll =
+      this.props.activeVideo.meta.id !== nextProps.activeVideo.meta.id;
 
-    if (video) {
-      this.setState({ ...video });
-
-      // check if we should scroll
-      const shouldScroll = this.props.activeVideoId !== nextProps.activeVideoId;
-      if (shouldScroll) {
-        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
-      }
+    if (shouldScroll) {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }
 
     // we set the current time as well
@@ -87,13 +56,13 @@ export default class VideoContainer extends Component {
         <VideoPlayer
           className={style.videoPlayer}
           currentTime={state.currentTime}
-          src={state.src}
         />
-        <ActiveMetaContainer
-          className={style.activeMetaContainer}
-          meta={state.meta}
-        />
+        <ActiveMetaContainer className={style.activeMetaContainer} />
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ activeVideo }) => ({ activeVideo });
+
+export default connect(mapStateToProps)(VideoContainer);

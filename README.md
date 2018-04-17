@@ -6,7 +6,7 @@ A very simplistic video archive including video transcoding and following featur
 
 * web interface for listing all videos in a flexible multi-level folder structure
 * video player
-* editable metadata for videos and folders e.g. title, description, speaker, tags ([in development](https://github.com/Seitenbau/SBideo/pull/19))
+* editable metadata for videos and folders e.g. title, description, speaker, tags
 * ultra fast client-side fuzzy search through video metadata
 * async video transcoding from any [ffmpeg](https://www.ffmpeg.org/) supported format to mp4
 * simple file system based data structure, no database required
@@ -40,6 +40,10 @@ docker run -it -d -P --mount type=bind,source=/incoming,target=/incoming --mount
 ```
 
 Now every time you add video files into the folder `incoming`, the transcoding will start automatically. After transcoding is done, the new videos will be visible in the frontend.
+
+## Security
+
+SBideo is kept very simple. Therefore, it has no built-in permission management etc (see https://github.com/Seitenbau/SBideo/issues/9). Everyone who is able to access the frontend is allowed to edit the video meta data. In case you want to restrict editing rights, you may want to simple restrict POST requests to the server via a reverse proxy.
 
 ## Development
 
