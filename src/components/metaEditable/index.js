@@ -168,12 +168,13 @@ export class MetaEditable extends Component {
     return (
       <div className={metaStyle.meta}>
         <div className={metaStyle.path}>
-          {video.path.map((folder, j) => (
-            <span key={`folder${j}`}>
-              {folder}
-              {video.path.length === j + 1 ? '' : ' / '}
-            </span>
-          ))}
+          {video.path &&
+            video.path.map((folder, j) => (
+              <span key={`folder${j}`}>
+                {folder}
+                {video.path.length === j + 1 ? '' : ' / '}
+              </span>
+            ))}
         </div>
         <form
           onSubmit={this.handleSubmit}
