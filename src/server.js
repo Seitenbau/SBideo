@@ -52,7 +52,10 @@ app.use('/items.json', (req, res) => {
 
 // handle POST requests to edit meta data via UI
 app.post('**/meta.json', jsonParser, (req, res) => {
-  const metaFilePath = path.join(dataFolder, req.path.replace('data/', ''));
+  const metaFilePath = path.join(
+    dataFolder,
+    decodeURIComponent(req.path.replace('data/', ''))
+  );
   console.log('POST ', metaFilePath);
 
   fs.exists(metaFilePath, exists => {
