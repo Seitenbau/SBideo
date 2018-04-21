@@ -103,7 +103,6 @@ export class VideoPlayer extends Component {
               className={style.video}
               controls
               autoPlay
-              preload
               src={props.activeVideo.src}
               style={bgImageStyle}
               currentTime={this.startTime}
