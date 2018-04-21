@@ -83,14 +83,6 @@ export class VideoPlayer extends Component {
     return hours * 3600 + minutes * 60 + seconds;
   }
 
-  handleMouseEnter = () => {
-    this.setState({ mouseOver: true });
-  };
-
-  handleMouseLeave = () => {
-    this.setState({ mouseOver: false });
-  };
-
   render(props) {
     const bgImageStyle = `background-image: url(${
       process.env.ASSET_PATH
