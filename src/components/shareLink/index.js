@@ -20,10 +20,28 @@ export class ShareLink extends Component {
     this.setState({ sharePanelActive: !this.state.sharePanelActive });
   };
 
+  /** Replace url parameter
+   *  https://stackoverflow.com/a/20420424/1312073
+   */
+  replaceUrlParam(url, paramName, paramValue) {
+    if (paramValue == null) {
+      paramValue = '';
+    }
+    var pattern = new RegExp('\\b(' + paramName + '=).*?(&|$)');
+    if (url.search(pattern) >= 0) {
+      return url.replace(pattern, '$1' + paramValue + '$2');
+    }
+    url = url.replace(/\?$/, '');
+    return (
+      url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue
+    );
+  }
+
   get shareLink() {
     let link = window.location.href;
+    const { currentTimestamp } = this.props.activeVideo;
     if (this.state.shareTimeActive) {
-      link += `?t=${this.props.activeVideo.currentTimestamp}`;
+      link = this.replaceUrlParam(link, 't', currentTimestamp);
     }
 
     return link;
