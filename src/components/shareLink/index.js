@@ -38,13 +38,12 @@ export class ShareLink extends Component {
   }
 
   get shareLink() {
-    let link = window.location.href;
-    const { currentTimestamp } = this.props.activeVideo;
-    if (this.state.shareTimeActive) {
-      link = this.replaceUrlParam(link, 't', currentTimestamp);
-    }
+    const { currentTimestamp, href } = this.props.activeVideo;
 
-    return link;
+    if (this.state.shareTimeActive) {
+      return this.replaceUrlParam(href, 't', currentTimestamp);
+    }
+    return href;
   }
 
   onChangeSharetime = () => {

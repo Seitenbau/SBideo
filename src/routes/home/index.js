@@ -54,7 +54,11 @@ export class Home extends Component {
     const video = id && id.length > 0 ? this.getVideoById(data, id) : null;
 
     if (video) {
+      // add some properties
       video.startTimestamp = this.props.t || '0s';
+      video.href = window.location.href;
+
+      // set active video
       nextProps.setActiveVideo(video);
     }
 
