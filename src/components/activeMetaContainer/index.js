@@ -37,13 +37,7 @@ export class ActiveMetaContainer extends Component {
               />
             </div>
           ) : (
-            <div>
-              <Meta
-                video={props.activeVideo}
-                showTitle="true"
-                showPath="true"
-              />
-            </div>
+            <Meta video={props.activeVideo} showTitle="true" showPath="true" />
           )}
         </div>
       );
