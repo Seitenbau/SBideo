@@ -19,6 +19,17 @@
   }
 }
 
+.shareButton {
+  float: right;
+  margin-top: $marginSmall;
+
+  &::after {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
+}
+
 .meta {
   height: auto;
 }

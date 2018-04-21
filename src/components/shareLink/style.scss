@@ -1,0 +1,34 @@
+@import 'src/style/variables';
+
+.shareContainer {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  z-index: 1;
+  top: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $marginSmall;
+  width: 40%;
+
+  @media (min-aspect-ratio: 1/1) {
+    width: 33%;
+  }
+}
+
+.shareButton {
+  float: right;
+  color: #fff;
+}
+
+.icon {
+  transform: scale(-1, 1);
+  margin-bottom: -2px;
+  fill: #fff;
+}
+
+.shareText {
+  display: block;
+  font-size: 0.9em;
+  margin-bottom: $marginSmall;
+}

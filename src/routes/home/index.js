@@ -54,6 +54,7 @@ export class Home extends Component {
     const video = id && id.length > 0 ? this.getVideoById(data, id) : null;
 
     if (video) {
+      video.startTimestamp = this.props.t || '0s';
       nextProps.setActiveVideo(video);
     }
 
@@ -63,10 +64,7 @@ export class Home extends Component {
   render(props) {
     return (
       <div className={style.home}>
-        <VideoContainer
-          startTime={this.props.t || '0s'}
-          className={style.layoutElement}
-        />
+        <VideoContainer className={style.layoutElement} />
         <Search
           className={style.layoutElement}
           isActive={this.props.id === 'search'}
