@@ -23,7 +23,7 @@ export class ShareLink extends Component {
   get shareLink() {
     let link = window.location.href;
     if (this.state.shareTimeActive) {
-      link += `?t=${this.props.activeVideo.currentTime}`;
+      link += `?t=${this.props.activeVideo.currentTimestamp}`;
     }
 
     return link;
