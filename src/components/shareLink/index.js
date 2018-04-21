@@ -50,7 +50,7 @@ export class ShareLink extends Component {
     this.setState({ shareTimeActive: !this.state.shareTimeActive });
   };
 
-  render() {
+  render(props, state) {
     if (!this.props.show) {
       return null;
     }
@@ -70,6 +70,7 @@ export class ShareLink extends Component {
         <div className={style.shareTime}>
           <input
             onChange={this.onChangeSharetime}
+            checked={state.shareTimeActive}
             type="checkbox"
             id="sharetime"
           />
@@ -77,7 +78,7 @@ export class ShareLink extends Component {
             {' '}
             share at
             <span className="currenttime">
-              {' ' + this.props.activeVideo.currentTimestamp}
+              {' ' + props.activeVideo.currentTimestamp}
             </span>
           </label>
         </div>

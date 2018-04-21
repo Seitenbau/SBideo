@@ -56,9 +56,7 @@ export class Home extends Component {
     if (video) {
       // add some properties
       video.startTimestamp = this.props.t || '0s';
-      if (nextProps !== 'edit') {
-        video.href = `${window.location.origin}/${id}/${term}`;
-      }
+      video.href = `${window.location.origin}/${id}/${term}`;
 
       // set active video
       nextProps.setActiveVideo(video);
