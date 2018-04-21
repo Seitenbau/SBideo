@@ -9,13 +9,20 @@
   left: 50%;
   transform: translateX(-50%);
   padding: $marginSmall;
-  width: 40%;
+  width: 75%;
 
   @media (min-aspect-ratio: 1/1) {
+    width: 66%;
+  }
+
+  @media (min-aspect-ratio: 4/3) {
     width: 33%;
   }
 }
 
+.shareTime {
+  float: left;
+}
 .shareButton {
   float: right;
   color: #fff;
