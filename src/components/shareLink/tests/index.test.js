@@ -2,7 +2,11 @@ import { h } from 'preact';
 import { ShareLink } from '../index.js';
 import { shallow } from 'preact-render-spy';
 
-const activeVideoTest = { src: 'blib', currentTimestamp: '2h21m34s' };
+const activeVideoTest = {
+  src: 'blib',
+  currentTimestamp: '2h21m34s',
+  href: 'http://blub.de'
+};
 
 describe('Test of the link sharing component', () => {
   test('At least some div should be displayed when component is shown', () => {
