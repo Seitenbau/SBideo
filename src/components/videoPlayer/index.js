@@ -116,7 +116,7 @@ export class VideoPlayer extends Component {
 
           {props.activeVideo.src && (
             <ShareLink
-              show={this.state.isPaused}
+              show={this.state.isPaused && props.activeVideo.currentTime > 0}
               className={style.shareButton}
             />
           )}

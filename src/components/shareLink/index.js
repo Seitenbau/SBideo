@@ -68,22 +68,20 @@ export class ShareLink extends Component {
             </span>
           </button>
         </Copy>
-        {this.props.activeVideo.currentTime > 0 && (
-          <div className={style.shareTime}>
-            <input
-              onChange={this.onChangeSharetime}
-              type="checkbox"
-              id="sharetime"
-            />
-            <label htmlFor="sharetime">
-              {' '}
-              share at
-              <span className="currenttime">
-                {' ' + this.props.activeVideo.currentTimestamp}
-              </span>
-            </label>
-          </div>
-        )}
+        <div className={style.shareTime}>
+          <input
+            onChange={this.onChangeSharetime}
+            type="checkbox"
+            id="sharetime"
+          />
+          <label htmlFor="sharetime">
+            {' '}
+            share at
+            <span className="currenttime">
+              {' ' + this.props.activeVideo.currentTimestamp}
+            </span>
+          </label>
+        </div>
       </div>
     );
   }
