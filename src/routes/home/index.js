@@ -49,14 +49,16 @@ export class Home extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { id, data } = nextProps;
+    const { id, term, data } = nextProps;
 
     const video = id && id.length > 0 ? this.getVideoById(data, id) : null;
 
     if (video) {
       // add some properties
       video.startTimestamp = this.props.t || '0s';
-      video.href = window.location.href;
+      if (nextProps !== 'edit') {
+        video.href = `${window.location.origin}/${id}/${term}`;
+      }
 
       // set active video
       nextProps.setActiveVideo(video);
