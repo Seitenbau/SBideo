@@ -21,4 +21,9 @@ describe('Test of the Videoplayer', () => {
     context.render(<VideoPlayer activeVideo={activeVideoTest} />);
     expect(context.component().startTime).toEqual(43);
   });
+
+  test('Videoplayer converts integer to correct timestamp', () => {
+    const context = shallow(<VideoPlayer activeVideo={activeVideoTest} />);
+    expect(context.component().calculateTimestamp(0)).toEqual('0s');
+  });
 });

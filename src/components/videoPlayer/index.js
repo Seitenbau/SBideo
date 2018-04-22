@@ -15,7 +15,7 @@ export class VideoPlayer extends Component {
     activeVideo: PropTypes.object.isRequired
   };
 
-  setTimestamp = event => {
+  onTimeUpdate = event => {
     const currentTime = Math.floor(event.target.currentTime);
     this.props.setActiveVideoTime(
       this.calculateTimestamp(currentTime),
@@ -32,10 +32,10 @@ export class VideoPlayer extends Component {
   };
 
   /**
-   * Get the start timestamp from seconds
+   * Get the timestamp from seconds
    * e.g. 14m44s to 884
    *
-   * @param {integer} time in seconds, e.g. 884
+   * @return {integer} time in seconds, e.g. 884
    */
   calculateTimestamp(time) {
     const secondsNumber = parseInt(time, 10);
@@ -50,17 +50,17 @@ export class VideoPlayer extends Component {
     if (minutes > 0) {
       timestamp += `${minutes}m`;
     }
-    if (seconds > 0) {
+    if (seconds >= 0) {
       timestamp += `${seconds}s`;
     }
     return timestamp;
   }
 
   /**
-   * Sets the current time for a video, in this case the start time
+   * Sets currentTime for a video, in this case the start time
    * It takes a time string like "1m21s" and converts it to an integer, e.g. 81
    *
-   * @param {string} startTimestamp in youtube time format, e.g. 14m44s
+   * @return {string} startTimestamp in youtube time format, e.g. 14m44s
    */
   get startTime() {
     if (!this.props.activeVideo.startTimestamp) {
@@ -83,6 +83,19 @@ export class VideoPlayer extends Component {
     return hours * 3600 + minutes * 60 + seconds;
   }
 
+  componentDidUpdate() {
+    if (this.props.activeVideo.currentTime === undefined) {
+      // make sure currentTime gets calculated on update
+      if (this.props.setActiveVideoTime) {
+        const currentTime = this.videoElement.currentTime;
+        this.props.setActiveVideoTime(
+          this.calculateTimestamp(currentTime),
+          currentTime
+        );
+      }
+    }
+  }
+
   render(props) {
     const bgImageStyle = `background-image: url(${
       process.env.ASSET_PATH
@@ -92,13 +105,14 @@ export class VideoPlayer extends Component {
         <div className={style.sizer}>
           {props.activeVideo.src ? (
             <video
+              ref={video => (this.videoElement = video)}
               className={style.video}
               controls
               autoPlay
               src={props.activeVideo.src}
               style={bgImageStyle}
               currentTime={this.startTime}
-              onTimeUpdate={this.setTimestamp}
+              onTimeUpdate={this.onTimeUpdate}
               onPause={this.onPause}
               onPlay={this.onPlay}
             />
@@ -106,12 +120,7 @@ export class VideoPlayer extends Component {
             <div className={style.poster} style={bgImageStyle} />
           )}
 
-          {props.activeVideo.src && (
-            <ShareLink
-              show={this.state.isPaused && props.activeVideo.currentTime > 0}
-              className={style.shareButton}
-            />
-          )}
+          <ShareLink show={this.state.isPaused} className={style.shareButton} />
         </div>
       </div>
     );
