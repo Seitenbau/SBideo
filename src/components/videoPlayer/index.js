@@ -86,7 +86,7 @@ export class VideoPlayer extends Component {
   componentDidUpdate() {
     if (this.props.activeVideo.currentTime === undefined) {
       // make sure currentTime gets calculated on update
-      if (this.props.setActiveVideoTime) {
+      if (this.props.setActiveVideoTime && this.videoElement) {
         const currentTime = this.videoElement.currentTime;
         this.props.setActiveVideoTime(
           this.calculateTimestamp(currentTime),
