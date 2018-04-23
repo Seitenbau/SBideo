@@ -5930,7 +5930,7 @@ var videoPlayer_VideoPlayer = function (_Component) {
   VideoPlayer.prototype.componentDidUpdate = function componentDidUpdate() {
     if (this.props.activeVideo.currentTime === undefined) {
       // make sure currentTime gets calculated on update
-      if (this.props.setActiveVideoTime) {
+      if (this.props.setActiveVideoTime && this.videoElement) {
         var currentTime = this.videoElement.currentTime;
         this.props.setActiveVideoTime(this.calculateTimestamp(currentTime), currentTime);
       }
