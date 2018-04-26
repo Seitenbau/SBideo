@@ -10,6 +10,7 @@ A very simplistic video archive including video transcoding and following featur
 * ultra fast client-side fuzzy search through video metadata
 * async video transcoding from any [ffmpeg](https://www.ffmpeg.org/) supported format to mp4
 * simple file system based data structure, no database required
+* deep links for every video, including exact start time
 * integrated web- and pseudo-streaming server (express)
 * very lightweight client-side code: total 28kb JS + 6kb CSS gzipped (based on [preact-cli](https://github.com/developit/preact-cli))
 
