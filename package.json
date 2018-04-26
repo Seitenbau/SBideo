@@ -76,6 +76,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.3.2",
     "react-autolink": "^0.2.1",
+    "react-copy": "^1.2.1",
     "react-dom": "^16.3.2",
     "react-popper": "^0.10.1",
     "react-tag-autocomplete": "^5.5.0",
@@ -98,7 +99,6 @@
     "lodash.debounce": "^4.0.8",
     "minimist": "^1.2.0",
     "octicons": "^7.1.0",
-    "react-copy": "^1.2.1",
     "shortid": "^2.2.8",
     "speakingurl": "^14.0.1"
   },
