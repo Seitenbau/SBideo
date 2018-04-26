@@ -8,6 +8,7 @@ export default class TagsEditable extends Component {
     super(props, context);
     this.handleTagDelete = this.handleTagDelete.bind(this);
     this.handleTagAddition = this.handleTagAddition.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
       tags: props.tags.map(tag => {
@@ -41,6 +42,19 @@ export default class TagsEditable extends Component {
         }
       }
     );
+  }
+
+  handleBlur() {
+    const e = new Event('keydown', {
+      bubbles: true,
+      cancelable: true
+    });
+
+    // keyCode is deprecated but key doesn't work yet, so we keep both
+    e.keyCode = 13;
+    e.key = 'Enter';
+
+    this.ref.input.input.dispatchEvent(e);
   }
 
   handleTagAddition(tag) {
@@ -88,10 +102,12 @@ export default class TagsEditable extends Component {
 
     return (
       <ReactTags
+        ref={element => (this.ref = element)}
         tags={this.state.tags}
         suggestions={this.state.suggestions}
         allowNew
         autofocus={false}
+        handleBlur={this.handleBlur}
         handleDelete={this.handleTagDelete}
         handleAddition={this.handleTagAddition}
         classNames={classNames}
