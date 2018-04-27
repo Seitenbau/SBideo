@@ -5722,7 +5722,7 @@ var shareLink_style_default = /*#__PURE__*/__webpack_require__.n(shareLink_style
 var build = __webpack_require__("K02I");
 var build_default = /*#__PURE__*/__webpack_require__.n(build);
 
-// CONCATENATED MODULE: ./components/shareLink/index.js
+// CONCATENATED MODULE: ../node_modules/preact-cli/lib/lib/webpack/dummy-loader.js!./components/shareLink/index.js
 var shareLink__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 
@@ -5778,9 +5778,6 @@ var shareLink_ShareLink = function (_Component) {
   };
 
   ShareLink.prototype.render = function render(props, state) {
-    if (!this.props.show) {
-      return null;
-    }
     return Object(preact_min["h"])(
       'div',
       { className: shareLink_style_default.a.shareContainer },
@@ -5961,7 +5958,7 @@ var videoPlayer_VideoPlayer = function (_Component) {
           onPause: this.onPause,
           onPlay: this.onPlay
         }) : Object(preact_min["h"])('div', { className: videoPlayer_style_default.a.poster, style: bgImageStyle }),
-        Object(preact_min["h"])(shareLink, { show: this.state.isPaused, className: videoPlayer_style_default.a.shareButton })
+        this.state.isPaused && Object(preact_min["h"])(shareLink, { className: videoPlayer_style_default.a.shareButton })
       )
     );
   };
@@ -6033,6 +6030,7 @@ var tagsEditable_TagsEditable = function (_Component) {
 
     _this.handleTagDelete = _this.handleTagDelete.bind(_this);
     _this.handleTagAddition = _this.handleTagAddition.bind(_this);
+    _this.handleBlur = _this.handleBlur.bind(_this);
 
     _this.state = {
       tags: props.tags.map(function (tag) {
@@ -6063,6 +6061,19 @@ var tagsEditable_TagsEditable = function (_Component) {
     });
   };
 
+  TagsEditable.prototype.handleBlur = function handleBlur() {
+    var e = new Event('keydown', {
+      bubbles: true,
+      cancelable: true
+    });
+
+    // keyCode is deprecated but key doesn't work yet, so we keep both
+    e.keyCode = 13;
+    e.key = 'Enter';
+
+    this.ref.input.input.dispatchEvent(e);
+  };
+
   TagsEditable.prototype.handleTagAddition = function handleTagAddition(tag) {
     var state = this.state,
         props = this.props;
@@ -6086,6 +6097,8 @@ var tagsEditable_TagsEditable = function (_Component) {
   };
 
   TagsEditable.prototype.render = function render(props) {
+    var _this2 = this;
+
     // TODO nicer style classes
     var classNames = {
       root: tagsEditable_style_default.a['react-tags'],
@@ -6100,10 +6113,14 @@ var tagsEditable_TagsEditable = function (_Component) {
     };
 
     return Object(preact_min["h"])(ReactTags_default.a, {
+      ref: function ref(element) {
+        return _this2.ref = element;
+      },
       tags: this.state.tags,
       suggestions: this.state.suggestions,
       allowNew: true,
       autofocus: false,
+      handleBlur: this.handleBlur,
       handleDelete: this.handleTagDelete,
       handleAddition: this.handleTagAddition,
       classNames: classNames,
