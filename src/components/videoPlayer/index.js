@@ -3,7 +3,7 @@ import style from './style.scss';
 import { connect } from 'unistore/preact';
 import PropTypes from 'prop-types';
 import actions from './actions';
-import ShareLink from 'async!../../components/shareLink';
+import ShareLink from 'async!../shareLink';
 
 export class VideoPlayer extends Component {
   state = {

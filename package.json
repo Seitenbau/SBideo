@@ -120,6 +120,7 @@
       "\\.(css|less|scss|svg)$": "identity-obj-proxy",
       "^./style$": "identity-obj-proxy",
       "^preact$": "<rootDir>/node_modules/preact/dist/preact.min.js",
+      "^async!(.*)$": "$1",
       "^react$": "preact-compat",
       "^react-dom$": "preact-compat",
       "^create-react-class$": "preact-compat/lib/create-react-class",
