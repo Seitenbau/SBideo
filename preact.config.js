@@ -15,7 +15,8 @@ export default (config, env, helpers) => {
 
     // File management
     fileManagerPluginOptions.onStart = {
-      delete: ['./build/*.*']
+      delete: ['./build/*.*'],
+      copy: []
     };
     fileManagerPluginOptions.onEnd = {
       copy: [
@@ -82,7 +83,7 @@ export default (config, env, helpers) => {
     API_URL = '/SBideo/items-demo.json';
     config.output.publicPath = '/SBideo/';
 
-    fileManagerPluginOptions.onEnd.copy.push({
+    fileManagerPluginOptions.onStart.copy.push({
       source: './data-clientdemo',
       destination: env.dest
     });
