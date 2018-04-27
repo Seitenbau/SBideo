@@ -27,8 +27,10 @@ export class VideoPlayer extends Component {
     this.setState({ isPaused: false });
   };
 
-  onPause = () => {
-    this.setState({ isPaused: true });
+  onPause = event => {
+    if (!event.target.seeking) {
+      this.setState({ isPaused: true });
+    }
   };
 
   /**
