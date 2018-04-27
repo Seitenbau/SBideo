@@ -5886,8 +5886,10 @@ var videoPlayer_VideoPlayer = function (_Component) {
       _this.props.setActiveVideoTime(_this.calculateTimestamp(currentTime), currentTime);
     }, _this.onPlay = function () {
       _this.setState({ isPaused: false });
-    }, _this.onPause = function () {
-      _this.setState({ isPaused: true });
+    }, _this.onPause = function (event) {
+      if (!event.target.seeking) {
+        _this.setState({ isPaused: true });
+      }
     }, _temp), videoPlayer__possibleConstructorReturn(_this, _ret);
   }
 
