@@ -12,8 +12,7 @@ export class ShareLink extends Component {
   };
 
   static propTypes = {
-    activeVideo: PropTypes.object,
-    show: PropTypes.bool
+    activeVideo: PropTypes.object
   };
 
   togglePanel = () => {
@@ -51,9 +50,6 @@ export class ShareLink extends Component {
   };
 
   render(props, state) {
-    if (!this.props.show) {
-      return null;
-    }
     return (
       <div className={style.shareContainer}>
         <Copy

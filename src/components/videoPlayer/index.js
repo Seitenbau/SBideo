@@ -3,7 +3,7 @@ import style from './style.scss';
 import { connect } from 'unistore/preact';
 import PropTypes from 'prop-types';
 import actions from './actions';
-import ShareLink from '../shareLink';
+import ShareLink from 'async!../../components/shareLink';
 
 export class VideoPlayer extends Component {
   state = {
@@ -119,8 +119,7 @@ export class VideoPlayer extends Component {
           ) : (
             <div className={style.poster} style={bgImageStyle} />
           )}
-
-          <ShareLink show={this.state.isPaused} className={style.shareButton} />
+          {this.state.isPaused && <ShareLink className={style.shareButton} />}
         </div>
       </div>
     );
