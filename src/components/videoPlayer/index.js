@@ -7,7 +7,8 @@ import ShareLink from 'async!../shareLink';
 
 export class VideoPlayer extends Component {
   state = {
-    isPaused: false
+    isPaused: false,
+    isFullscreen: false
   };
 
   propTypes = {
@@ -98,10 +99,26 @@ export class VideoPlayer extends Component {
     }
   }
 
+  handleFullScreenChange = () => {
+    if (
+      document &&
+      (document.fullscreen ||
+        document.webkitIsFullScreen ||
+        document.mozIsFullScreen)
+    ) {
+      this.setState({ isFullscreen: true });
+    } else {
+      this.setState({ isFullscreen: false });
+    }
+  };
+
   render(props) {
-    const bgImageStyle = `background-image: url(${
-      process.env.ASSET_PATH
-    }FuBK_testcard_vectorized.svg)`;
+    const bgImageStyle = this.state.isFullscreen
+      ? ''
+      : `background-image: url(${
+          process.env.ASSET_PATH
+        }FuBK_testcard_vectorized.svg)`;
+
     return (
       <div className={props.className}>
         <div className={style.sizer}>
@@ -117,6 +134,8 @@ export class VideoPlayer extends Component {
               onTimeUpdate={this.onTimeUpdate}
               onPause={this.onPause}
               onPlay={this.onPlay}
+              onwebkitfullscreenchange={this.handleFullScreenChange}
+              onmozfullscreenchange={this.handleFullScreenChange}
             />
           ) : (
             <div className={style.poster} style={bgImageStyle} />
