@@ -104,7 +104,7 @@ export class VideoPlayer extends Component {
       document &&
       (document.fullscreen ||
         document.webkitIsFullScreen ||
-        document.mozIsFullScreen)
+        document.mozFullScreen)
     ) {
       this.setState({ isFullscreen: true });
     } else {
