@@ -2,6 +2,8 @@ import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 import FileManagerPlugin from 'filemanager-webpack-plugin';
 
 export default (config, env, helpers) => {
+  const fileManagerPluginOptions = {};
+
   if (process.env.NODE_ENV === 'production') {
     // inline all styles
     const { plugin } =
@@ -12,25 +14,21 @@ export default (config, env, helpers) => {
     config.plugins.push(new HtmlWebpackInlineSourcePlugin());
 
     // File management
-    config.plugins.push(
-      new FileManagerPlugin({
-        onStart: {
-          delete: ['./build/*.*']
+    fileManagerPluginOptions.onStart = {
+      delete: ['./build/*.*']
+    };
+    fileManagerPluginOptions.onEnd = {
+      copy: [
+        {
+          source: './src/server.js',
+          destination: env.dest + '/../server.js'
         },
-        onEnd: {
-          copy: [
-            {
-              source: './src/server.js',
-              destination: env.dest + '/../server.js'
-            },
-            {
-              source: './src/transcode.js',
-              destination: env.dest + '/../transcode.js'
-            }
-          ]
+        {
+          source: './src/transcode.js',
+          destination: env.dest + '/../transcode.js'
         }
-      })
-    );
+      ]
+    };
   }
 
   if (config.devServer) {
@@ -84,12 +82,12 @@ export default (config, env, helpers) => {
     API_URL = '/SBideo/items-demo.json';
     config.output.publicPath = '/SBideo/';
 
-    config.plugins.push(
-      new CopyWebpackPlugin([
-        { context: `${__dirname}/data-clientdemo`, from: `*.*` }
-      ])
-    );
+    fileManagerPluginOptions.onEnd.copy.push({
+      source: './data-clientdemo',
+      destination: env.dest
+    });
   }
+  config.plugins.push(new FileManagerPlugin(fileManagerPluginOptions));
 
   config.plugins.push(
     new helpers.webpack.DefinePlugin({
