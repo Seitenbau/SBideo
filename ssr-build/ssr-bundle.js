@@ -5880,7 +5880,8 @@ var videoPlayer_VideoPlayer = function (_Component) {
     }
 
     return _ret = (_temp = (_this = videoPlayer__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-      isPaused: false
+      isPaused: false,
+      isFullscreen: false
     }, _this.onTimeUpdate = function (event) {
       var currentTime = Math.floor(event.target.currentTime);
       _this.props.setActiveVideoTime(_this.calculateTimestamp(currentTime), currentTime);
@@ -5889,6 +5890,12 @@ var videoPlayer_VideoPlayer = function (_Component) {
     }, _this.onPause = function (event) {
       if (!event.target.seeking) {
         _this.setState({ isPaused: true });
+      }
+    }, _this.handleFullScreenChange = function () {
+      if (document && (document.fullscreen || document.webkitIsFullScreen || document.mozFullScreen)) {
+        _this.setState({ isFullscreen: true });
+      } else {
+        _this.setState({ isFullscreen: false });
       }
     }, _temp), videoPlayer__possibleConstructorReturn(_this, _ret);
   }
@@ -5939,7 +5946,8 @@ var videoPlayer_VideoPlayer = function (_Component) {
   VideoPlayer.prototype.render = function render(props) {
     var _this2 = this;
 
-    var bgImageStyle = 'background-image: url(' + "/SBideo/assets/" + 'FuBK_testcard_vectorized.svg)';
+    var bgImageStyle = this.state.isFullscreen ? '' : 'background-image: url(' + "/SBideo/assets/" + 'FuBK_testcard_vectorized.svg)';
+
     return Object(preact_min["h"])(
       'div',
       { className: props.className },
@@ -5958,7 +5966,9 @@ var videoPlayer_VideoPlayer = function (_Component) {
           currentTime: this.startTime,
           onTimeUpdate: this.onTimeUpdate,
           onPause: this.onPause,
-          onPlay: this.onPlay
+          onPlay: this.onPlay,
+          onwebkitfullscreenchange: this.handleFullScreenChange,
+          onmozfullscreenchange: this.handleFullScreenChange
         }) : Object(preact_min["h"])('div', { className: videoPlayer_style_default.a.poster, style: bgImageStyle }),
         this.state.isPaused && Object(preact_min["h"])(shareLink, { className: videoPlayer_style_default.a.shareButton })
       )
