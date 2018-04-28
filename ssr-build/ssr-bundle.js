@@ -5560,7 +5560,7 @@ var videoLink_VideoLink = function (_Component) {
             {
               onMouseOver: this.toggleLinkHoverState,
               onMouseLeave: this.toggleLinkHoverState,
-              href: '/' + meta.id + '/' + meta.slug,
+              href: '' + "/SBideo/" + meta.id + '/' + meta.slug,
               activeClassName: videoLink_style_default.a.active
             },
             meta.title
