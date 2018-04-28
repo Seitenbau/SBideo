@@ -79,7 +79,7 @@ module.exports =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/SBideo/";
+/******/ 	__webpack_require__.p = "/relativePath";
 /******/
 /******/ 	// uncatched error handler for webpack runtime
 /******/ 	__webpack_require__.oe = function(err) {
@@ -5946,7 +5946,7 @@ var videoPlayer_VideoPlayer = function (_Component) {
   VideoPlayer.prototype.render = function render(props) {
     var _this2 = this;
 
-    var bgImageStyle = this.state.isFullscreen ? '' : 'background-image: url(' + "/SBideo/assets/" + 'FuBK_testcard_vectorized.svg)';
+    var bgImageStyle = this.state.isFullscreen ? '' : 'background-image: url(' + "/assets/" + 'FuBK_testcard_vectorized.svg)';
 
     return Object(preact_min["h"])(
       'div',
@@ -7822,7 +7822,7 @@ var home_actions_actions = function actions(_ref) {
     retrieveData: function retrieveData() {
       setState({ loading: true });
 
-      return fetch("/SBideo/items-demo.json").then(function (response) {
+      return fetch("/items.json").then(function (response) {
         if (!response.ok) {
           throw Error(response.statusText);
         }
