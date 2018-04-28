@@ -79,7 +79,7 @@ module.exports =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/relativePath";
+/******/ 	__webpack_require__.p = "/SBideo/";
 /******/
 /******/ 	// uncatched error handler for webpack runtime
 /******/ 	__webpack_require__.oe = function(err) {
@@ -5441,7 +5441,7 @@ var meta_Meta = function (_Component) {
             Object(preact_min["h"])(
               match["Link"],
               {
-                href: '/search/' + encodeURIComponent(person),
+                href: "/SBideo/" + 'search/' + encodeURIComponent(person),
                 className: meta_style_default.a.person
               },
               person
@@ -5458,7 +5458,7 @@ var meta_Meta = function (_Component) {
             match["Link"],
             {
               key: 'tag' + i,
-              href: '/search/' + encodeURIComponent(tag),
+              href: "/SBideo/" + 'search/' + encodeURIComponent(tag),
               className: meta_style_default.a.tag
             },
             tag
@@ -5946,7 +5946,7 @@ var videoPlayer_VideoPlayer = function (_Component) {
   VideoPlayer.prototype.render = function render(props) {
     var _this2 = this;
 
-    var bgImageStyle = this.state.isFullscreen ? '' : 'background-image: url(' + "/assets/" + 'FuBK_testcard_vectorized.svg)';
+    var bgImageStyle = this.state.isFullscreen ? '' : 'background-image: url(' + "/SBideo/assets/" + 'FuBK_testcard_vectorized.svg)';
 
     return Object(preact_min["h"])(
       'div',
@@ -7822,7 +7822,7 @@ var home_actions_actions = function actions(_ref) {
     retrieveData: function retrieveData() {
       setState({ loading: true });
 
-      return fetch("/items.json").then(function (response) {
+      return fetch("/SBideo/items-demo.json").then(function (response) {
         if (!response.ok) {
           throw Error(response.statusText);
         }
