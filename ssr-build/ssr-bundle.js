@@ -8012,8 +8012,6 @@ var initialState = {
 };
 var store = unistore_es(initialState);
 
-var app__ref = Object(preact_min["h"])(home, { path: '/:id?/:term?/:mode?' });
-
 var app_App = function (_Component) {
   app__inherits(App, _Component);
 
@@ -8046,7 +8044,7 @@ var app_App = function (_Component) {
         Object(preact_min["h"])(
           preact_router_es["Router"],
           { onChange: this.handleRoute },
-          app__ref
+          Object(preact_min["h"])(home, { path: "/SBideo/" + ':id?/:term?/:mode?' })
         )
       )
     );
