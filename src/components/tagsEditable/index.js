@@ -11,12 +11,8 @@ export default class TagsEditable extends Component {
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
-      tags: props.tags.map(tag => {
-        return { id: null, name: tag };
-      }),
-      suggestions: props.suggestions.map(tag => {
-        return { id: null, name: tag };
-      })
+      tags: this.formatTags(props.tags),
+      suggestions: this.formatTags(props.suggestions)
     };
   }
 
@@ -26,6 +22,15 @@ export default class TagsEditable extends Component {
     tags: PropTypes.array,
     suggestions: PropTypes.array
   };
+
+  /**
+   * Format tags to match react-tags-autocomplete format
+   *
+   * @param {Array} tags flat array
+   *
+   * @return {Array.<Object>} formatted array with objects
+   */
+  formatTags = tags => tags.map(tag => ({ id: null, name: tag }));
 
   handleTagDelete(i) {
     const { state, props } = this;
@@ -76,6 +81,17 @@ export default class TagsEditable extends Component {
         }
       }
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // copy tag props to state on update
+    if (nextProps.tags !== this.props.tags) {
+      this.setState({ tags: this.formatTags(nextProps.tags) });
+    }
+    // copy suggestion props to state on update
+    if (nextProps.suggestions !== this.props.suggestions) {
+      this.setState({ suggestions: this.formatTags(nextProps.suggestions) });
+    }
   }
 
   render(props) {
