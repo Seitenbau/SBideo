@@ -5441,7 +5441,7 @@ var meta_Meta = function (_Component) {
             Object(preact_min["h"])(
               match["Link"],
               {
-                href: "/SBideo/" + 'search/' + encodeURIComponent(person),
+                href: '/search/' + encodeURIComponent(person),
                 className: meta_style_default.a.person
               },
               person
@@ -5458,7 +5458,7 @@ var meta_Meta = function (_Component) {
             match["Link"],
             {
               key: 'tag' + i,
-              href: "/SBideo/" + 'search/' + encodeURIComponent(tag),
+              href: '/search/' + encodeURIComponent(tag),
               className: meta_style_default.a.tag
             },
             tag
@@ -5560,7 +5560,7 @@ var videoLink_VideoLink = function (_Component) {
             {
               onMouseOver: this.toggleLinkHoverState,
               onMouseLeave: this.toggleLinkHoverState,
-              href: '' + "/SBideo/" + meta.id + '/' + meta.slug,
+              href: '/' + meta.id + '/' + meta.slug,
               activeClassName: videoLink_style_default.a.active
             },
             meta.title
@@ -8012,6 +8012,8 @@ var initialState = {
 };
 var store = unistore_es(initialState);
 
+var app__ref = Object(preact_min["h"])(home, { path: '/:id?/:term?/:mode?' });
+
 var app_App = function (_Component) {
   app__inherits(App, _Component);
 
@@ -8044,7 +8046,7 @@ var app_App = function (_Component) {
         Object(preact_min["h"])(
           preact_router_es["Router"],
           { onChange: this.handleRoute },
-          Object(preact_min["h"])(home, { path: "/SBideo/" + ':id?/:term?/:mode?' })
+          app__ref
         )
       )
     );
