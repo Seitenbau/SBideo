@@ -8,7 +8,6 @@ FROM base AS dependencies
 COPY package*.json ./
 COPY yarn.lock ./
 COPY preact.config.js ./
-RUN npm install -g yarn
 RUN yarn install
 
 # ---- Copy Files/Build ----
