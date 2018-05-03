@@ -34,6 +34,11 @@
     
   - name: create logging directory
     file: path=/var/log/sbideo state=directory owner=www-data group=www-data
+    
+  - name: set yarn config strict-ssl to false
+    shell: yarn config set strict-ssl false
+    args:
+      chdir: /usr/lib/sbideo
 
   - name: download dependencies for sbideo with yarn
     shell: yarn install

@@ -26,6 +26,7 @@ task build( ) {
     data(src: "$projectDir", type:"directory") {
       include( name: '*.json' )
       include( name: '*.js' )
+      include( name: 'yarn.lock' )
       mapper( type: "perm",
               prefix: "/usr/lib/sbideo",
               user: 'www-data',
