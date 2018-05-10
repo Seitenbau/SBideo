@@ -6040,20 +6040,31 @@ var tagsEditable_TagsEditable = function (_Component) {
 
     var _this = tagsEditable__possibleConstructorReturn(this, _Component.call(this, props, context));
 
+    _this.formatTags = function (tags) {
+      return tags.map(function (tag) {
+        return { id: null, name: tag };
+      });
+    };
+
     _this.handleTagDelete = _this.handleTagDelete.bind(_this);
     _this.handleTagAddition = _this.handleTagAddition.bind(_this);
     _this.handleBlur = _this.handleBlur.bind(_this);
 
     _this.state = {
-      tags: props.tags.map(function (tag) {
-        return { id: null, name: tag };
-      }),
-      suggestions: props.suggestions.map(function (tag) {
-        return { id: null, name: tag };
-      })
+      tags: _this.formatTags(props.tags),
+      suggestions: _this.formatTags(props.suggestions)
     };
     return _this;
   }
+
+  /**
+   * Format tags to match react-tags-autocomplete format
+   *
+   * @param {Array} tags flat array
+   *
+   * @return {Array.<Object>} formatted array with objects
+   */
+
 
   TagsEditable.prototype.handleTagDelete = function handleTagDelete(i) {
     var state = this.state,
@@ -6106,6 +6117,17 @@ var tagsEditable_TagsEditable = function (_Component) {
         }));
       }
     });
+  };
+
+  TagsEditable.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    // copy tag props to state on update
+    if (nextProps.tags !== this.props.tags) {
+      this.setState({ tags: this.formatTags(nextProps.tags) });
+    }
+    // copy suggestion props to state on update
+    if (nextProps.suggestions !== this.props.suggestions) {
+      this.setState({ suggestions: this.formatTags(nextProps.suggestions) });
+    }
   };
 
   TagsEditable.prototype.render = function render(props) {
