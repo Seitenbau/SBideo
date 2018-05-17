@@ -18,7 +18,6 @@
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
-      "plugin:react/recommended",
       "standard-preact",
       "prettier"
     ],
