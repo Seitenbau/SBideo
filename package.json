@@ -67,9 +67,9 @@
     "lodash.truncate": "^4.4.2",
     "node-sass": "^4.7.2",
     "nodemon": "^1.15.1",
-    "preact": "^8.2.7",
+    "preact": "^8.2.9",
     "preact-cli": "^2.2.1",
-    "preact-render-spy": "^1.2.1",
+    "preact-render-spy": "^1.2.2",
     "preact-router": "^2.6.0",
     "prettier": "^1.10.2",
     "prop-types": "^15.6.0",
@@ -84,8 +84,7 @@
     "smoothscroll-polyfill": "^0.4.0",
     "svgr": "^1.8.1",
     "tree-crawl": "^1.0.5",
-    "unistore": "^3.0.4",
-    "webpack": "^4.1.0"
+    "unistore": "^3.0.5"
   },
   "dependencies": {
     "babel-plugin-dynamic-import-node": "^1.2.0",
@@ -99,7 +98,8 @@
     "minimist": "^1.2.0",
     "octicons": "^7.1.0",
     "shortid": "^2.2.8",
-    "speakingurl": "^14.0.1"
+    "speakingurl": "^14.0.1",
+    "webpack": "^4.8.3"
   },
   "jest": {
     "verbose": true,
