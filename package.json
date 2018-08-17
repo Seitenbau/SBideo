@@ -55,7 +55,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard-preact": "^1.1.6",
     "eslint-plugin-react": "^7.6.1",
-    "filemanager-webpack-plugin": "^1.0.24",
+    "filemanager-webpack-plugin": "^2.0.1",
     "fuzzysort": "^1.0.4",
     "gh-pages": "^1.1.0",
     "html-webpack-inline-source-plugin": "^0.0.10",
