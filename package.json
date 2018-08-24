@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "concurrently": "^3.5.1",
+    "concurrently": "^4.0.0",
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard-preact": "^1.1.6",
