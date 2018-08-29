@@ -87,7 +87,7 @@
     "webpack": "^4.8.3"
   },
   "dependencies": {
-    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-dynamic-import-node": "^2.1.0",
     "body-parser": "^1.18.2",
     "chokidar": "^2.0.1",
     "compression": "^1.7.1",
