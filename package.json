@@ -57,7 +57,7 @@
     "eslint-plugin-react": "^7.6.1",
     "filemanager-webpack-plugin": "^1.0.24",
     "fuzzysort": "^1.0.4",
-    "gh-pages": "^1.1.0",
+    "gh-pages": "^2.0.1",
     "html-webpack-inline-source-plugin": "^0.0.10",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
