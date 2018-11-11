@@ -52,7 +52,7 @@
     "babel-core": "^6.26.0",
     "concurrently": "^3.5.1",
     "eslint": "^4.17.0",
-    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-config-standard-preact": "^1.1.6",
     "eslint-plugin-react": "^7.6.1",
     "filemanager-webpack-plugin": "^1.0.24",
