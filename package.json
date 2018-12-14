@@ -65,7 +65,7 @@
     "lint-staged": "^7.0.4",
     "lodash.truncate": "^4.4.2",
     "node-sass": "^4.7.2",
-    "nodemon": "^1.15.1",
+    "nodemon": "^1.18.9",
     "preact": "^8.2.9",
     "preact-cli": "^2.2.1",
     "preact-render-spy": "^1.2.2",
