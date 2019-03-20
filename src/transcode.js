@@ -45,7 +45,7 @@ function transcodeAndMoveNextFile() {
   const outputPath = path.join(dataFolder, '/_new/' + title + '-' + id);
 
   child_process.exec(
-    `mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -movflags faststart -vf "format=yuv420p, yadif" "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`,
+    `mkdir -p "${outputPath}"; ffmpeg -i "${filePath}" -f mp4 -vcodec libx264 -preset medium -profile:v main -acodec aac -af "afftdn" -movflags faststart -vf "format=yuv420p, yadif" "${outputPath}/video.mp4"; mv "${filePath}" "${filePath}.encoded";`,
     { maxBuffer: 1024 * 1024 },
     function(error, stdout, stderr) {
       if (error == null) {
